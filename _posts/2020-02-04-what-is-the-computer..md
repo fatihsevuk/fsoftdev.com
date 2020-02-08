@@ -1,6 +1,6 @@
 ---
 title: What Is The Computer
-date: Tue 4-Feb-2020 10:53 P.M.
+date: Tue 4-Feb-2020 09:53 P.M.
 categories: [Blogging, CS]
 language: Turkish
 tags: [computer, what is computer, history of computer, hardware, software, yazılım,
