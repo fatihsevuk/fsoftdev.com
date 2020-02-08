@@ -6,7 +6,7 @@ language: Turkish
 tags: [computer, what is computer, history of computer, hardware, software, yazılım,
   donanım, input, output, cpu, memory]
 seo:
-  date_modified: 2020-02-05 00:56:26 +0100
+  date_modified: 2020-02-08 01:48:34 +0100
 ---
 
 #### Bilgisayar Nedir
