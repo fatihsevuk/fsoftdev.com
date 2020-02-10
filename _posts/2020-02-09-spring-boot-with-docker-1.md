@@ -5,7 +5,7 @@ categories: [Blogging, Backend, Spring, Docker]
 language: Turkish
 tags: [spring, java, docker, spring boot]
 seo:
-  date_modified: 2020-02-11 00:38:53 +0100
+  date_modified: 2020-02-11 00:50:02 +0100
 
 ---
 
