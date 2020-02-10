@@ -103,7 +103,7 @@ docker container ls -a
 ```
 Komutunu çalıştırırsak sistemdeki tüm Container'ları görürüz. Sonuç olarak Container'ımızın bilgilerini içeren bir ekran gelir.
 
-! [Image of docker-container-ls](/assets/img/posts/docker-container-ls.png)
+![Image of docker-container-ls](/assets/img/posts/docker-container-ls.png)
 
 Kullanacağımız diğer Docker komutlarını inceleyecek olursak.
 
