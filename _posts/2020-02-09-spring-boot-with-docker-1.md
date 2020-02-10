@@ -1,9 +1,11 @@
 ---
 title: Spring Boot App With Docker
 date: Sun 9-Feb-2020 05:32 P.M.
-categories: [Blogging,Backend,Spring,Docker]
+categories: [Blogging, Backend, Spring, Docker]
 language: Turkish
-tags: [spring,java,docker,spring boot]
+tags: [spring, java, docker, spring boot]
+seo:
+  date_modified: 2020-02-11 00:37:03 +0100
 
 ---
 
