@@ -1,5 +1,5 @@
 ---
-title: Spring Boot App With Docker
+title: Spring Boot App With Docker-1
 date: Sun 9-Feb-2020 05:32 P.M.
 categories: [Blogging, Backend, Spring, Docker]
 language: Turkish
@@ -9,7 +9,7 @@ seo:
 
 ---
 
-#### Spring Boot İle Docker-1
+#### Başlangıç
 Merhabalar, yeni bir yazı serisine başlıyorum. Bu seride Spring Boot ve Docker kullanarak uygulamalarızı nasıl geliştirebileceğimizi anlatacağız. Genel hatları ile konu sıralamamız aşağıdaki şekilde olacak.
 
 * Docker'a giriş
@@ -189,12 +189,15 @@ Docker'a giriş niteliğindeki yazımızın sonuna geldik, bundan sonraki yazıl
 
 #### Kaynaklar
 
-https://www.docker.com/resources/what-container
+[https://www.docker.com/resources/what-container
+](https://www.docker.com/resources/what-container)
 
-https://www.vmware.com/topics/glossary/content/virtual-machine
+[https://www.vmware.com/topics/glossary/content/virtual-machine
+](https://www.vmware.com/topics/glossary/content/virtual-machine)
 
-https://phoenixnap.com/kb/what-is-hypervisor-type-1-2
+[https://phoenixnap.com/kb/what-is-hypervisor-type-1-2
+](https://phoenixnap.com/kb/what-is-hypervisor-type-1-2)
 
-https://docs.docker.com/install/
+[https://docs.docker.com/install/](https://docs.docker.com/install/)
 
-https://docs.docker.com/
+[https://docs.docker.com/](https://docs.docker.com/)
