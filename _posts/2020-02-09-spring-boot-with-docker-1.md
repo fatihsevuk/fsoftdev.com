@@ -60,6 +60,8 @@ Docker direkt olarak Host işletim sistemi üzerinde çalışır. Bu da bellek v
 
 Bu yazının kapsamı Docker'a giriş niteliğinde olduğundan çok fazla detaya girmeden Docker'ı nasıl yükleriz ve kullanırız buna bakalım. Docker'ın detaylarını daha geniş bir yazı dizisine havale ederek Docker kullanımına geçelim.
 
+#### Docker Kullanımı
+
 Docker'ın çok sade ve kolay bir dökümanı var kurulum adımlarını [bu dökümana](https://docs.docker.com/install/) havale ederek biz Docker kullanımına geçiş yapalım.
 
 Docker'ı indirip bilgisayarınıza kurduktan sonra terminalde aşağıdaki komutu yazarak başarılı bir şekilde çalışıp çalışmadığını kontrol edebilirsiniz.
