@@ -4,13 +4,14 @@ date: Sun 9-Feb-2020 05:32 P.M.
 categories: [Blogging, Backend, Spring, Docker]
 language: Turkish
 tags: [spring, java, docker, spring boot]
-seo:
-date_modified: 2020-02-11 00:52:34 +0100
+
 
 ---
 
 #### Başlangıç
 Merhabalar, yeni bir yazı serisine başlıyorum. Bu seride Spring Boot ve Docker kullanarak uygulamalarımızı nasıl geliştirebileceğimizi anlatacağız. Genel hatları ile konu sıralamamız aşağıdaki şekilde olacak.
+
+Not:Bu yazı serisini [in28Minutes-Docker For Spring Java Developer]([https://www.udemy.com/share/101ZVgCEUTcllRQw==/) eğitimindeki derslerden öğrendiklerimden oluşturacağım.
 
 * Docker'a giriş
 * Spring Boot web uygulamamızı konteyner içine almak.
