@@ -5,18 +5,18 @@ categories: [Blogging, Backend, Spring, Docker]
 language: Turkish
 tags: [spring, java, docker, spring boot]
 seo:
-  date_modified: 2020-02-11 00:52:34 +0100
+date_modified: 2020-02-11 00:52:34 +0100
 
 ---
 
 #### Başlangıç
-Merhabalar, yeni bir yazı serisine başlıyorum. Bu seride Spring Boot ve Docker kullanarak uygulamalarızı nasıl geliştirebileceğimizi anlatacağız. Genel hatları ile konu sıralamamız aşağıdaki şekilde olacak.
+Merhabalar, yeni bir yazı serisine başlıyorum. Bu seride Spring Boot ve Docker kullanarak uygulamalarımızı nasıl geliştirebileceğimizi anlatacağız. Genel hatları ile konu sıralamamız aşağıdaki şekilde olacak.
 
 * Docker'a giriş
 * Spring Boot web uygulamamızı konteyner içine almak.
 * MongoDB konteyner oluşturma.
-* Uygulama ve veri tabanı konteynırlarınıı entegre etme.
-* Docker Compose ile konteynırlarımızıı yönetme.
+* Uygulama ve veri tabanı konteynırlarını entegre etme.
+* Docker Compose ile konteynırlarımızı yönetme.
 
 #### Docker'a Giriş
 
@@ -24,7 +24,7 @@ Docker 2013 yılında piyasaya sürülen ve işletim sistemi seviyesinde sanalla
 
 #### Konteyner Nedir
 Docker'ın resmi sitesindeki tanımlardan faydalanacak olursak.
-Yazdığımız kodları paketleyip farklı geliştirme ortamları arasında paylaşmak için gerekli standart birime **Container** denir. Daha kolay anlaşılması için bir case üzerinden anlatacak olursak. Spring Boot ve MongoDB kullanarak geliştirdiğimiz web uygulamasını test ekibine verdiğimizde sorunsuz çalışması için bizim bilgisayarımızdaki environment ile test edecek kişinin bilgisayarındaki environment tüm özellikleri ile aynı olmalı. Kullandığımız JDK 'nın sürümünden MongoDB versiyonuna kadar tüm environment aynı olmalı ki sağlık bir şekilde çalışsın. İşte developerları bu sıkıntılı durumdan kurtarmak için **Container** çözümlerine başvurulur.
+Yazdığımız kodları paketleyip farklı geliştirme ortamları arasında paylaşmak için gerekli standart birime **Container** denir. Daha kolay anlaşılması için bir case üzerinden anlatacak olursak. Spring Boot ve MongoDB kullanarak geliştirdiğimiz web uygulamasını test ekibine verdiğimizde sorunsuz çalışması için bizim bilgisayarımızdaki environment ile test edecek kişinin bilgisayarındaki environment tüm özellikleri ile aynı olmalı. Kullandığımız JDK 'nın sürümünden MongoDB versiyonuna kadar tüm environment aynı olmalı ki sağlık bir şekilde çalışsın. İşte developer'leri bu sıkıntılı durumdan kurtarmak için **Container** çözümlerine başvurulur.
 
 Bir Docker **Container Image** kodun sağlıklı bir şekilde çalışması için gerekli tüm bağımlılıkları içerir.
 
@@ -34,9 +34,9 @@ Docker Image'leri çalışma zamanında Docker Container'larına dönüşür. He
 
 Docker işletim sistemi düzeyinde sanallaştırma sağlar dedik. Bu durumu açıklamadan önce sanallaştırmanın (**Virtualization**) ne olduğuna ve sanal makinelere (**Virtual Machine**) değinelim.
 
-Sanal makineler (VM) var olan donanım alt yapısı üzerine kurulan yazılımsal bilgisayarlardır. Sanal makineler kendine ait ve kurulum esnasında tanımlanan bellek, depolama ,işletim sistemi gibi niteliklere sahiptirler. Nasıl ki fiziksel bilgisayarımıza işletim sistemi ve uygulama kurabiliyorsak sanal makine üzerine de kurabiliriz. Örnek verecek olursak Windows bir makine kullanıyoruz ve Linux'u da deneyimlemek istiyoruz bu durumda ne yapabiliriz; Ya Windows'un yanına ikinci bir işletim sistemi olarak Linux kurarız ya da Windows içine belli ölçüde bellek ve depolama alanı vererek bir sanal makine kurup Linux işletim sistemini yükleriz.
+Sanal makineler (VM) var olan donanım alt yapısı üzerine kurulan yazılımsal bilgisayarlardır. Sanal makineler kendine ait ve kurulum esnasında tanımlanan bellek, depolama , işletim sistemi gibi niteliklere sahiptirler. Nasıl ki fiziksel bilgisayarımıza işletim sistemi ve uygulama kurabiliyorsak sanal makine üzerine de kurabiliriz. Örnek verecek olursak Windows bir makine kullanıyoruz ve Linux'u da deneyimlemek istiyoruz bu durumda ne yapabiliriz; Ya Windows'un yanına ikinci bir işletim sistemi olarak Linux kurarız ya da Windows içine belli ölçüde bellek ve depolama alanı vererek bir sanal makine kurup Linux işletim sistemini yükleriz.
 
-Peki neden sanal makinelere ihtiyaç duyarız;Sanal makine sistem içerisinde korunmuş bir alan oluşturur ve sistemin geri kalanı bu alanda olan hiçbir şeyden etkilenmez. Örnek verecek olursak virüs bulaşmış dosyaları ayıklamak için yeni bir sanal makine kurup dosyaları inceleyebiliriz bu durumda virüs ana sistemimize ulaşmaz.
+Peki neden sanal makinelere ihtiyaç duyarız; Sanal makine sistem içerisinde korunmuş bir alan oluşturur ve sistemin geri kalanı bu alanda olan hiçbir şeyden etkilenmez. Örnek verecek olursak virüs bulaşmış dosyaları ayıklamak için yeni bir sanal makine kurup dosyaları inceleyebiliriz bu durumda virüs ana sistemimize ulaşmaz.
 
 Ayrıca sanal makineler server sanallaştırması içinde kullanılabilir. Mesela elimizde bir Linux Server var ve biz bu server da Windows için geliştirilen bir yazılımı host etmek istiyoruz bu durumda ihtiyacımız olan bir sanal makine kurup Windows çalıştırmaktır.
 
@@ -48,7 +48,7 @@ Bir işletim sistemi üzerinde birden fazla VM çalışabilir. Bu durumda ana i�
 * VMware
 * Microsoft Hyper-V
 
-örnek olarak verilerbilir.
+Örnek olarak verilebilir.
 
 Gelelim en can alıcı noktaya VM'ler varsa ve çok kolaylık sağlıyorsa Docker' a neden ihtiyaç duyalım?
 
@@ -86,7 +86,7 @@ docker container ls -a
 ```
 bu iki komutta da gördüğünüz üzere **-a** parametresi kullanılmıştır, bu Container durdurulmuş (stop) olsa dahi listelemeye yarar.
 
-Sisteminizde hiç kontainer olmadığını varsıyorum. Bir Container'ı çalıştırmak için ilgili Image dosyasını run etmemiz lazımdır. Örnek verecek olursak hello-world isimli Container'ı ayağa kaldırmak istiyoruz. Docker'a aşağıdaki komutu verdiğimizde Docker ilk olarak ilgili Image dosyasını local sistemimizde arar eğer varsa Image'i localden yükler. Eğer local sistemde ilgili Image yoksa Docker ilgili Image dosyasını **DockerHub**'dan indirir.
+Sisteminizde hiç Container olmadığını varsayıyorum. Bir Container'ı çalıştırmak için ilgili Image dosyasını run etmemiz lazımdır. Örnek verecek olursak hello-world isimli Container'ı ayağa kaldırmak istiyoruz. Docker'a aşağıdaki komutu verdiğimizde Docker ilk olarak ilgili Image dosyasını local sistemimizde arar eğer varsa Image'i Local'dan yükler. Eğer local sistemde ilgili Image yoksa Docker ilgili Image dosyasını **DockerHub**'dan indirir.
 
 ```
 docker run hello-world
