@@ -5,7 +5,7 @@ categories: [Docker]
 language: Turkish
 tags: [spring, java, docker, spring boot, container, image]
 seo:
-  date_modified: 2020-02-18 00:08:57 +0100
+  date_modified: 2020-02-18 00:11:32 +0100
 
 ---
 
