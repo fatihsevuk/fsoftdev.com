@@ -1,7 +1,7 @@
 ---
 title: OCP Chapter 1 Welcome to Java-II
 date: Mon 30-Dec-2019 02:00 P.M.
-categories: [Blogging, JavaSE, OCP]
+categories: [JavaSE, OCP]
 language: Turkish
 tags: [ocp, oracle java programmer, javase, java standart edition, jar, java, javac,
   javadoc, java compiler, bytecode, jdk, class, sınıf, object, fields, methods, comments]

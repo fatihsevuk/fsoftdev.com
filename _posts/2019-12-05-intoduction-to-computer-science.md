@@ -3,7 +3,7 @@ title: Bilgisayar Bilimine Giris
 date: Thu 5-Dec-2019 11:10 P.M.
 language: Turkish
 
-categories: [Blogging, CS]
+categories: [CS]
 tags: [computer science, bilgisayar bilimine giriş, algorithms, pseudocode, algoritma,
   sözde kod]
 seo:

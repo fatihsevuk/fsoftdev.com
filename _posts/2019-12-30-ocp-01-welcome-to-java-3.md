@@ -1,7 +1,7 @@
 ---
 title: OCP Chapter 1 Welcome to Java-III
 date: Mon 30-Dec-2019 06:19 P.M.
-categories: [Blogging, JavaSE, OCP]
+categories: [JavaSE, OCP]
 language: Turkish
 tags: [package, paket, ocp, oracle java programmer, javase, java standart edition,
   java, jar, classpath]
