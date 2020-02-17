@@ -3,7 +3,7 @@ title: Spring Boot App With Docker-2
 date: Fri 14-Feb-2020 05:22 P.M.
 categories: [Blogging, Backend, Spring, Docker]
 language: Turkish
-tags: [spring, java, docker, spring boot]
+tags: [spring, java, docker, spring boot,container,image]
 seo:
   date_modified: 2020-02-17 23:51:58 +0100
 
@@ -100,8 +100,8 @@ ekliyoruz. Bu Maven'ın projemizi JAR olarak paketlemesi için gerekli.
 Daha sonra properties etiketleri arasına aşağıdaki kodları ekleyelim.
 
 ```xml
-<java. version>1. 8</java. version>
-<maven-jar-plugin. version>3.1.1</maven-jar-plugin. version>
+<java.version>1.8</java.version>
+<maven-jar-plugin.version>3.1.1</maven-jar-plugin.version>
 ```
 
 Projemizi basit bir REST API olarak kodlayacağız. 2 tane endpointimiz olsun.
@@ -113,27 +113,27 @@ Projemizi basit bir REST API olarak kodlayacağız. 2 tane endpointimiz olsun.
 Aşağıda `MainController. java` isimli Controller sınıfımız var.
 
 ```java
-package com. fsoftdev. blog. SpringBootRestHello;
+package com.fsoftdev.blog.SpringBootRestHello;
 
-import java. util. Calendar;
-import java. util. Date;
+import java.util.Calendar;
+import java.util.Date;
 
-import org.springframework. web. bind. annotation. RequestMapping;
-import org.springframework. web. bind. annotation. RequestMethod;
-import org.springframework. web. bind. annotation. RestController;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 public class MainController {
 
-@RequestMapping(path = "hello", method = RequestMethod.GET)
+@RequestMapping(path = "hello",method = RequestMethod.GET)
 public String sayHello() {
 return "Hello Guys...";
 }
 
-@RequestMapping(path = "date", method = RequestMethod.GET)
+@RequestMapping(path = "date",method = RequestMethod.GET)
 public String sayTodaysDate() {
-Date today = Calendar. getInstance(). getTime();
-return today. toString();
+Date today = Calendar.getInstance().getTime();
+return today.toString();
 }
 
 }
