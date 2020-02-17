@@ -6,7 +6,7 @@ language: Turkish
 tags: [package, paket, ocp, oracle java programmer, javase, java standart edition,
   java, jar, classpath]
 seo:
-  date_modified: 2020-01-28 01:35:14 +0100
+  date_modified: 2020-02-18 00:08:57 +0100
 ---
 
 #### Java'da Paket Yapısı

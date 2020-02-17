@@ -7,7 +7,7 @@ categories: [CS]
 tags: [computer science, bilgisayar bilimine giriş, algorithms, pseudocode, algoritma,
   sözde kod]
 seo:
-  date_modified: 2020-01-28 01:35:14 +0100
+  date_modified: 2020-02-18 00:08:57 +0100
 ---
 
 ## Bilgisayar Bilimine Giriş
