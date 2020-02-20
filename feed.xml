@@ -1,11 +1,8 @@
 ---
 layout: compress
 # Atom Feed, reference: https://validator.w3.org/feed/docs/atom.html
-<<<<<<< HEAD
-=======
 # v2.0
 # https://github.com/cotes2020/jekyll-theme-chirpy
->>>>>>> theme/master
 # © 2019 Cotes Chung
 # MIT License
 ---

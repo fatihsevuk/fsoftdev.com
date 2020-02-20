@@ -1,40 +1,5 @@
 # Jekyll Theme Chirpy
 
-<<<<<<< HEAD
-[![Build Status](https://travis-ci.com/cotes2020/jekyll-theme-chirpy.svg?branch=master)](https://travis-ci.com/cotes2020/jekyll-theme-chirpy)
-[![GitHub license](https://img.shields.io/github/license/cotes2020/jekyll-theme-chirpy.svg)](https://github.com/cotes2020/jekyll-theme-chirpy/blob/master/LICENSE)
-[![996.icu](https://img.shields.io/badge/link-996.icu-red.svg)](https://996.icu)
-
-![devices-mockup](https://raw.githubusercontent.com/cotes2020/jekyll-theme-chirpy/master/assets/img/sample/devices-mockup.png)
-
-A Jekyll theme with responsive web design that focuses on text presentation. Hope you like it! [Live Demo »](https://chirpy.cotes.info)
-
-## Features
-
-* Last modified date
-* Table of Contents
-* Disqus Comments
-* Syntax highlighting
-* Two Level Categories
-* Search
-* HTML compress
-* Atom feeds
-* Google Analytics
-* Pageviews (Advanced)
-
-## Getting Started
-
-### Preparation
-
-Follow the [Jekyll Docs](https://jekyllrb.com/docs/installation/) to complete the installtion of basic environment (Ruby, RubyGem, Bundler and Jekyll). In addition, to use the funny script tools, we also need to install [Python](https://www.python.org/downloads/)(version 3.5 or abover) and [ruamel.yaml](https://pypi.org/project/ruamel.yaml/).
-
-Next, [fork](https://github.com/cotes2020/jekyll-theme-chirpy/fork) **Chirpy** and then clone your replicated repository locally.
-
-
-### Install Jekyll Plugins
-
-Go to root directory of the repository and run the following:
-=======
 [![Build Status](https://github.com/cotes2020/jekyll-theme-chirpy/workflows/build/badge.svg?event=push)](https://github.com/cotes2020/jekyll-theme-chirpy/actions?query=event%3Apush)
 [![GitHub license](https://img.shields.io/github/license/cotes2020/jekyll-theme-chirpy.svg)](https://github.com/cotes2020/jekyll-theme-chirpy/blob/master/LICENSE)
 [![996.icu](https://img.shields.io/badge/link-996.icu-%23FF4D5B.svg)](https://996.icu)
@@ -105,18 +70,11 @@ $ git clone git@github.com:USER/jekyll-theme-chirpy.git
 replace the `USER` above to your GitHub username.
 
 The first time you run or build the project on your machine, perform the installation of Jekyll plugins. Go to the root of repo and run:
->>>>>>> theme/master
 
 ```terminal
 $ bundle install
 ```
 
-<<<<<<< HEAD
-`bundle` will install all the dependent Jekyll Plugins listed in file `Gemfile` automatically.
-
-
-### File Structure
-=======
 `bundle` will automatically install all the dependent Jekyll Plugins that listed in the `Gemfile`.
 
 
@@ -124,7 +82,6 @@ $ bundle install
 
 
 ### Directory Structure
->>>>>>> theme/master
 
 The main files and related brief introductions are listed below.
 
@@ -135,60 +92,26 @@ jekyll-theme-chirpy/
 ├── _layouts
 ├── _posts          # posts stay here
 ├── _scripts
-<<<<<<< HEAD
-=======
 ├── .travis.yml     # remove it
 ├── .github         # remove this, too
->>>>>>> theme/master
 ├── assets      
 ├── tabs
 │   └── about.md    # the ABOUT page
 ├── .gitignore
-<<<<<<< HEAD
-├── .travis.yml     # remove it
-=======
->>>>>>> theme/master
 ├── 404.html
 ├── Gemfile
 ├── LICENSE
 ├── README.md
 ├── _config.yml     # configuration file
-<<<<<<< HEAD
-├── build.sh        # script tool
-├── run.sh          # script tool
-├── init.sh         # script tool
-├── pv.sh           
-├── feed.xml
-├── index.html
-├── robots.txt
-├── search.json
-=======
 ├── tools           # script tools
 ├── docs
 ├── feed.xml
 ├── index.html
 ├── robots.txt
->>>>>>> theme/master
 └── sitemap.xml
 ```
 
 
-<<<<<<< HEAD
-### Configuration
-
-Customize the variables in file `_config.yml` as needed.
-
-
-### Atom Feed
-
-The Atom feed url of your site will be:
-
-```
-<SITE_URL>/feed.xml
-```
-
-The `SITE_URL` was defined by variable `url` in file `_config.yml`.
-=======
 As mentioned above, some files or directories should be removed from your repo:
 
 - .travis.yml
@@ -206,7 +129,6 @@ Basically, go to `_config.yml` and customize the variables as needed, some of th
 * TimeZone
 
     To ensure that the posts' release date matches the city you live in, please modify the field `timezone` correctly. A list of all available values can be found on [TimezoneConverter](http://www.timezoneconverter.com/cgi-bin/findzone/findzone) or [Wikipedia](https://en.wikipedia.org/wiki/List_of_tz_database_time_zones).
->>>>>>> theme/master
 
 
 ###  Run Locally
@@ -214,41 +136,6 @@ Basically, go to `_config.yml` and customize the variables as needed, some of th
 You may want to preview the site before publishing, so just run the script tool:
 
 ```terminal
-<<<<<<< HEAD
-$ bash run.sh
-```
-
->**Note**: The *Recent Update* list requires the latest git-log date of posts, thus make sure the changes in `_posts` have been committed before running this command.
-
-Open a brower and visit <http://localhost:4000>.
-
-Few days later, you may find that the file changes does not refresh in real time by using `run.sh`. Don't worry, the advanced option `-r` (or `--realtime`) will solve this problem, but it requires [**fswatch**](http://emcrisostomo.github.io/fswatch/) to be installed on your machine.
-
-
-###  Deploying to GitHub Pages
-
-Before the deployment begins, ensure the `url` in `_config.yml` has been set to `https://<username>.github.io`.
-
-#### Option 1: Built by GitHub Pages
-
-By deploying your site in this way, you can push the source code to GitHub repository directly.
-
-> **Note**: If you want to add any third-party Jekyll plugins or custom scripts to your project, please refer to [*Option 2: Build locally*](#option-2-build-locally).
-
-**1**. Rename your repository as `<username>.github.io`.
-
-**2**. Commit the changes of your repository, then run the initialization script:
-
-```console
-$ bash init.sh
-```
-
-It will automatically generates the *Latest Modified Date* and *Categories / Tags* page for the posts.
-
-**3**. Push the changes to `origin/master` then go to GitHub website and enable GitHub Pages service for the repository `<username>.github.io`.
-
-**4**. Visit `https://<username>.github.io` and enjoy.
-=======
 $ bash tools/run.sh
 ```
 
@@ -291,32 +178,10 @@ it will automatically generates the *Latest Modified Date* and *Categories / Tag
 |:---|:---|
 |User or Organization | `https://<username>.github.io/`|
 |Project| `https://<username>.github.io/project/`|
->>>>>>> theme/master
 
 
 #### Option 2: Build Locally
 
-<<<<<<< HEAD
-For security reasons, GitHub Pages runs on `safe` mode, which means the third-party Jekyll plugins or custom scripts will not work. If you want to use any another third-party Jekyll plugins, **your have to build locally rather than on GitHub Pages**.
-
-**1**. On GitHub website, create a brand new repository with name `<username>.github.io` and then clone it locally.
-
-**2**. Build your site by:
-
-```console
-$ bash build.sh -d /path/to/<username>.github.io/
-```
-
-The build results will be stored in the root directory of `<username>.github.io` and don't forget to push the changes of `<username>.github.io` to branch `master` on GitHub.
-
-**3**. Go to GitHub website and enable GitHub Pages service for the new repository `<username>.github.io`.
-
-**4**. Visit `https://<username>.github.io` and enjoy.
-
-## Documentation
-
-For more information, please see the [tutorial](https://chirpy.cotes.info/categories/tutorial/). In the meanwhile, a copy of the tutorial is also available on the [Wiki](https://github.com/cotes2020/jekyll-theme-chirpy/wiki).
-=======
 For security reasons, GitHub Pages runs on `safe` mode, which means the third-party Jekyll plugins or custom scripts won't work. If you want to use any another plugins that not in the [whitelist](https://pages.github.com/versions/), **you have to generate the site locally rather than on GitHub Pages**.
 
 **1**. Browse to GitHub website, create a brand new repo named: 
@@ -366,13 +231,8 @@ This theme is mainly built with [Jekyll](https://jekyllrb.com/) ecosystem, [Boot
 ## Support
 
 If you enjoy this theme or find it helpful, please consider becoming my sponsor, I'd really appreciate it! Click the button <kbd>:heart:Sponsor</kbd> at the top of the [Home Page](https://github.com/cotes2020/jekyll-theme-chirpy) and choose a link that suits you to donate. This will encourage me and help me maintain this project.
->>>>>>> theme/master
 
 
 ## License
 
-<<<<<<< HEAD
 This work is published under [MIT](https://github.com/cotes2020/jekyll-theme-chirpy/blob/master/LICENSE) License.
-=======
-This work is published under [MIT](https://github.com/cotes2020/jekyll-theme-chirpy/blob/master/LICENSE) License.
->>>>>>> theme/master

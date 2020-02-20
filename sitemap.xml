@@ -1,13 +1,9 @@
 ---
 layout: compress
-<<<<<<< HEAD
-# The Sitemap template
-=======
 
 # The Sitemap template
 # v2.0
 # https://github.com/cotes2020/jekyll-theme-chirpy
->>>>>>> theme/master
 # © 2017-2019 Cotes Chung
 # MIT License
 ---
@@ -48,9 +44,6 @@ layout: compress
 
 {% for page in site.pages %}
 
-<<<<<<< HEAD
-  {% if site.sitemap_exclude contains page.url %}
-=======
   {% assign pass = false %}
 
   {% for fuzzy in site.sitemap_exclude.fuzzy %}
@@ -75,7 +68,6 @@ layout: compress
   {% endunless %}
 
   {% if pass %}
->>>>>>> theme/master
     {% continue %}
   {% endif %}
 

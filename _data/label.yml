@@ -1,31 +1,16 @@
 # The label text of site.
-<<<<<<< HEAD
-# © 2017-2019 Cotes Chung
-# MIT Licensed
-
-tabs:
-  - { name: "Home", icon: 'fas fa-home' }
-  - { name: "Categories", path: tabs, url: categories, icon: 'fas fa-stream' }
-  - { name: "Tags", path: tabs, url: tags, icon: 'fas fa-tags' }
-  - { name: "Archives", path: tabs, url: archives, icon: 'fas fa-archive'}
-  - { name: "About", path: tabs, url: about, icon: 'fas fa-info'}
-=======
 #  v2.0
 #  https://github.com/cotes2020/jekyll-theme-chirpy
 # © 2017-2019 Cotes Chung
 # MIT Licensed
 
->>>>>>> theme/master
 
 panel:
   lastmod: "Recent Update"
   trending_tags: "Trending Tags"
   toc: "Contents"
 
-<<<<<<< HEAD
-=======
 post:
   relate_posts: "Further Reading"
 
->>>>>>> theme/master
 search_hint: "Search"   # text show on search bar
