@@ -1,4 +1,6 @@
 # The Site Settings
+# v2.0
+# https://github.com/cotes2020/jekyll-theme-chirpy
 # © 2017-2019 Cotes Chung
 # MIT licensed
 
@@ -57,7 +59,7 @@ disqus:
 
 # The year your website was first run.
 first_run: 2019
-
+theme_mode: dual
 # boolean type, global switch for ToC in posts.
 toc: true
 
@@ -108,6 +110,7 @@ defaults:
     scope:
       path: tags
     values:
+      tab_active: Tags
       location: Tag
       breadcrumb:
         -
@@ -120,6 +123,7 @@ defaults:
     scope:
       path: categories
     values:
+      tab_active: Categories
       location: Category
       breadcrumb:
         -
@@ -138,6 +142,12 @@ defaults:
         -
           label: Home
           url: /
+  -
+    scope:
+      path: assets/data
+    values:
+      layout: compress
+
 
 sass:
   sass_dir: /assets/css
@@ -146,32 +156,32 @@ sass:
 compress_html:
   clippings: all
   comments: ["<!-- ", " -->"]
-  endings: [html, head, body, dt, dd, rt, rp, optgroup, option, colgroup, caption, thead, tbody, tfoot, tr, td, th]
+  endings: [html, head, body, dt, dd, rt, rp,
+            optgroup, option, colgroup, caption,
+            thead, tbody, tfoot, tr, td, th]
   profile: false
   blanklines: false
   ignore:
     envs: []
 
 exclude:
-  - vendor/       # Avoid Jekyll mistakenly read the vender directory on Travis-CI's VM .
+  - vendor        # Avoid Jekyll mistakenly read the vender directory on Travis-CI's VM .
   - Gemfile.lock
   - Gemfile
-  - run.sh
-  - build.sh
-  - .jekyll-cache
-  - init.sh
-  - pv.sh
+  - tools
+  - docs
 
 sitemap_exclude:  # Sitemap will exclude the following items.
-  - /norobots/
-  - /assets/
-  - /tabs/
-  - /categories/
-  - /tags/
-  - /posts/
-  - /404.html
-  - /redirects.json
-  - /search.json
-
-plugins:
-    - jemoji
+  fuzzy:
+    - /assets/
+  accurate:
+    - /norobots/
+    - /tabs/
+    - /categories/
+    - /tags/
+    - /posts/
+    - 404.html
+    - feed.xml
+    - sitemap.xml
+    - robots.txt
+    - redirects.json

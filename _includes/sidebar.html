@@ -1,9 +1,15 @@
 <!--
   The Side Bar
+<<<<<<< HEAD
+=======
+  v2.0
+  https://github.com/cotes2020/jekyll-theme-chirpy
+>>>>>>> theme/master
   © 2017-2019 Cotes Chung
   MIT License
 -->
 
+<<<<<<< HEAD
 <div id="nav-wrap">
   <div id="profile-wrap" class="d-flex flex-column">
     <div id="avatar" class="d-flex justify-content-center">
@@ -13,6 +19,18 @@
           {% assign avatar = avatar | prepend: site.baseurl %}
         {% endif %}
         <img src="{{ avatar }}"></img>
+=======
+<div id="nav-wrapper">
+  <div id="profile-wrapper" class="d-flex flex-column">
+    <div id="avatar" class="d-flex justify-content-center">
+      <a href="{{ site.baseurl }}/" alt="avatar">
+        {% assign avatar_url = site.avatar %}
+        {% capture start %}{{ site.avatar | slice: 0 }}{% endcapture %}
+        {% if start == '/' %}
+          {% assign avatar_url = avatar_url | prepend: site.baseurl %}
+        {% endif %}
+        <img src="{{ avatar_url }}" alt="avatar">
+>>>>>>> theme/master
       </a>
     </div>
 
@@ -20,14 +38,22 @@
       <div id="site-title">
         <a href="{{ site.baseurl }}/">{{- site.title -}}</a>
       </div>
+<<<<<<< HEAD
       <div id="site-subtitle" class="font-italic">{{ site.description }}</div>
+=======
+      <div id="site-subtitle" class="font-italic">{{- site.tagline -}}</div>
+>>>>>>> theme/master
     </div>
   </div>
 
   <ul class="nav flex-column">
   {% assign page_urls = page.url | split: "/" %}
 
+<<<<<<< HEAD
   {% for item in site.data.label.tabs %}
+=======
+  {% for item in site.data.tabs %}
+>>>>>>> theme/master
     {% assign ref = site.baseurl | append: "/" %}
 
     {% if item.path %}
@@ -38,10 +64,18 @@
     {% endif %}
 
     <li class="nav-item d-flex justify-content-center
+<<<<<<< HEAD
       {% if item.url == page_urls.last or
         item.name == "Home" and page.layout == "home" %}active{% endif %}">
       <a href="{{ ref }}" class="nav-link d-flex justify-content-center align-items-center w-100">
         <i class="fa-fw {{ item.icon }} ml-3 mr-4 hidden"></i>
+=======
+      {% if item.url == page_urls.last
+        or item.name == page.tab_active
+        or item.name == "Home" and page.layout == "home" %}active{% endif %}">
+      <a href="{{ ref }}" class="nav-link d-flex justify-content-center align-items-center w-100">
+        <i class="fa-fw {{ item.icon }} ml-3 mr-3 unloaded"></i>
+>>>>>>> theme/master
         <span>{{ item.name | upcase }}</span>
       </a>
     </li> <!-- .nav-item -->
@@ -49,6 +83,7 @@
 
   </ul> <!-- ul.nav.flex-column -->
 
+<<<<<<< HEAD
 </div><!-- #nav-wrap -->
 
 <div class="contact d-flex justify-content-center mt-4">
@@ -74,5 +109,31 @@
     <i class="fas fa-rss"></i>
   </a> -->
 
+=======
+</div><!-- #nav-wrapper -->
+
+<div class="sidebar-bottom d-flex flex-wrap justify-content-around mt-4">
+
+  {% if site.theme_mode == "dual" %}
+  <span id="mode-toggle-wrapper">
+    {% include mode-toggle.html %}
+  </span>
+  <span class="icon-border"></span>
+  {% endif %}
+
+  <a href="https://github.com/{{ site.github.username }}" target="_blank">
+    <i class="fab fa-github-alt"></i>
+  </a>
+  <a href="https://twitter.com/{{ site.twitter.username }}" target="_blank">
+    <i class="fab fa-twitter"></i>
+  </a>
+  {% assign email = site.social.email | split: '@' %}
+  <a href="javascript:window.open('mailto:' + ['{{ email[0] }}','{{ email[1] }}'].join('@'))">
+    <i class="fas fa-envelope"></i>
+  </a>
+  <a href="{{ site.baseurl }}/feed.xml" target="_blank">
+    <i class="fas fa-rss"></i>
+  </a>
+>>>>>>> theme/master
 
 </div>

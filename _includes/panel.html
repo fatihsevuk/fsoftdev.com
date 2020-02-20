@@ -1,10 +1,19 @@
 <!--
   The Pannel on right side (Desktop views)
+<<<<<<< HEAD
+=======
+  v2.0
+  https://github.com/cotes2020/jekyll-theme-chirpy
+>>>>>>> theme/master
   © 2017-2019 Cotes Chung
   MIT License
 -->
 
+<<<<<<< HEAD
 <div id="panel-wrap" class="col-xl-3 pl-2 topbar-down">
+=======
+<div id="panel-wrapper" class="col-xl-3 pl-2 topbar-down">
+>>>>>>> theme/master
 
   <div class="access">
   {% assign lastmod_list = "" | split: "" %}
@@ -21,7 +30,11 @@
   {% endfor %}
 
   {% if lastmod_list.size > 0 %}
+<<<<<<< HEAD
     <div id="access-lastmod" class="post mb-4"">
+=======
+    <div id="access-lastmod" class="post mb-4">
+>>>>>>> theme/master
       <h3 data-toc-skip>
         {{- site.data.label.panel.lastmod -}}
       </h3>
@@ -43,6 +56,7 @@
   {% endif %}
 
     <div id="access-tags">
+<<<<<<< HEAD
 
       <h3 data-toc-skip>
         {{- site.data.label.panel.trending_tags -}}
@@ -74,6 +88,20 @@
 
   {% if page.layout == 'post' and site.toc and page.toc %}
   <div id="toc-wrap" class="pl-0 pr-4 mb-5">
+=======
+      <h3 data-toc-skip>
+        {{- site.data.label.panel.trending_tags -}}
+      </h3>
+      <div class="d-flex flex-wrap mt-3 mb-1 mr-3">
+       {% include trending-tags.html %}
+      </div>
+    </div>
+
+  </div> <!-- .access -->
+
+  {% if page.layout == 'post' and site.toc and page.toc %}
+  <div id="toc-wrapper" class="pl-0 pr-4 mb-5">
+>>>>>>> theme/master
     <h3 data-toc-skip class="pl-3 pt-2">
       {{- site.data.label.panel.toc -}}
     </h3>
@@ -81,4 +109,8 @@
   </div>
   {% endif %}
 
+<<<<<<< HEAD
 </div> <!-- #panel-wrap -->
+=======
+</div> <!-- #panel-wrapper -->
+>>>>>>> theme/master

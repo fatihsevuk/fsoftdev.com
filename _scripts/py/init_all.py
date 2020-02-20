@@ -3,6 +3,11 @@
 
 """
 Automatic invokes all initial scripts for project.
+<<<<<<< HEAD
+=======
+v2.0
+https://github.com/cotes2020/jekyll-theme-chirpy
+>>>>>>> theme/master
 © 2018-2019 Cotes Chung
 Licensed under MIT
 """

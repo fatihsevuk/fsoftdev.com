@@ -9,6 +9,11 @@ Dependencies:
   - git
   - ruamel.yaml
 
+<<<<<<< HEAD
+=======
+v2.0
+https://github.com/cotes2020/jekyll-theme-chirpy
+>>>>>>> theme/master
 © 2018-2019 Cotes Chung
 Licensed under MIT
 """

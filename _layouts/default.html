@@ -1,12 +1,28 @@
 ---
 layout: compress
 # Default layout
+<<<<<<< HEAD
+=======
+# v2.0
+# https://github.com/cotes2020/jekyll-theme-chirpy
+>>>>>>> theme/master
 # © 2017-2019 Cotes Chung
 # MIT Licensed
 ---
 
 <!DOCTYPE html>
+<<<<<<< HEAD
 <html lang="en">
+=======
+
+{% capture prefer_mode %}
+  {% if site.theme_mode != "dual" %}
+    mode="{{ site.theme_mode }}"
+  {% endif %}
+{% endcapture %}
+
+<html lang="en" {{ prefer_mode }} >
+>>>>>>> theme/master
 
   {% include head.html %}
 
@@ -14,7 +30,11 @@ layout: compress
     <div id="sidebar" class="d-flex flex-column">
       {% include sidebar.html %}
     </div>
+<<<<<<< HEAD
     <div id="main-wrap" class="bg-white">
+=======
+    <div id="main-wrapper">
+>>>>>>> theme/master
       {% include topbar.html %}
       <div id="main">
 
@@ -40,7 +60,11 @@ layout: compress
       {% include google-analytics.html %}
     {% endif %}
 
+<<<<<<< HEAD
     {% include search.html %}
+=======
+    {% include search-loader.html %}
+>>>>>>> theme/master
 
   </body>
 

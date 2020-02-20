@@ -1,6 +1,11 @@
 ---
 layout: default
 # The posts' layout
+<<<<<<< HEAD
+=======
+# v2.0
+# https://github.com/cotes2020/jekyll-theme-chirpy
+>>>>>>> theme/master
 # © 2017-2019 Cotes Chung
 # MIT Licensed
 ---
@@ -8,12 +13,17 @@ layout: default
 <div class="row">
   {% include date-format.html %}
 
+<<<<<<< HEAD
   <div id="post-wrap" class="col-12 col-lg-11 col-xl-8">
+=======
+  <div id="post-wrapper" class="col-12 col-lg-11 col-xl-8">
+>>>>>>> theme/master
     <div class="post pl-1 pr-1 pl-sm-2 pr-sm-2 pl-md-4 pr-md-4">
       <h1 data-toc-skip>{{ page.title }}</h1>
       <div class="post-meta text-muted d-flex flex-column">
         <!-- Published Date and Categoreis -->
         <div>
+<<<<<<< HEAD
           <span class="timeago" data-toggle="tooltip" title="{{ page.date | date: TOOLTIP_DATE }}">
             {{ page.date | date: POST_DATE }}
             <i class="hidden">{{ page.date | date_to_xmlschema }}</i>
@@ -21,10 +31,21 @@ layout: default
           {% if page.categories.size > 0 %}on{% endif %}
           {% for category in page.categories %}
             <a href='{{ site.baseurl }}/categories/{{ category | replace: ' ', '-' | downcase }}/'>{{ category }}</a>
+=======
+          <span class="timeago" data-toggle="tooltip" data-placement="bottom"
+           title="{{ page.date | date: TOOLTIP_DATE }}">
+            {{ page.date | date: POST_DATE }}
+            <i class="unloaded">{{ page.date | date_to_xmlschema }}</i>
+          </span>
+          {% if page.categories.size > 0 %}on{% endif %}
+          {% for category in page.categories %}
+            <a href='{{ site.baseurl }}/categories/{{ category | replace: ' ', '-' | downcase | url_encode }}/'>{{ category }}</a>
+>>>>>>> theme/master
             {%- unless forloop.last -%}, {%- endunless -%}
           {% endfor %}
         </div>
 
+<<<<<<< HEAD
         <!-- lastmod -->
         {% if page.seo.date_modified > page.date %}
         <div>
@@ -40,11 +61,18 @@ layout: default
         {% if site.google_analytics.pv %}
         <div>
           <span id="pv" class="pageviews"><i class="fas fa-spinner fa-spin"></i></span> views
+=======
+        <!-- page views -->
+        {% if site.google_analytics.pv %}
+        <div>
+          <span id="pv" class="pageviews"><i class="fas fa-spinner fa-spin fa-fw"></i></span> views
+>>>>>>> theme/master
         </div>
         {% endif %}
 
       </div> <!-- .post-meta -->
 
+<<<<<<< HEAD
       {% capture post_content %}
       <div class="post-content">
         {% if page.image %}
@@ -67,22 +95,91 @@ layout: default
         <div class="mb-4">
           {% for tag in page.tags %}
           <a href="{{ site.baseurl }}/tags/{{ tag | replace: ' ', '-' | downcase }}/"
+=======
+      <div class="post-content">
+        {% if page.image %}
+        <img src="{{ page.image }}">
+        {% endif %}
+        <!-- Add lozad class into image tags. see: <https://github.com/ApoorvSaxena/lozad.js#usage> -->
+        {% if content contains '<img src=' %}
+          {% capture loading %}
+           {{ "/assets/img/commons/loading.png" | relative_url }}
+          {% endcapture %}
+          {% assign replacement = '<img class="lozad" src=' | append: loading | append: ' data-src=' %}
+          {{ content | replace: '<img src=', replacement }}
+        {% else %}
+          {{ content }}
+        {% endif %}
+      </div>
+
+      <div class="post-tail-wrapper text-muted">
+
+        <!-- lastmod -->
+        {% if page.seo.date_modified > page.date %}
+        <div>
+          Updated
+          <span class="timeago lastmod"
+            data-toggle="tooltip" data-placement="top"
+             title="{{ page.seo.date_modified | date: TOOLTIP_DATE }}">
+            {{ page.seo.date_modified | date: POST_DATE }}
+            <i class="unloaded">{{ page.seo.date_modified | date_to_xmlschema}}</i>
+          </span>
+        </div>
+        {% endif %}
+
+        <!-- Tags -->
+        {% if page.tags.size > 0 %}
+        <div class="pt-3">
+          {% for tag in page.tags %}
+          <a href="{{ site.baseurl }}/tags/{{ tag | replace: ' ', '-' | downcase | url_encode }}/"
+>>>>>>> theme/master
             class="post-tag no-text-decoration" >
             {{- tag -}}
           </a>
           {% endfor %}
           </div>
         {% endif %}
+<<<<<<< HEAD
       </div><!-- div.post-tail -->
 
     </div> <!-- .post -->
   </div> <!-- #post-wrap -->
+=======
+
+        <div class="post-tail-bottom
+          d-flex justify-content-between align-items-center pt-5 pb-2">
+
+          {% if site.data.right.license %}
+          <div class="license-wrapper">
+            <span class="license-text ml-1 mr-1">
+              {{ site.data.right.license.prompt }}
+              <a href="{{ site.data.right.license.link }}">
+                {{ site.data.right.license.name }}
+                {% for icon in site.data.right.license.icons %}
+                <i class="{{ icon }}"></i>
+                {% endfor %}
+              </a>
+            </span>
+          </div>
+          {% endif %}
+
+          {% include post-sharing.html %}
+
+        </div><!-- .post-tail-bottom -->
+
+      </div><!-- div.post-tail -->
+
+    </div> <!-- .post -->
+
+  </div> <!-- #post-wrapper -->
+>>>>>>> theme/master
 
   {% include panel.html %}
 
 </div> <!-- .row -->
 
 <div class="row">
+<<<<<<< HEAD
   <div id="post-extend-wrap" class="col-12 col-lg-11 col-xl-8">
 
     <div class="pl-1 pr-1 pl-sm-2 pr-sm-2 pl-md-4 pr-md-4">
@@ -115,6 +212,23 @@ layout: default
     </div> <!-- .pl-1 pr-1 -->
 
   </div> <!-- wrap -->
+=======
+  <div id="post-extend-wrapper" class="col-12 col-lg-11 col-xl-8">
+
+    <div class="pl-1 pr-1 pl-sm-2 pr-sm-2 pl-md-4 pr-md-4">
+
+      {% include post-nav.html %}
+
+      {% if site.disqus.comments and page.comments %}
+        {% include disqus.html %}
+      {% endif %}
+
+      {% include related-posts.html %}
+
+    </div> <!-- .pl-1 pr-1 -->
+
+  </div> <!-- #post-extend-wrapper -->
+>>>>>>> theme/master
 
 </div> <!-- .row -->
 

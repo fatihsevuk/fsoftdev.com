@@ -1,10 +1,21 @@
 <!--
   The Head
+<<<<<<< HEAD
+=======
+  v2.0
+  https://github.com/cotes2020/jekyll-theme-chirpy
+>>>>>>> theme/master
   © 2017-2019 Cotes Chung
   MIT License
 -->
 
 <head>
+<<<<<<< HEAD
+=======
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+>>>>>>> theme/master
   <title>
   {%- if page.layout == "home" -%}
     {{- site.title -}}
@@ -12,8 +23,11 @@
     {{ page.title }} | {{ site.title }}
   {%- endif -%}
   </title>
+<<<<<<< HEAD
   <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+=======
+>>>>>>> theme/master
 
   {% seo title=false %}
 
@@ -31,6 +45,7 @@
     <link rel="preconnect" href="https://www.googletagmanager.com" crossorigin="anonymous">
     <link rel="dns-prefetch" href="https://www.googletagmanager.com">
 
+<<<<<<< HEAD
     {% if site.google_analytics.proxy_url and site.google_analytics.pv %}
       <link rel="preconnect" href="{{ site.google_analytics.proxy_url }}" crossorigin="use-credentials">
       <link rel="dns-prefetch" href="{{ site.google_analytics.proxy_url }}">
@@ -40,6 +55,29 @@
   <link rel="preconnect" href="cdn.jsdelivr.net">
   <link rel="dns-prefetch" href="cdn.jsdelivr.net">
 
+=======
+    {% if site.google_analytics.proxy_baseurl and site.google_analytics.pv %}
+      <link rel="preconnect" href="{{ site.google_analytics.proxy_baseurl }}" crossorigin="use-credentials">
+      <link rel="dns-prefetch" href="{{ site.google_analytics.proxy_baseurl }}">
+    {% endif %}
+  {% endif %}
+
+  <!-- jsdelivr CDN -->
+  <link rel="preconnect" href="cdn.jsdelivr.net">
+  <link rel="dns-prefetch" href="cdn.jsdelivr.net">
+
+  <link rel="preload" as="style"
+    href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css"
+    integrity="sha256-LA89z+k9fjgMKQ/kq4OO2Mrf8VltYml/VES+Rg0fh20=" crossorigin>
+
+  <link rel="preload" as="style"
+    href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.11.2/css/all.min.css"
+    integrity="sha256-+N4/V/SbAFiW1MPBCXnfnP9QSN3+Keu+NlB+0ev/YKQ="
+    crossorigin="anonymous">
+
+  <link rel="preload" as="style" href="{{ site.baseurl }}/assets/css/main.css">
+
+>>>>>>> theme/master
   <link rel="stylesheet"
     href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css"
     integrity="sha256-LA89z+k9fjgMKQ/kq4OO2Mrf8VltYml/VES+Rg0fh20=" crossorigin="anonymous">
@@ -52,26 +90,47 @@
   <link rel="stylesheet" href="{{ site.baseurl }}/assets/css/main.css">
 
   {% if page.layout == 'home' %}
+<<<<<<< HEAD
+=======
+    <link rel="preload" href="{{ site.baseurl }}/assets/css/home.css" as="style">
+>>>>>>> theme/master
     <link rel="stylesheet" href="{{ site.baseurl }}/assets/css/home.css">
   {% endif %}
 
   {% if page.title == 'Categories' and page.layout == 'page' %}
+<<<<<<< HEAD
+=======
+    <link rel="preload" href="{{ site.baseurl }}/assets/css/categories.css" as="style">
+>>>>>>> theme/master
     <link rel="stylesheet" href="{{ site.baseurl }}/assets/css/categories.css">
   {% endif %}
 
   {% if page.title == 'Tags' and page.layout == 'page' %}
+<<<<<<< HEAD
+=======
+    <link rel="preload" href="{{ site.baseurl }}/assets/css/tags.css" as="style">
+>>>>>>> theme/master
     <link rel="stylesheet" href="{{ site.baseurl }}/assets/css/tags.css">
   {% endif %}
 
   {% if page.layout == 'category' or page.layout == 'tag' %}
+<<<<<<< HEAD
+=======
+    <link rel="preload" href="{{ site.baseurl }}/assets/css/category-tag.css" as="style">
+>>>>>>> theme/master
     <link rel="stylesheet" href="{{ site.baseurl }}/assets/css/category-tag.css">
   {% endif %}
 
   {% if page.title == 'Archives' and page.layout == 'page' %}
+<<<<<<< HEAD
+=======
+    <link rel="preload" href="{{ site.baseurl }}/assets/css/archives.css" as="style">
+>>>>>>> theme/master
     <link rel="stylesheet" href="{{ site.baseurl }}/assets/css/archives.css">
   {% endif %}
 
   {% if page.title == 'About' and page.layout == 'page' %}
+<<<<<<< HEAD
     <link rel="stylesheet" href="{{ site.baseurl }}/assets/css/syntax.css">
   {% endif %}
 
@@ -79,6 +138,26 @@
     integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
   <script>
     document.jQuery || document.write("<script src=\"{{ site.baseurl }}/assets/lib/jquery-3.4.1.min.js\"><\/script>");
+=======
+    <link rel="preload" href="{{ site.baseurl }}/assets/css/syntax.css" as="style">
+    <link rel="stylesheet" href="{{ site.baseurl }}/assets/css/syntax.css">
+  {% endif %}
+
+
+  <link rel="preload" as="script"
+    href="https://cdn.jsdelivr.net/npm/jquery@3.4.1/dist/jquery.min.js"
+    integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous">
+
+  <link rel="preload" as="script"
+    href="https://cdn.jsdelivr.net/npm/popper.js@1.15.0/dist/umd/popper.min.js"
+    integrity="sha256-fTuUgtT7O2rqoImwjrhDgbXTKUwyxxujIMRIK7TbuNU=" crossorigin>
+
+  <script src="https://cdn.jsdelivr.net/npm/jquery@3.4.1/dist/jquery.min.js"
+    integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
+
+  <script>
+    window.jQuery || document.write('<script src="{{ site.baseurl }}/assets/lib/jquery-3.4.1.min.js"><\/script>');
+>>>>>>> theme/master
   </script>
 
   <script src="https://cdn.jsdelivr.net/npm/popper.js@1.15.0/dist/umd/popper.min.js"
@@ -98,13 +177,34 @@
   {% endif %}
 
   {% if page.layout == 'post' %}
+<<<<<<< HEAD
     <link rel="stylesheet" href="{{ site.baseurl }}/assets/css/post.css">
     <link rel="stylesheet" href="{{ site.baseurl }}/assets/css/syntax.css">
     {% if site.toc and page.toc %}
+=======
+    <link rel="preload" as="style" href="{{ site.baseurl }}/assets/css/post.css">
+    <link rel="preload" as="style" href="{{ site.baseurl }}/assets/css/syntax.css">
+
+    <link rel="stylesheet" href="{{ site.baseurl }}/assets/css/post.css">
+    <link rel="stylesheet" href="{{ site.baseurl }}/assets/css/syntax.css">
+
+    {% if site.toc and page.toc %}
+      <link rel="preload" as="style" href="{{ site.baseurl }}/assets/lib/bootstrap-toc-1.0.1/bootstrap-toc.min.css">
+      <link rel="preload" as="script" href="{{ site.baseurl }}/assets/lib/bootstrap-toc-1.0.1/bootstrap-toc.min.js">
+
+>>>>>>> theme/master
       <link rel="stylesheet" href="{{ site.baseurl }}/assets/lib/bootstrap-toc-1.0.1/bootstrap-toc.min.css" />
       <script src="{{ site.baseurl }}/assets/lib/bootstrap-toc-1.0.1/bootstrap-toc.min.js" async></script>
       <script src="{{ site.baseurl }}/assets/js/dist/toc.min.js" async></script>
     {% endif %}
+<<<<<<< HEAD
   {% endif %}
 
+=======
+
+  {% endif %}
+
+  <script src="{{ site.baseurl }}/assets/js/dist/tooltip-loader.min.js" async></script>
+
+>>>>>>> theme/master
 </head>
