@@ -3,17 +3,13 @@ language: ruby
 rvm: 2.6.5
 
 
-# Install Jekyll
-install:
-  - gem install jekyll
-
-# Build Jekyll blog
-before_script:
-  - chmod +x ./script/cibuild # or do this locally and commit
- 
- # Assume bundler is being used, therefore
- # the `install` step will run `bundle install` by default.
- script: ./script/cibuild
+script:
+  - gem update --system
+  - gem install bundler
+  - bundler update --bundler
+  - gem install jekyll bundler
+  - bash init.sh
+  - JEKYLL_ENV=production jekyll build
 
 env:
   global:
@@ -33,7 +29,11 @@ branches:
   only: master
 
 notifications:
-  email: false
+  email:
+    recipients:
+      - fatihsvk1@gmail.com
+    on_success: never
+    on_failure: always
 
 git:
   depth: false # for posts lastmod
