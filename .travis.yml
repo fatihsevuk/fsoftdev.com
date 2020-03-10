@@ -6,8 +6,8 @@ script:
   - bash init.sh 
   - bundle exec jekyll build
 install:
-  - pip install setuptools wheel
-  - pip install ruamel.yaml
+  - pip install --user setuptools wheel
+  - pip install --user ruamel.yaml
   - bundle install
 
 env:
