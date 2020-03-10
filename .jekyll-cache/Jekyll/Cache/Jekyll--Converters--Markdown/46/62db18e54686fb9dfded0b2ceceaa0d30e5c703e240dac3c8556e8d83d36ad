@@ -1,0 +1,354 @@
+I"�^<h4 id="başlangıç">Başlangıç</h4>
+<p>Merhabalar, Docker ile Spring Boot uygulaması geliştirmeyi anlattığımız yazı dizisine kaldığımız yerden devam ediyoruz. Bir önceki yazımızda Docker’a giriş yapmıştık. Bu yazıda Spring Boot uygulamamızı paketleyip Docker Container’ı içine kopyalayıp çalıştıracağız.</p>
+
+<p>Bu yazıda sırasıyla şu adımları gerçekleştireceğiz.</p>
+
+<ul>
+  <li>Basit bir Spring Boot REST API oluşturacağız.</li>
+  <li>REST API’mızı Jar olarak paketleyeceğiz.</li>
+  <li>Uygulmanın Environment’ını içeren Docker Image’ını indireceğiz.</li>
+  <li>Oluşan JAR paketimizi Container içine kopyalayacağız.</li>
+  <li>Son olarak uygulamamızı çalıştıracağız.</li>
+</ul>
+
+<h4 id="spring-boot-rest-api-oluşturma">Spring Boot Rest API Oluşturma</h4>
+
+<p>Spring Boot uygulamamızı <a href="https://start.spring.io/">Spring Initializr</a> sitesindeki arayüz yardımı ile oluşturalım.</p>
+
+<p><img src="/assets/img/posts/spring-boot-docker-2/spring-boot-initializr.png" alt="Image of spring initializr" /></p>
+
+<p>Bu sayfada Spring Boot uygulamamızın ilgili alanları seçiyoruz ve en alttaki kısımda dependency olarak uygulamamız için gerekli bağılılıkları seçiyoruz. Generate butonuna basınca oluşan proje zip olarak bilgisayarımıza iniyor. Bu uygulamada bağımlılık olarak Spring Web’i ve Spring Devtools’u seçmemiz yeterli. İnen zip dosyasını IDE’mizde açıyoruz.</p>
+
+<p>pom. xml dosyamızı inceleyecek olursak.</p>
+
+<div class="language-xml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29
+30
+31
+32
+33
+34
+35
+36
+37
+38
+39
+40
+41
+42
+43
+44
+45
+46
+47
+48
+49
+50
+51
+52
+53
+54
+55
+56
+57
+</pre></td><td class="rouge-code"><pre><span class="cp">&lt;?xml version="1.0" encoding="UTF-8"?&gt;</span>
+<span class="nt">&lt;project</span> <span class="na">xmlns=</span><span class="s">"http://maven.apache.org/POM/4.0.0"</span> <span class="na">xmlns:xsi=</span><span class="s">"http://www.w3.org/2001/XMLSchema-instance"</span>
+	<span class="na">xsi:schemaLocation=</span><span class="s">"http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd"</span><span class="nt">&gt;</span>
+	<span class="nt">&lt;modelVersion&gt;</span>4.0.0<span class="nt">&lt;/modelVersion&gt;</span>
+	<span class="nt">&lt;parent&gt;</span>
+		<span class="nt">&lt;groupId&gt;</span>org.springframework.boot<span class="nt">&lt;/groupId&gt;</span>
+		<span class="nt">&lt;artifactId&gt;</span>spring-boot-starter-parent<span class="nt">&lt;/artifactId&gt;</span>
+		<span class="nt">&lt;version&gt;</span>2.2.4.RELEASE<span class="nt">&lt;/version&gt;</span>
+		<span class="nt">&lt;relativePath/&gt;</span> <span class="c">&lt;!-- lookup parent from repository --&gt;</span>
+	<span class="nt">&lt;/parent&gt;</span>
+	<span class="nt">&lt;groupId&gt;</span>com.fsoftdev.blog<span class="nt">&lt;/groupId&gt;</span>
+	<span class="nt">&lt;artifactId&gt;</span>SpringBootRestHello<span class="nt">&lt;/artifactId&gt;</span>
+	<span class="nt">&lt;version&gt;</span>0.0.1-SNAPSHOT<span class="nt">&lt;/version&gt;</span>
+	<span class="nt">&lt;name&gt;</span>SpringBootRestHello<span class="nt">&lt;/name&gt;</span>
+	<span class="nt">&lt;packaging&gt;</span>jar<span class="nt">&lt;/packaging&gt;</span>
+	<span class="nt">&lt;description&gt;</span>Demo project for Spring Boot<span class="nt">&lt;/description&gt;</span>
+
+	<span class="nt">&lt;properties&gt;</span>
+		<span class="nt">&lt;java.version&gt;</span>1.8<span class="nt">&lt;/java.version&gt;</span>
+	<span class="nt">&lt;/properties&gt;</span>
+
+	<span class="nt">&lt;dependencies&gt;</span>
+		<span class="nt">&lt;dependency&gt;</span>
+			<span class="nt">&lt;groupId&gt;</span>org.springframework.boot<span class="nt">&lt;/groupId&gt;</span>
+			<span class="nt">&lt;artifactId&gt;</span>spring-boot-starter-web<span class="nt">&lt;/artifactId&gt;</span>
+		<span class="nt">&lt;/dependency&gt;</span>
+
+		<span class="nt">&lt;dependency&gt;</span>
+			<span class="nt">&lt;groupId&gt;</span>org.springframework.boot<span class="nt">&lt;/groupId&gt;</span>
+			<span class="nt">&lt;artifactId&gt;</span>spring-boot-devtools<span class="nt">&lt;/artifactId&gt;</span>
+			<span class="nt">&lt;scope&gt;</span>runtime<span class="nt">&lt;/scope&gt;</span>
+			<span class="nt">&lt;optional&gt;</span>true<span class="nt">&lt;/optional&gt;</span>
+		<span class="nt">&lt;/dependency&gt;</span>
+		<span class="nt">&lt;dependency&gt;</span>
+			<span class="nt">&lt;groupId&gt;</span>org.springframework.boot<span class="nt">&lt;/groupId&gt;</span>
+			<span class="nt">&lt;artifactId&gt;</span>spring-boot-starter-test<span class="nt">&lt;/artifactId&gt;</span>
+			<span class="nt">&lt;scope&gt;</span>test<span class="nt">&lt;/scope&gt;</span>
+			<span class="nt">&lt;exclusions&gt;</span>
+				<span class="nt">&lt;exclusion&gt;</span>
+					<span class="nt">&lt;groupId&gt;</span>org.junit.vintage<span class="nt">&lt;/groupId&gt;</span>
+					<span class="nt">&lt;artifactId&gt;</span>junit-vintage-engine<span class="nt">&lt;/artifactId&gt;</span>
+				<span class="nt">&lt;/exclusion&gt;</span>
+			<span class="nt">&lt;/exclusions&gt;</span>
+		<span class="nt">&lt;/dependency&gt;</span>
+	<span class="nt">&lt;/dependencies&gt;</span>
+
+	<span class="nt">&lt;build&gt;</span>
+		<span class="nt">&lt;plugins&gt;</span>
+			<span class="nt">&lt;plugin&gt;</span>
+				<span class="nt">&lt;groupId&gt;</span>org.springframework.boot<span class="nt">&lt;/groupId&gt;</span>
+				<span class="nt">&lt;artifactId&gt;</span>spring-boot-maven-plugin<span class="nt">&lt;/artifactId&gt;</span>
+			<span class="nt">&lt;/plugin&gt;</span>
+		<span class="nt">&lt;/plugins&gt;</span>
+	<span class="nt">&lt;/build&gt;</span>
+
+<span class="nt">&lt;/project&gt;</span>
+
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+<p>Birkaç noktayı revize etmemiz yeterli;</p>
+
+<div class="language-xml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+</pre></td><td class="rouge-code"><pre><span class="nt">&lt;packaging&gt;</span>jar<span class="nt">&lt;/packaging&gt;</span>
+</pre></td></tr></tbody></table></code></pre></div></div>
+<p>ekliyoruz. Bu Maven’ın projemizi JAR olarak paketlemesi için gerekli.</p>
+
+<p>Daha sonra properties etiketleri arasına aşağıdaki kodları ekleyelim.</p>
+
+<div class="language-xml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+</pre></td><td class="rouge-code"><pre><span class="nt">&lt;java.version&gt;</span>1.8<span class="nt">&lt;/java.version&gt;</span>
+<span class="nt">&lt;maven-jar-plugin.version&gt;</span>3.1.1<span class="nt">&lt;/maven-jar-plugin.version&gt;</span>
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+<p>Projemizi basit bir REST API olarak kodlayacağız. 2 tane endpointimiz olsun.</p>
+
+<p><code class="highlighter-rouge">/hello</code> endpointimiz ekrana <code class="highlighter-rouge">Hello Guys...</code> diye bir string basıyor.</p>
+
+<p><code class="highlighter-rouge">/date</code> endpointimiz ekrana şimdiki tarihi basıyor.</p>
+
+<p>Aşağıda <code class="highlighter-rouge">MainController. java</code> isimli Controller sınıfımız var.</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+</pre></td><td class="rouge-code"><pre><span class="kn">package</span> <span class="nn">com.fsoftdev.blog.SpringBootRestHello</span><span class="o">;</span>
+
+<span class="kn">import</span> <span class="nn">java.util.Calendar</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">java.util.Date</span><span class="o">;</span>
+
+<span class="kn">import</span> <span class="nn">org.springframework.web.bind.annotation.RequestMapping</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">org.springframework.web.bind.annotation.RequestMethod</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">org.springframework.web.bind.annotation.RestController</span><span class="o">;</span>
+
+<span class="nd">@RestController</span>
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">MainController</span> <span class="o">{</span>
+
+<span class="nd">@RequestMapping</span><span class="o">(</span><span class="n">path</span> <span class="o">=</span> <span class="s">"hello"</span><span class="o">,</span><span class="n">method</span> <span class="o">=</span> <span class="nc">RequestMethod</span><span class="o">.</span><span class="na">GET</span><span class="o">)</span>
+<span class="kd">public</span> <span class="nc">String</span> <span class="nf">sayHello</span><span class="o">()</span> <span class="o">{</span>
+<span class="k">return</span> <span class="s">"Hello Guys..."</span><span class="o">;</span>
+<span class="o">}</span>
+
+<span class="nd">@RequestMapping</span><span class="o">(</span><span class="n">path</span> <span class="o">=</span> <span class="s">"date"</span><span class="o">,</span><span class="n">method</span> <span class="o">=</span> <span class="nc">RequestMethod</span><span class="o">.</span><span class="na">GET</span><span class="o">)</span>
+<span class="kd">public</span> <span class="nc">String</span> <span class="nf">sayTodaysDate</span><span class="o">()</span> <span class="o">{</span>
+<span class="nc">Date</span> <span class="n">today</span> <span class="o">=</span> <span class="nc">Calendar</span><span class="o">.</span><span class="na">getInstance</span><span class="o">().</span><span class="na">getTime</span><span class="o">();</span>
+<span class="k">return</span> <span class="n">today</span><span class="o">.</span><span class="na">toString</span><span class="o">();</span>
+<span class="o">}</span>
+
+<span class="o">}</span>
+
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+<p>Uygulamamızı Run ettiğimizde beklediğimizde beklediğimiz çıktıları verdiğini görürüz. Normal şartlarda Spring Boot uygulamamız <code class="highlighter-rouge">localhost</code> da çalışıyor.
+Ana senaryoya dönecek olursak Spring Boot uygulamamızı <code class="highlighter-rouge">JAR</code> olarak paketleyip Docker Container’ı içerisine alıp çalıştıracaktık.</p>
+
+<h4 id="jar-paketi-oluşturmak">JAR Paketi Oluşturmak</h4>
+
+<p>Spring Boot uygulamamızın JAR paketini oluşturmak için <code class="highlighter-rouge">Maven</code> den faydalanırız.
+pom. xml dosyamızda plugin olarak tanımladığımız <code class="highlighter-rouge">spring-boot-maven-plugin</code> yardımı ile Maven’a Spring Boot desteği sağlarız.
+Uygulama dizininde aşağıdaki komutu verirsek Maven bizim için target klasörü içine JAR dosyasını oluşturur. Bu komutun çalışması için sisteminizde Maven’ın kurulu olması gerekmektedir.</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+</pre></td><td class="rouge-code"><pre>mvn clean package
+</pre></td></tr></tbody></table></code></pre></div></div>
+<p>Enter’e basıp komutu çalıştırdığımızda Maven uygulamamızın testlerini çalıştırıp bizim için JAR paketi haline getirir. Eğer işlem başarılı olmuşsa aşağıdaki çıktıları alırsınız.</p>
+
+<p><img src="/assets/img/posts/spring-boot-docker-2/ss-mvn-package-1.png" alt="Image of mvn-package-1" />
+Bu resimde JAR paketinin konumu gösteriyor. Oluşan JAR dosyasının ismini <code class="highlighter-rouge">pom. xml</code> de <code class="highlighter-rouge">build</code> bölümünde <code class="highlighter-rouge">finalName</code> etiketleri arasında tanımlamıştık.</p>
+
+<p><img src="/assets/img/posts/spring-boot-docker-2/ss-mvn-package-2.png" alt="Image of mvn-package-1" />
+Burada da işlemin başarıyla sonuçlandığı ve ne kadar sürede gerçekleştiğini görüyoruz.</p>
+
+<h4 id="jdk-i̇çin-container-oluşturma">JDK İçin Container Oluşturma</h4>
+
+<p>Evet elimizde JAR dosyamız var artık sırada JDK Docker Image’ini indirip çalıştırmak var. Bunun için aşağıdaki komutu veririz.</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+</pre></td><td class="rouge-code"><pre>docker run -dit openjdk:8-jdk-alpine
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+<p>Alpine, Alpine Linux temelli minimal bir Docker Image’dir. Yani yukarıdaki komut bizim için minimal bir Linux kurulumu yapacak ve içerisine JDK’yı kuracak ne büyük kolaylık de mi?
+Yukarıdaki komutu çalıştırdığımız da Docker local’de openjdk:8-jdk-alpine Image’i arar bulamazsa Docker Hub’dan indirir, sonra bu Image’i çalıştırır. Peki <code class="highlighter-rouge">-dit</code> ayarı ne demek bu Docker Documentation’dan yardım alacak olursak. <code class="highlighter-rouge">-dit</code> aslında 3 option içeriyor. Bunlar <code class="highlighter-rouge">-d</code>,<code class="highlighter-rouge">-i</code>,<code class="highlighter-rouge">-t</code> dir.</p>
+
+<p><code class="highlighter-rouge">-d</code>: Container’ı detach modda çalıştırır yani Container çalışıyor aynı zamanda aynı terminalde başka komutlar girmemize olanak sağlıyor. Yani Container arka planda çalışmış oluyor. -d aynı zamanda Container Id’sinide döner.</p>
+
+<p><code class="highlighter-rouge">-i</code>:Container’ı interactive hale getirir. STDIN’i açık tutar.</p>
+
+<p><code class="highlighter-rouge">-t</code>: Container’a sözde bir TTY atar. <code class="highlighter-rouge">-it</code> sayesinde Container’üzerinde komut çalıştırmamız olanaklı hale gelir.</p>
+
+<p>Evet yukarıdaki komutu çalıştıralım ve ne olduğunu gözlemleyelim.</p>
+
+<p><img src="/assets/img/posts/spring-boot-docker-2/ss-docker-run-1.png" alt="Image of docker-run-1" /></p>
+
+<p>Resimde de gördüğünüz üzere Docker ilk önce Image’ı localde arıyor fakat bulamıyor sonra Docker Hub’dan indiriyor ve detach modda ve üzerinde komut çalıştırmaya hazır bir şekilde çalıştırıyor. Geriye çalışan Container’ın İd sini dönüyor.</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+</pre></td><td class="rouge-code"><pre>docker container ls
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+<p>Komutuyla Container’ın çalıştığını gözlemleyebiliriz.</p>
+
+<p><img src="/assets/img/posts/spring-boot-docker-2/ss-docker-run-2.png" alt="Image of docker-run-2" /></p>
+
+<p>Evet Container’ımız çalışır durumda peki bundan sonra ne yapacağız? Gelin Container üzerinde komut çalıştırabiliyor muyuz ona bakalım. Çünkü <code class="highlighter-rouge">-dit</code> optionu ile bunu sağladığımızı düşünüyoruz.</p>
+
+<p>Şu anda çalışan Container’ımız içerisinde JDK barındıran minimal bir Linux dağıtımıdır. Acaba bu Linux dağıtımız üzerinde çalışan JDK versiyonu nedir. Bunu öğrenmek için Container’ımız üzerinde <code class="highlighter-rouge">java -verison</code> komutu çalıştıralım bakalım neler olacak.</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+</pre></td><td class="rouge-code"><pre>docker exec vigilant_goldberg java -verison
+</pre></td></tr></tbody></table></code></pre></div></div>
+<p>Yukarıdaki komutta <code class="highlighter-rouge">vigilant_goldberg</code> çalışan Container’ımızın ismidir.</p>
+
+<p>Komutumuzun aşağıdaki gibi oldu.</p>
+
+<p><img src="/assets/img/posts/spring-boot-docker-2/ss-docker-exec-1.png" alt="Image of ss-docker-exec-1" /></p>
+
+<p>Evet Container’ımız çalışıyor ve üzerinde Java 8 sürümü çalışıyor.</p>
+
+<h4 id="jar-paketini-container-i̇çine-kopyalama">JAR Paketini Container İçine Kopyalama</h4>
+
+<p>Şimdi sıra Jar olarak paketlediğimiz Spring Boot uygulamasını Container içine kopyalamaya geldi. Bunu yapmak için aşağıdaki komutu kullanırız. Şu anda Spring Boot uygulamamızın ana dizininde olduğumuzu varsayıyorum değilsek o dizine gidelim.</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+</pre></td><td class="rouge-code"><pre>docker container cp target/SpringBootRestHello-0.0.1-SNAPSHOT.jar vigilant_goldberg:/tmp
+</pre></td></tr></tbody></table></code></pre></div></div>
+<p>Bu komut ile uygulamamızın <code class="highlighter-rouge">target dizini altındaki jar dosyamızı</code> <code class="highlighter-rouge">Container içindeki tmp klasörü altına</code> kopyalıyoruz. Eğer Container için tmp dizini yoksa tmp adında yeni bir dizin oluşturulur. Komutun çalışıp çalışmadığını Container üzerinde aşağıdaki komutu çalıştırarak kontrol edebiliriz. Eğer doğru bir şekilde çalışmışsa Container içine tmp adında bir dizin oluşmuş ve içerisine JAR kopyalanmıştır.</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+</pre></td><td class="rouge-code"><pre>docker exec vigilant_goldberg ls /tmp
+</pre></td></tr></tbody></table></code></pre></div></div>
+<p>bu komut aşağıdaki çıktıyı üretir.</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+</pre></td><td class="rouge-code"><pre>SpringBootRestHello-0.0.1-SNAPSHOT.jar
+
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+<p>Evet JAR dosyamızı Container içerisine kopyaladık. Son olarak Container’ımızı bu haliyle Image olarak kaydedeceğiz ve başlangıç Script’i olarak Jar dosyamızı çalıştırmasını ayarlayacağız. Yani son durumda Spring Boot uygulamamız tüm bağımlılıklarına sahip ve dağıtılabilir bir Docker Image’i haline gelecek.</p>
+
+<p>Contianer’ı Image olarak kaydetmek için aşağıdaki komut kullanılır.</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+</pre></td><td class="rouge-code"><pre>docker container commit containerName newName:Tag
+</pre></td></tr></tbody></table></code></pre></div></div>
+<p>Burada <code class="highlighter-rouge">containerName</code> ilgili Container’ımızın adı <code class="highlighter-rouge">newName</code> ve <code class="highlighter-rouge">tag</code> da yeni oluşacak Image’e verilecek isim ve tag bilgisidir. Container’ımızı bu şekilde commit yaparsak içerisnde JAR olan bir Container olur, bu JAR’ın çalışmasını istiyorsak Container’a JAR’ı çalıştıracak komutları manuel olarak vermemiz gerekir ve Container’ın olası durdurulma durumlarında JAR’ı tekrar başlatmamız gerekir. Bu durumu daha efektif hale getirmek için Container her başladığında ilgili JAR dosyasını çalışmasını ayarlayabiliriz bunu aşağıdaki gibi yaparız.</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+</pre></td><td class="rouge-code"><pre>docker container commit --change='CMD ["java","-jar","/tmp/SpringBootRestHello-0.0.1-SNAPSHOT.jar"]' vigilant_goldberg spring-boot-hello-world:0.0.1-SNAPSHOT
+</pre></td></tr></tbody></table></code></pre></div></div>
+<p>Bu komut Container’ımızı verilen yeni ad ve etiket ile yeni bir Image olarak kaydeder ve geriye Image’in Id’sini döner.</p>
+
+<p><img src="/assets/img/posts/spring-boot-docker-2/docker-commit-1.png" alt="Image of ss-docker-commit-1" /></p>
+
+<p><code class="highlighter-rouge">docker images</code> komutu ile sistemdeki tüm Image’leri listeleriz ve yeni Image’in oluşup oluşmadığına bakabiliriz.</p>
+
+<h4 id="i̇çerisinde-jar-olan-containerı-çalıştırma">İçerisinde JAR Olan Container’ı Çalıştırma</h4>
+
+<p>Evet şu anda Container olarak başlatıldığında ilgili JAR’ı çalıştıracak Docker Image’ına sahibiz, gelin hep beraber Image’ımızı çalıştırıp Spring Boot uygulamamızın çalışıp çalışmadığını kontrol edelim. Aşağıdaki komut ile Image’ımızı çalıştırırız. Komutun içindeki <code class="highlighter-rouge">-p 8080:8080</code> ifadesi Spring Boot uygulamamızın hangi portta çalışacağını ifade ediyor.</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+</pre></td><td class="rouge-code"><pre>docker run p- 8080:8080 spring-boot-hello-world:0.0.1-SNAPSHOT
+</pre></td></tr></tbody></table></code></pre></div></div>
+<p>Bu komutu çalıştırdığımızda aşağıdaki gibi bir hata alıyorsanız 8080 portunun başka bir uygulama tarafından kullanıldığını anlamalısınız.</p>
+
+<p><img src="/assets/img/posts/spring-boot-docker-2/docker-run-1.png" alt="Image of ss-docker-run-1" /></p>
+
+<p>Bu hatayı gidermek için ya 8080 portunu değiştirmemiz ya da bu portu müsait duruma getirmemiz gerekmektedir. Portumuzu müsait hale getirip tekrar aşağıdaki komutu çalıştırdığımızda;</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+</pre></td><td class="rouge-code"><pre>docker run -p 8080:8080 spring-boot-hello-world:0.0.1-SNAPSHOT
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+<p>Aşağıdaki gibi Container’ımız ayağa kalkar ve içindeki Spring Boot uygulaması başlangıç Script’i olarak çalışır.</p>
+
+<p><img src="/assets/img/posts/spring-boot-docker-2/ss-container-result.png" alt="Image of ss-container-result" /></p>
+
+<p>Tarayıcımıza <code class="highlighter-rouge">localhost:8080/hello</code> Url’ini girdiğimizde aşağıdaki sayfa karşımız gelir.</p>
+
+<p><img src="/assets/img/posts/spring-boot-docker-2/ss-localhost-hello.png" alt="Image of ss-container-result" /></p>
+
+<p><code class="highlighter-rouge">localhost:8080/date</code> Url’ini girdiğimizde ise aşağıdaki sayfa karşımız gelir.</p>
+
+<p><img src="/assets/img/posts/spring-boot-docker-2/ss-localhost-date.png" alt="Image of ss-container-result" /></p>
+
+<p>Evet bu yazımızda Spring Boot ile geliştirdiğimiz basit bir uygulamayı Container içine alıp (Containerizing), nasıl çaıştıracağımızı öğrenmiş olduk. İşte tam bu noktada değinmek istediğim husus şu ki DEVOPS kültürünün mantığı süreçleri otomatikleştirmeye dayanır. Bu yazıda tam olarak süreci otomatize etmiş olmadık. Spring Boot uygulamamızın build işlemini tam manasıyla otomatize etmek için <code class="highlighter-rouge">DOCKERFILE</code> denen bir yapıya ihtiyacımız var. Yani bu yazıda anlattığımız tüm süreçleri-komutları <code class="highlighter-rouge">DOCKERFILE</code> içerisine alıyoruz ve bu DOCKERFILE’dan IMAGE oluşturuyoruz ve oluşan IMAGE’i çalıştırıyoruz. Ve elimizdeki DOCKERFILE’ımızı projemizle beraber paylaşabiliyoruz.</p>
+
+<p>Bir sonraki yazımızda DOCKERFILE oluşturmayı inceleyerek yazı serimize devam edeceğiz.</p>
+
+<p><a href="https://turkceyaz.com/">Türkçe yazım kuralları denetimi içini turkceyaz.com’dan faydalanıldı.</a></p>
+
+:ET

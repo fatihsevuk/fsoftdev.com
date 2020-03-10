@@ -1,0 +1,250 @@
+I"�<<h4 id="java-da-sınıf-yapısı">Java’ da Sınıf Yapısı</h4>
+
+<p>Java’nın nesne yönelimli bir dil olduğundan ve tüm kodların sınıf yapıları içerisine yazıldığından bir önceki bölümde bahsetmiştik.Sınıflar Java’daki en basit building block yapısıdır.Java sınıfları <strong>class</strong> keywordu kullanılarak tanımlanırlar.Java’da sınfları kullanmak için nesneler (<strong>object</strong>) kullanılır.Nesne bir sınıfın hafızadaki örneğidir.Hafızadaki nesneye işaret eden değişkene <strong>referans</strong> denir.</p>
+
+<h4 id="alanlar-ve-metodlar">Alanlar ve Metodlar</h4>
+
+<p>Sınıfları oluşturan elemanlardan ikisi <strong>fields(alanlar)</strong> ve <strong>methodlardır</strong>.Field olarak bilinen alanlar diğer dillerde <strong>değişken (variable)</strong> olarak , metodlarda diğer dillerde fonksiyon yada prosedür olarak karşımıza çıkar.Sınıfı oluşturan tüm bu elemanlara <strong>members(sınıfın üyeleri)</strong> denir.</p>
+
+<p>Gelin hep beraber ilk Java sınıfımız yazalım.Sınıfımızın adı MrRobot olsun ve <strong><em>isim,numara,güç adında üç alana</em></strong> <em><strong>koş ateşEt ve uç</strong></em> adında üç metoda sahip olsun.Kodlarımızı yazarken değişken isimlerimiz valid karakterler olmak koşuluyla istediğimiz dilde yazabiliriz biz ingilizce yazmayı tercih edeceğiz.</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+</pre></td><td class="rouge-code"><pre><span class="kd">public</span> <span class="kd">class</span> <span class="nc">MrRobot</span> <span class="o">{</span> 
+    
+    <span class="nc">String</span> <span class="n">name</span><span class="o">;</span>
+    <span class="nc">String</span> <span class="n">number</span><span class="o">;</span>
+    <span class="kt">int</span> <span class="n">power</span><span class="o">;</span>
+
+    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">run</span><span class="o">()</span> <span class="o">{</span>
+        <span class="c1">// Bu metod robotumuzu koşturan kodları içercek.</span>
+    <span class="o">}</span>
+
+    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">fire</span><span class="o">(</span><span class="kt">int</span> <span class="n">bullet</span><span class="o">)</span> <span class="o">{</span>
+        <span class="c1">// Bu metod robotumuzun ateş etmesini sağlayan kodları içerir.</span>
+    <span class="o">}</span>
+
+    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">fly</span><span class="o">()</span> <span class="o">{</span>
+        <span class="c1">// Bu metod robotumuzun uçmasını sağlar.</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+<p>Şimdi sırasıyla kodlarımızı incelemeye başlayalım.</p>
+
+<ul>
+  <li><span style="color:#2398AB;"><strong>public:</strong></span> Access modifier( Erişim belirleyici ) olarak adlandırılır.Bu sınıfımız public erişim belirleyicisine sahip olduğu için diğer sınıflar tarafından erişilebilir durumdadır.</li>
+  <li><span style="color:#2398AB;"><strong>class:</strong></span> Sınıf tanımlamak için kullandığımız anahtar kelimedir.</li>
+  <li><span style="color:#2398AB;"><strong>MrRobot:</strong></span> Sınıfımızın ismidir.</li>
+  <li><span style="color:#2398AB;"><strong>String name:</strong></span> name alanımızın Sting türünde olduğunu ifade eder.Alanlarımız <strong>int</strong> , <strong>boolean</strong> , <strong>double</strong> vs gibi başka türlerde de olabilir.</li>
+  <li><span style="color:#2398AB;"><strong>void:</strong></span> Metodları tanımlarken kullandığımız void anahtar kelimesi metodun geriye hiçbir değer döndürmediğini ifade eder.</li>
+</ul>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+</pre></td><td class="rouge-code"><pre><span class="kd">public</span> <span class="kt">void</span> <span class="nf">fire</span><span class="o">(</span><span class="kt">int</span> <span class="n">bullet</span><span class="o">)</span> <span class="o">{</span>
+        <span class="c1">// Bu metod robotumuzun ateş etmesini sağlayan kodları içerir.</span>
+    <span class="o">}</span>
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+<p>fire metodumuzun içindeki int bullet ifadesi bu metodun <strong>parametresidir</strong>.fire metodu <strong>integer türünde ve bullet isminde</strong> bir parametre almş.Metodlar hiç parametre almayacağı gibi bir veya daha fazla sayıda parametre alabilirler.Metodlarımızın <strong>ismi</strong> ve <strong>parametre</strong> listesi <strong>metodun imzasıdır(method signature)</strong>.</p>
+
+<h4 id="yorum-satırları">Yorum Satırları</h4>
+
+<p>Yazdığımız kodların okunabilirliğini arttırmak için açıklama ifadelerine ihtiyaç duyarız.Bu ifadeler yazdığımız kodun başka programcılar tarafından daha kolay anlaşılabilmesini sağlar.Programlama dillerindeki yorum ifadeleri çalıştırılabilir ifadeler değildir derleyici tarfından derlenmezler.</p>
+
+<p>Java dilinde 3 farklı şekilde yorum ifadeleri oluşturabiliriz bunlar;</p>
+
+<ul>
+  <li>Tek satırlık yorumlar (Single line comment)</li>
+  <li>Çok satırlık yorumlar ( Multi line comment)</li>
+  <li>JavaDoc yorum ifadeleri</li>
+</ul>
+
+<p>Bu üç yorum şekline örnek vermek gerekirse.</p>
+
+<ol>
+  <li>Tek satırlık yorumlar</li>
+</ol>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+</pre></td><td class="rouge-code"><pre><span class="c1">// Bu cümle tek satırlık yorum ifadesidir.</span>
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+<ol>
+  <li>Çok satırlık yorumlar</li>
+</ol>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+</pre></td><td class="rouge-code"><pre><span class="cm">/* Çok satırlık
+*  yorumlar
+*  bu şekilde yazılır.
+*/</span>
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+<ol>
+  <li>Javadoc yorumları</li>
+</ol>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+</pre></td><td class="rouge-code"><pre><span class="cm">/**
+ * Javadoc çok satırlı yorum
+ * 
+ */</span>
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+<p>Java da sınıfımızı yazdıktan sonra dosyamızı <strong>.java</strong> uzantısı ile kayıt ederiz.Burada dikkat etmemiz gereken iki durum var ;</p>
+<ul>
+  <li>Dosya adımız public olan sınıfımız ile aynı olmalı.</li>
+  <li>Bir dosyada birden çok sınıf tanımlanabilir tek şart dosya adı ile aynı isme sahip sınıfın <strong>public</strong> olmasıdır.</li>
+</ul>
+
+<h4 id="main-metodu">Main Metodu</h4>
+
+<p>Java kodları main maetodu ile çalışmaya başlar.Hemen örnek bir main metodu yazıp kodlarını inceleyelim.</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+</pre></td><td class="rouge-code"><pre><span class="kd">public</span> <span class="kd">class</span> <span class="nc">MrRobot</span> <span class="o">{</span>
+
+    <span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="o">(</span><span class="nc">String</span><span class="o">[]</span> <span class="n">args</span><span class="o">)</span> <span class="o">{</span>
+
+    <span class="o">}</span>
+<span class="o">}</span>
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+<p>Main metodumuzu inceleyecek olursak;</p>
+
+<ol>
+  <li><span style="color:#2398AB;"><strong>public:</strong></span> Erişim belirleyicsidir.</li>
+  <li><span style="color:#2398AB;"><strong>static:</strong></span> Bu anahtar kelime metodu sınıfa bağlar yani bu metodu çağırmak için sınfımızdan nesne üretmemize gerek yoktur.</li>
+  <li><span style="color:#2398AB;"><strong>void:</strong></span> Metodumuzun geriye hiçbir değer döndürmediğini söyleyen anahtar kelimedir.</li>
+  <li><span style="color:#2398AB;"><strong>main:</strong></span> Metodumuzun ismidir.</li>
+  <li>
+    <p><span style="color:#2398AB;"><strong>String[] args:</strong></span> Metodumuzun parametre listesidir.Main metodumuz args isminde String türünde bir liste yapısında parametre alır.Burada ek olarak şunları belirtmekte fayda 
+var.args ismi valid olacak şekilde herhangi bir isim olabilir ve main metodunun paramete listesi 3 farklı şeilde yazılabilir bunlar;</p>
+
+    <ul>
+      <li><span style="color:#2398AB;"><strong>String[] args</strong> </span></li>
+      <li><span style="color:#2398AB;"><strong>String args[]</strong> </span></li>
+      <li><span style="color:#2398AB;"><strong>String… args</strong> </span></li>
+    </ul>
+  </li>
+</ol>
+
+<p>Main metodu olmayan bir java sınıfını compile ettiğimizde derleyici hata fırlatır.Aynı zamanda static olmayan bir main metodu derleyici tarafından bulunamaz.</p>
+
+<p>Main metodunun parametre listesi sayesinde JVM başladığında okunacak olan parametreler tanımlanabilir.Bu durumu örnek üzerinden açıklayalım.</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+</pre></td><td class="rouge-code"><pre><span class="kd">public</span> <span class="kd">class</span> <span class="nc">MrRobot</span> <span class="o">{</span>
+
+    <span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="o">(</span><span class="nc">String</span><span class="o">[]</span> <span class="n">args</span><span class="o">)</span> <span class="o">{</span>
+        <span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">args</span><span class="o">[</span><span class="mi">0</span><span class="o">]);</span>
+        <span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">args</span><span class="o">[</span><span class="mi">1</span><span class="o">]);</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+<p>Şimdi terminal yardımı ile sınıfımızı compile edelim.</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+</pre></td><td class="rouge-code"><pre>javac MrRobot.java
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+<p>Bu komut çalıştıktan sonra aynı klasör içinde <strong>MrRobot.class</strong> dosyası oluşur daha sonra;</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+</pre></td><td class="rouge-code"><pre>java MrRobot "Name: Voltran" "Number: 1"
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+<p><strong><em>OUTPUT</em></strong></p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+</pre></td><td class="rouge-code"><pre>Name: Voltran
+Number: 1
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+<p>Burada dikkat edecek olursanız kodlarımızda args[0] ve args[1] ‘ i yazdırıyoruz, yani parametre listemizin ilk iki elemanını, bu iki elemanı java komutunu çalıştırdığımız esnada aralarına boşluk koyarak verdik.</p>
+
+<p>Burada dikkat etmemiz gereken kısımlar şunlardır;</p>
+
+<ul>
+  <li>Tüm parametreler string olarak okunur.</li>
+  <li>Parametereleri ayırmak için boşluk kullanılır.</li>
+  <li>Eğer bir parametre birden çok kelimeden oluşuyorsa ve içerisinde boşluk karakteri varsa tırnak işaretleri arasına yazarız.Eğer tek kelimelik bir parametre ise tırnak arasına yazmaya gerek yoktur.</li>
+  <li>Eğer kodda beklendiği kadar parametre girilmezse örneğin yukarıdaki kodda args[1] yani ikinci parametre girilmezse derleyici hata fırlatır.Bu hata <em><strong>ArrayIndexOutOfBounds</strong></em> hatasıdır.</li>
+</ul>
+
+<h4 id="java-programımızı-tek-satırda-çalıştırma">Java Programımızı Tek Satırda Çalıştırma</h4>
+
+<p>Java 11 ile birlikte <strong>single file source code</strong> diye bir özellik geldi bu özellikle birlikte javac kullanmadan aşağıdaki şekilde programımızı çalıştırabiliriz.</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+</pre></td><td class="rouge-code"><pre><span class="kd">public</span> <span class="kd">class</span> <span class="nc">MrRobot</span> <span class="o">{</span>
+
+    <span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="o">(</span><span class="nc">String</span><span class="o">[]</span> <span class="n">args</span><span class="o">)</span> <span class="o">{</span>
+        <span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">args</span><span class="o">[</span><span class="mi">0</span><span class="o">]);</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+</pre></td><td class="rouge-code"><pre>java MrRobot.java "Name: Voltran"
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+<p><strong><em>OUTPUT</em></strong></p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+</pre></td><td class="rouge-code"><pre>Name: Voltran
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+<p>Dikkat ettiyseniz javac kullanarak bytecode dosyası oluşturma adımını atlamış olduk bu özelliği kullanmak için tek şart;</p>
+<ul>
+  <li>Programımız sadece bir <strong>.java</strong> dosyasından oluşmalıdır.Eğer birden fazla  .java dosyamız varsa hala javac komutuna ihtiyacımız vardır.</li>
+</ul>
+
+<p>Bir sonraki yazımızda Java’da paket yapısını anlatarak devam edeceğiz.</p>
+
+:ET

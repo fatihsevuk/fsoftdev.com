@@ -1,0 +1,74 @@
+I"�<h4 id="giriş---java-ortamı">Giriş - Java Ortamı</h4>
+
+<p>Java dilinde geliştirme yapmak için gerekli olan ortama <strong>JDK (Java Development Kit)</strong> denir.JDK java kodu yazıp çalıştırmamız için gerekli yapıları içierir, bu yapılardan bahsedecek olursak; yazdığımız kodları <strong>.java</strong> uzantısı ile kaydederiz ve JDK içerisinde gelen <strong>java derleyicisini(java compiler) (javac)</strong> kullanarak bu .java dosyalarını <strong>.class</strong> uzantılı <strong>bytecode</strong> formatına çeviririz.JDK içeriside gelen bir diğer yapıda derlenen java dosyalarını çalıştırmamıza yarayan <strong>launcher</strong> <strong>java</strong> yapısıdır.Programlarımızı komut satırı yardımı ile derleyip çalıştırmak için <strong>javac</strong> ve <strong>java</strong> yapılarını kullanacağız.JDK ile gelen diğer iki yapıda <strong>jar</strong> ve <strong>javadoc</strong> yapılarıdır.<strong>jar</strong> komutu java dosyalarını paketlemek için , <strong>javadoc</strong> komutu ise dökümantasyon oluşturmak için kullanılır.</p>
+
+<p><strong>javac</strong> komutu bytecode diye adlandırılan <strong>.class</strong> dosyalarını üretir, .class dosyaları <strong>java</strong> komutu ile çaliştırılırlar.<strong>java</strong> komutu kodu çalıştırmadan önce <strong>Java sanal makinesi’ ni (JVM - Java Virtual Machine )</strong> başlatır.JVM .class dosyalrının gerçek makinede nasıl çalışacağını bilen yapıdır.</p>
+
+<p>Java 11 den önce <strong>JRE(Java Runtime Environment)</strong> JDK’nın bir alt kümesi olarak geliyordu yani JDK’yı indirdiğimizde klasör içinde jre adında bir klasör ile geliyordu.JRE Java programlarını çalıştırmamızı sağlayan fakat kod derleme yapmayan bir yapıdır.Günlük hayatta kullandığımız ve java ile yazılan tüm programları kurmak için ön şart olarak Java’yı indirmemiz söylenir burada Java diye bahsedilen aslında JRE’ dir.</p>
+
+<p>Program yazarken algoritmalarımızı gerçeklemek için gerekli olan yapıları çoğunlukla kendimiz yazmayız; örnek vermek gerekirse iki metnin eşit olup olmadığını karşılaştırmak için gerekli olan kodları çoğu zaman kendimiz yazmayız daha çok programlama dilinin sunduğu yapıları kullanırız işte bu yapıların tamamına <strong>application programming interfaces (APIs)</strong> denir.Java çok geniş bir API’ ye sahiptir.</p>
+
+<p>Java programları geliştirmek için bir çok seçeneğimiz vardır.Sistemimizde JDK kurulu olduktan sonra <strong>terminal</strong> başta olmak üzere <strong>notpad</strong>,<strong>vim</strong>,<strong>emacs</strong> gibi text editörleri yada <strong>Eclipse</strong>,<strong>NetBeans</strong>,<strong>Intellij</strong> gibi daha gelişmiş <strong>IDE’ ler ( Integrated Development Environment )</strong> kullanılabilir.</p>
+
+<p>Bilgisayarımızda JDK’ nın kurulu olup olmadığını terminal ekranına aşağıdaki kodları yazarak kontrol edebiliriz.</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+</pre></td><td class="rouge-code"><pre>    java --version
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+<p><strong><em>OUTPUT</em></strong></p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+</pre></td><td class="rouge-code"><pre>    openjdk 11.0.5 2019-10-15
+    OpenJDK Runtime Environment (build 11.0.5+10-post-Ubuntu-0ubuntu1.118.04)
+    OpenJDK 64-Bit Server VM (build 11.0.5+10-post-Ubuntu-0ubuntu1.118.04, mixed mode, sharing)
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+<hr />
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+</pre></td><td class="rouge-code"><pre>    javac --version
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+<p><strong><em>OUTPUT</em></strong></p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+</pre></td><td class="rouge-code"><pre>    javac 11.0.5
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+<p>Eğer bu komutları çalıştırdıktan sonra yukarıdaki gibi çıktılar gelmiyorsa sisteminizde java kurulu değildir.Java kurmak için Oracle’ın sitesindeki yönergelerden faydalanılabilir.</p>
+
+<h2 id="java-nın-avantajları">Java’ nın Avantajları</h2>
+
+<h4 id="object-oriented---nesneye-yönelik">Object Oriented - Nesneye Yönelik</h4>
+<p>Java <em>nesneye yönelimli(<strong>object oriented</strong>)</em> bir dildir.Yani tüm java kodları sınıflar içerisinde tanımlanır ve bu sınıfların çoğunluğu nesnelere örneklendirilir.Java’dan önceki bir çok dil prosedüreldi yani sınıf yapıları yoktu kodlar metodlar yada rutinler içerisinde yazılıyordu.Günümüzde nesne yönelimli yaklaşımın dışında yaygın olarak kullanılan bir diğer yaklaşımda fonksiyonel yaklaşımdır.Java 8 sürümü ile birlikte Java dili fonksiyonel özellik de kazanmıştır.</p>
+
+<h4 id="encapsulation---kapsülleme">Encapsulation - Kapsülleme</h4>
+<p>Java dili verilerin istenmeyen erişimlerden korumak için <strong>access modifiers(erişim belirleyicileri)</strong> yapısına sahiptir.</p>
+
+<h4 id="platform-bağımsız">Platform Bağımsız</h4>
+<p>Java <strong><em>Write Once Run Everywhere</em></strong> mottosu ile çıkmıştır.Ön derleme işleminden geçip bytecode halini alan java kodları her makinede çalışırlar.</p>
+
+<h4 id="güçlü">Güçlü</h4>
+<p>C++ dilinde hafıza yönetimi programcıya aitti bu da program yapma işini oldukça zorlaştıran bir durumdu çünkü <strong>gabage collecting (çöp toplama)</strong> programcı tarafından yapılıyordu programcı işe yaramayan nesneleri yok etmek durumundaydı.Kötü bir hafıza yönetimi bir çok hata çıkmasına sebebiyet veriyordu java ile birlikte tüm bu işlemler javanın kontrolune geçip otomatikleşti.</p>
+
+<h4 id="basit">Basit</h4>
+<p>Java C++ ‘ dan basit bir yapıda tasarlanmıştır.Pointer yapısı C++ dilini oldukça zor anlaşılır bir yapı haline getirmekteydi Java ‘ da pointer yapısı yoktur.Operatörlerin aşırı yüklenmesi durumu Java’ da yoktur.</p>
+
+<h4 id="güvenli">Güvenli</h4>
+<p>Java kodları JVM içerisinde oluşturulan sanal bir alanda(<strong>sandbox</strong>) çalışır bu durum da kodların, çalışacağı gerçek makineye doğrudan bir zarar vermesine olanak vermez.</p>
+
+<h4 id="multithread">Multithread</h4>
+<p>Java dili bir çok kod parçacığının aynı anda eş zamanlı çalışmasına olanak sağlayacak şekilde tasarlanmıştır.</p>
+
+<h4 id="backward-compatibility---geriye-dönük-uyumluluk">Backward Compatibility - Geriye Dönük Uyumluluk</h4>
+<p>Java dili eski Java sürümlerinde yazılan kodların sonraki sürümlerde çalışmasına olanak sağlayacak şekilde geliştirilir.</p>
+
+<blockquote>
+  <p>Bu yazı dizisinde linkini paylaştığım <strong><em>OCP Oracle Certified Professional Java SE 11 Programmer I Study Guide: Exam 1Z0-815</em></strong> kitabından tuttuğum notların derlenmiş halini yazmaya çalışacağım.
+https://www.amazon.com/gp/product/1119584701/ref=ox_sc_act_title_1?smid=A2SQ87CI0X1ZUS&amp;psc=1</p>
+</blockquote>
+
+:ET
