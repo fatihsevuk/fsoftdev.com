@@ -5,7 +5,10 @@ language: ruby
 rvm: 2.6.5
 
 script:
-  - bash init.sh 
+  - 
+  if [[  -z $(git status -s) ]]; then
+    bash init.sh
+  fi
   - bundle exec jekyll build
 
 before_install:
