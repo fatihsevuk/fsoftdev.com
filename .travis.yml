@@ -5,10 +5,13 @@ rvm: 2.6.5
 script:
   - bash init.sh 
   - bundle exec jekyll build
+
+before_install:
+  - pyenv global 3.7.6
+  
 install:
-  - pip install --user setuptools wheel
-  - pip install --user ruamel.yaml
-  - bundle install
+  - pip install -r _scripts/py/requirements.txt
+  - bundle install --path vendor/bundle --quiet
 
 env:
   global:
