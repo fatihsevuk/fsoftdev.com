@@ -20,6 +20,8 @@ env:
     - NOKOGIRI_USE_SYSTEM_LIBRARIES=true # speeds up installation of html-proofer
     - JEKYLL_ENV=production
 
+# deneme
+
 addons:
   apt:
     packages:
