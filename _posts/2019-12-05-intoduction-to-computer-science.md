@@ -3,11 +3,11 @@ title: Bilgisayar Bilimine Giris
 date: Thu 5-Dec-2019 11:10 P.M.
 language: Turkish
 
-categories: [CS,Intro]
+categories: [CS, Intro]
 tags: [computer science, bilgisayar bilimine giriş, algorithms, pseudocode, algoritma,
   sözde kod]
 seo:
-  date_modified: 2020-02-18 00:08:57 +0100
+  date_modified: 2020-03-10 18:13:28 +0100
 ---
 
 ## Bilgisayar Bilimine Giriş
