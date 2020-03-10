@@ -2,7 +2,7 @@
 title: Internet Nasıl Çalışır
 language: Turkish
 date: Wed 4-Dec-2019 03:23 P.M.
-categories: [CS]
+categories: [CS,Intro]
 tags: [internet, domain, ip]
 seo:
   date_modified: 2020-02-18 00:08:57 +0100

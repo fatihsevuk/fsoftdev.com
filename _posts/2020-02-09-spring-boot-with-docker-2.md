@@ -1,7 +1,7 @@
 ---
 title: Spring Boot App With Docker-2
 date: Fri 14-Feb-2020 05:22 P.M.
-categories: [Docker]
+categories: [Devops,Docker]
 language: Turkish
 tags: [spring, java, docker, spring boot, container, image]
 seo:

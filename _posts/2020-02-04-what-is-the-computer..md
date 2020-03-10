@@ -1,7 +1,7 @@
 ---
 title: What Is The Computer
 date: Tue 4-Feb-2020 09:53 P.M.
-categories: [CS]
+categories: [CS,Intro]
 language: Turkish
 tags: [computer, what is computer, history of computer, hardware, software, yazılım,
   donanım, input, output, cpu, memory]
