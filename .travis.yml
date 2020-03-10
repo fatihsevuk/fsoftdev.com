@@ -2,7 +2,9 @@
 language: ruby
 rvm: 2.6.5
 
-script: bundle exec jekyll build
+script:
+  - bash init.sh 
+  - bundle exec jekyll build
 install:
   - bundle install
 
