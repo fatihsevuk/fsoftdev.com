@@ -13,7 +13,7 @@ seo:
 #### Başlangıç
 Merhabalar, yeni bir yazı serisine başlıyorum. Bu seride Spring Boot ve Docker kullanarak uygulamalarımızı nasıl geliştirebileceğimizi anlatacağız. Genel hatları ile konu sıralamamız aşağıdaki şekilde olacak.
 
-Not:Bu yazı serisini [in28Minutes-Docker For Spring Java Developer]([https://www.udemy.com/share/101ZVgCEUTcllRQw==/) eğitimindeki derslerden öğrendiklerimden oluşturacağım.
+Not:Bu yazı serisini [in28Minutes-Docker For Spring Java Developer](https://www.udemy.com/share/101ZVgCEUTcllRQw==/) eğitimindeki derslerden öğrendiklerimden oluşturacağım.
 
 * Docker'a giriş
 * Spring Boot web uygulamamızı konteyner içine almak.
