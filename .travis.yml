@@ -24,7 +24,7 @@ script:
   - bash _cibuild.sh
 
 branches:
-  only: stable
+  only: master
 
 git:
   depth: false # for posts lastmod
@@ -47,8 +47,6 @@ notifications:
 
 # Upload Jekyll blog files to Amazon S3 bucket
 deploy:
-  on:
-    branch: master
   provider: s3
   bucket: fsoftdev.com 
   access_key_id: <%= ENV['AWS_ACCESS_KEY_ID'] %>
