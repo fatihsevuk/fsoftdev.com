@@ -5,7 +5,14 @@ language: ruby
 rvm: 2.6.5
 
 install:
-  - bundle install
+  - gem install jekyll
+
+script:
+  - jekyll build
+
+before install:
+  - pip install ruamel.yaml
+
 
 addons:
   apt:
@@ -16,14 +23,11 @@ branches:
   only: master
 
 
-cache:
-  directories:
-    - $TRAVIS_BUILD_DIR/vendor/bundle
-
-
 env:
   global:
     - NOKOGIRI_USE_SYSTEM_LIBRARIES=true # speeds up installation of html-proofer
+
+  
 notifications:
   email:
     recipients:
