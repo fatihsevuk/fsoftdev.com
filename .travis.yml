@@ -4,12 +4,8 @@ dist: bionic
 language: ruby
 rvm: 2.6.5
 
-before_install:
-  - pyenv global 3.7.6
-
 install:
-  - pip install -r _scripts/py/requirements.txt
-  - bundle install --path vendor/bundle --quiet
+  - bundle install
 
 addons:
   apt:
@@ -17,10 +13,8 @@ addons:
     - libcurl4-openssl-dev # required to avoid SSL error (for htmlproofer)
 
 branches:
-  only: stable
+  only: master
 
-git:
-  depth: false # for posts lastmod
 
 cache:
   directories:
