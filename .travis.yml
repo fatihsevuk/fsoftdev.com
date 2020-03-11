@@ -5,10 +5,10 @@ language: ruby
 rvm: 2.6.5
 
 install:
-  - gem install jekyll
+  - gem install jekyll bundler
 
 script:
-  - jekyll build
+  - bundle exec jekyll build
 
 before install:
   - pip install ruamel.yaml
