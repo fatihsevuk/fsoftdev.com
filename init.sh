@@ -11,6 +11,11 @@ LASTMOD=false
 
 set -eu
 
+if [[ ! -z $(git status -s) ]]; then
+  echo "Warning: Commit the changes of the repository first."
+  git status -s
+  exit 1
+fi
 
 python _scripts/py/init_all.py
 
