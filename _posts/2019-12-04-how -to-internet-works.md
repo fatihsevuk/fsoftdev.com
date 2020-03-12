@@ -12,7 +12,7 @@ seo:
 
 İnternet Web’in omurgasıdır. Web’i olası kılan teknik alt yapıdır. En temelde internet birbirleriyle iletişim halindeki bilgisayarların geniş ağıdır.İnternetin tarihi biraz belirsizdir . 1960'larda Amerikan ordusu tarafından finanse edilen araştırma projelerinin daha sonra 1980'lerde birçok üniversite ve özel şirketin desteklemesi ile genel bir altyapıya dönüşümünü içerir.
 
-İnternete bağlı cihazların zaman içerisinde değişimi interneti değiştirmedi.İnternet en temelde bu bilgisayarların birbirleriyle olan bağlantısı ve bu bağlantının ayakta kalmasını sağlayan yapıdır.
+İnternete bağlı cihazların zaman içerisinde değişimi interneti değiştirmedi.İnternet en temelde bu bilgisayarların birbiriyle olan bağlantısı ve bu bağlantının ayakta kalmasını sağlayan yapıdır.
 
 ## Basit Bir Ağ
 
