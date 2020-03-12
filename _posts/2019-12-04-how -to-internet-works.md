@@ -5,7 +5,7 @@ date: Wed 4-Dec-2019 03:23 P.M.
 categories: [CS, Intro]
 tags: [internet, domain, ip]
 seo:
-  date_modified: 2020-03-12 01:43:57 +0100
+  date_modified: 2020-03-12 01:55:26 +0100
 ---
 
 ## Giriş
