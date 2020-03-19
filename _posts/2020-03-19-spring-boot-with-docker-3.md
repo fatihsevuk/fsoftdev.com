@@ -1,280 +1,237 @@
 ---
-title: Spring Boot App With Docker-2
-date: Fri 14-Feb-2020 05:22 P.M.
+title: Spring Boot App With Docker-3
+date: Thu 19-Mar-2020 01:38 P.M.
 categories: [Devops, Docker]
 language: Turkish
-tags: [spring, java, docker, spring boot, container, image]
-seo:
-  date_modified: 2020-03-10 18:13:28 +0100
+tags: [spring, java, docker, spring boot, container, image,docker file,spotify maven plugin,jib maven plugin,DOCKERFILE]
 
 ---
 
 #### Başlangıç
-Merhabalar, Docker ile Spring Boot uygulaması geliştirmeyi anlattığımız yazı dizisine kaldığımız yerden devam ediyoruz. Bir önceki yazımızda Docker'a giriş yapmıştık. Bu yazıda Spring Boot uygulamamızı paketleyip Docker Container'ı içine kopyalayıp çalıştıracağız.
+Merhabalar, yazı dizimize kaldığımız yerden devam ediyoruz. Bu yazıda `Dockerfile` oluşturmayı inceleyeceğiz. Hatırlayacağınız üzere aşağıdaki adımları gerçekleştirmiştik.
 
-Bu yazıda sırasıyla şu adımları gerçekleştireceğiz.
+* Spring Boot Rest API oluşturduk.
+* Bu Rest Api'yi JAR olarak paketledik.
+* JDK içeren Docker Image'i indirdik.
+* İndirdiğimiz Image'i kullanarak Container'ı ayağa kaldırdık.
+* JAR dosyamızı Container içerisine kopyaladık.
+* Son olarak Container'ımızın başlarken JAR dosyamızı çalıştırmasını ayarladık.
 
-* Basit bir Spring Boot REST API oluşturacağız.
-* REST API'mızı Jar olarak paketleyeceğiz.
-* Uygulmanın Environment'ını içeren Docker Image'ını indireceğiz.
-* Oluşan JAR paketimizi Container içine kopyalayacağız.
-* Son olarak uygulamamızı çalıştıracağız.
 
-#### Spring Boot Rest API Oluşturma
+Bu saydığımız tüm adımları terminal yardımıyla teker teker yazarak yaptık.Bu işlemleri otomatikleştirmek için `Dockerfile` oluşturulur.
 
-Spring Boot uygulamamızı [Spring Initializr](https://start.spring.io/) sitesindeki arayüz yardımı ile oluşturalım.
+#### Dockerfile Oluşturma
 
-![Image of spring initializr](/assets/img/posts/spring-boot-docker-2/spring-boot-initializr.png)
+Şimdi gelin hep beraber ilk `Dockerfile` dosyamızı oluşturalım.Proje dizinimizde `Dockerfile` isminde bir dosya oluşturup içerisine aşağıdaki kodları yazalım.
 
-Bu sayfada Spring Boot uygulamamızın ilgili alanları seçiyoruz ve en alttaki kısımda dependency olarak uygulamamız için gerekli bağılılıkları seçiyoruz. Generate butonuna basınca oluşan proje zip olarak bilgisayarımıza iniyor. Bu uygulamada bağımlılık olarak Spring Web'i ve Spring Devtools'u seçmemiz yeterli. İnen zip dosyasını IDE'mizde açıyoruz.
+```
+FROM openjdk:8-jdk-alpine
+ADD target/SpringBootRestHello-0.0.1-SNAPSHOT.jar SpringBootRestHello-0.0.1-SNAPSHOT.jar
+ENTRYPOINT ["sh","-c","java -jar /SpringBootRestHello-0.0.1-SNAPSHOT.jar"]
+```
+Evet yukarıda gördüğünüz kodları açıklayacak olursak.
 
-pom. xml dosyamızı inceleyecek olursak.
+`FROM openjdk:8-jdk-alpine` ifadesi ile OpenJdk Image'ini çekiyoruz.
+
+`ADD target/SpringBootRestHello-0.0.1-SNAPSHOT.jar SpringBootRestHello-0.0.1-SNAPSHOT.jar` ifadesi ile target dizinindeki JAR dosyasını Container içerisine aynı isimle kopyalar.
+
+`ENTRYPOINT ["sh","-c","java -jar /SpringBootRestHello-0.0.1-SNAPSHOT.jar"]` ifadesi ile de Container'ımıza başlangıçta ilgili JAR'ı çalıştırmasını söylüyoruz.
+
+#### Dockerfile'ı Kullanma
+
+Evet şimdi gelin hep beraber oluşturduğumuz Dockerfile'ı nasıl kullanacağımıza bakalım.
+
+Proje dizinimizin içindeyken aşağıdaki komutu çalıştırıyoruz.
+
+```
+docker build -t rest-api:with-dockerfile .
+```
+
+`-t` parametresi tag anlamına gelir build işleminin sonucunda oluşacak olana Image'in isim:tag bilgisini yazarız.
+
+Komutun sonundaki nokta ilgili Dockerfile'ın şu anki dizinde olduğunu belirtir. Komut çalıştığında aşağıdaki gibi bir çıktı oluşur.
+
+![Image of ss-docker-build-1](/assets/img/posts/spring-boot-docker-3/docker-build-1.png)
+
+Evet bu işlem sonucunda JAR'ımızı içeren Docker Image'ımız oluştu, isterseniz,
+
+`docker images` komutu yardımıyla kontrol edebilriz.
+
+![Image of ss-docker-image-1](/assets/img/posts/spring-boot-docker-3/docker-images-1.png)
+
+Yukarıdaki çıktıda da gördüğünüz üzere en üstte `rest-api` isminde ve `with-dockerfile` etiketine sahip bir Image oluştu.
+
+Şimdi sıra bu Image'i kullanarak Container'ımızı ayağa kaldırmaya geldi.Bu işlemi gerçekleştirmek için aşağıdaki komutu kullanırız.
+
+```
+docker run -p 8080:8080 rest-ap:with-dockerfile
+```
+![Image of ss-docker-run-1](/assets/img/posts/spring-boot-docker-3/docker-run-1.png)
+
+Evet yukarıdaki çıktıdan da gördüğünüz gibi Container'ımız ayağa kalktı ve başlangıç scripti olarak ayarladığımız JAR dosyasını çalıştırma işlemini başarılı bir şekilde yaptı. Sonuç olarak tarayıcımızda `localhost:8080/hello` ya da `localhost:8080/date` endpointlerine gidersek uygulamamızın başarılı bir şekilde çalıştığınız görürüz.
+
+Eğer Dockerfile içerisinde `EXPOSE 8080` diye bir ifade kullanırsak docker run komutu içerisinde `-p 8080 ` diye bir ifade kullanmadan uygulamamız 8080 portunda çalışmaya başlar.
+
+#### Spotify Maven Plug-in ile Image Oluşturma
+
+Bu Maven plugin'i kullanarak JAR oluşturma aşamasında aynı zamanda ilgili Dockerfile'ımızdan Image oluşturabiliriz. Bu plugin'i kullanmak için pom. xml dosyasında `<plugins></plugins>` etiketleri arasına aşağıdaki kodlar eklenir.
 
 ```xml
-<?xml version="1.0" encoding="UTF-8"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
-	<modelVersion>4.0.0</modelVersion>
-	<parent>
-		<groupId>org.springframework.boot</groupId>
-		<artifactId>spring-boot-starter-parent</artifactId>
-		<version>2.2.4.RELEASE</version>
-		<relativePath/> <!-- lookup parent from repository -->
-	</parent>
-	<groupId>com.fsoftdev.blog</groupId>
-	<artifactId>SpringBootRestHello</artifactId>
-	<version>0.0.1-SNAPSHOT</version>
-	<name>SpringBootRestHello</name>
-	<packaging>jar</packaging>
-	<description>Demo project for Spring Boot</description>
-
-	<properties>
-		<java.version>1.8</java.version>
-	</properties>
-
-	<dependencies>
-		<dependency>
-			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-starter-web</artifactId>
-		</dependency>
-
-		<dependency>
-			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-devtools</artifactId>
-			<scope>runtime</scope>
-			<optional>true</optional>
-		</dependency>
-		<dependency>
-			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-starter-test</artifactId>
-			<scope>test</scope>
-			<exclusions>
-				<exclusion>
-					<groupId>org.junit.vintage</groupId>
-					<artifactId>junit-vintage-engine</artifactId>
-				</exclusion>
-			</exclusions>
-		</dependency>
-	</dependencies>
-
-	<build>
-		<plugins>
-			<plugin>
-				<groupId>org.springframework.boot</groupId>
-				<artifactId>spring-boot-maven-plugin</artifactId>
-			</plugin>
-		</plugins>
-	</build>
-
-</project>
-
+<plugin>
+        <groupId>com.spotify</groupId>
+        <artifactId>dockerfile-maven-plugin</artifactId>
+        <version>1.4.13</version>
+        <executions>
+                <execution>
+                        <id>default</id>
+                        <goals>
+                                <goal>build</goal>
+                        </goals>
+                </execution>
+        </executions>
+        <configuration>
+                <repository>${project.name}</repository>
+                <tag>${project.version}</tag>
+                <skipDockerInfo>true</skipDockerInfo>
+        </configuration>
+</plugin>
 ```
 
-Birkaç noktayı revize etmemiz yeterli;
+Bu plugini ekledikten sonra 
+
+`mvn package -DskipTests`
+
+komutunu çalıştırırsak aşağıdaki gibi bir çıktı ile karşılaşırız.
+
+![Image of ss-spotify-maven-plugin](/assets/img/posts/spring-boot-docker-3/spotify-maven-plugin.png)
+
+Evet görüldüğü üzere kodlarımız derlendi ve paketlendi sonra Image'imiz oluşturuldu ve içerisine JAR'ımız kopyalandı. Oluşan Image çalıştırılmak için hazır.
+
+`docker run spring-boot-rest-hello:0.0.1-SNAPSHOt`
+
+komutu ile Image'imizi çalıştırırız. `localhost:8080/hello` endpointine tarayıcımızdan gidersek Container'ımızın çalıştığını görürüz.
+
+Daha generic ve reusable bir Dockerfile oluşturmak için aşağıdaki düzenlemeleri yapabiliriz.
+
+```
+FROM openjdk:8-jdk-alpine
+ADD target/*.jar app.jar
+ENTRYPOINT ["sh","-c","java -jar /app.jar"]
+```
+
+#### Cached Dependency - No Fat Jar
+
+Şimdiye kadar anlattığımız kısımlarda JAR'ımız çok fazla bağımlılığa sahip olmadığı için boyutu da çok büyük olmadı fakat başka projelerde çok fazla bağımlılık olabilir buda JAR boyutunu oldukça büyük hale getirir bunun önüne geçmek ve build aşamasında her bağımlılığın tekrar indirilmesini önlemek için `Maven Dependency Plugin` kullanılır. Bu plugin'i kullanmak için Spotify plugin'i kaldırıp ya da comment yapabiliriz.
 
 ```xml
-<packaging>jar</packaging>
+<plugin>
+    <groupId>org.apache.maven.plugins</groupId>
+    <artifactId>maven-dependency-plugin</artifactId>
+    <executions>
+        <execution>
+            <id>unpack</id>
+            <phase>package</phase>
+            <goals>
+                <goal>unpack</goal>
+            </goals>
+            <configuration>
+                <artifactItems>
+                    <artifactItem>
+                        <groupId>${project.groupId}</groupId>
+                        <artifactId>${project.artifactId}</artifactId>
+                        <version>${project.version}</version>
+                    </artifactItem>
+                </artifactItems>
+            </configuration>
+        </execution>
+    </executions>
+</plugin>
 ```
-ekliyoruz. Bu Maven'ın projemizi JAR olarak paketlemesi için gerekli.
+Bu plugin'i pom. xml'e ekledikten sonra `mvn package` komutunu çalıştırdığımızda aşağıdaki gibi bir durum oluşur. Oluşan JAR dosyası çözülür sonuçta olarak
 
-Daha sonra properties etiketleri arasına aşağıdaki kodları ekleyelim.
+`target/classes`
+
+`target/dependency`
+
+Klasörleri oluşur, classes altında derlenmiş `.class` uzantılı sınıflarımız bulunur.
+
+dependecy altında ise aşağıdaki yapıda projenin bağımlılıkları bulunur.
+
+![Image of target-dep](/assets/img/posts/spring-boot-docker-3/target-dep.png)
+
+Evet projemiz derlendi ve bağımlılıkları oluşturuldu artık Image'imizi oluşturabiliriz bunun için `Dockerfile` içerisinde bazı değişiklikler yapmamız gerekiyor.
+
+```
+FROM openjdk:8-jdk-alpine
+ARG DEPENDENCY=target/dependency
+COPY ${DEPENDENCY}/BOOT-INF/lib /app/lib
+COPY ${DEPENDENCY}/META-INF /app/META-INF
+COPY ${DEPENDENCY}/BOOT-INF/classes /app
+ENTRYPOINT ["java","-cp","app:app/lib/*","com/fsoftdev/blog/SpringBootRestHello/SpringBootRestHelloApplication"]
+```
+
+Evet kısaca bahsedecek olursak oluşan bağımlılıkları Image içine kopyalıyoruz ve başlangıç scripti olarak Application sınıfımızın çalıştırılmasını ayarlıyoruz.
+
+`docker build -t rest-api:no-fat-jar .` komutunu çalıştırdığımızda aşağıda gördüğünüz gibi Image'imiz oluşur.
+
+![Image of no fat jar](/assets/img/posts/spring-boot-docker-3/no-fat-jar-image.png)
+
+Son olarak oluşan Image'ımızı çalıştırıp localhost'tan kontrollerimizi yapıyoruz.
+
+`docker run -p 8080:8080 rest-api:no-fat-jar`
+
+#### Google JIB Plug-in ile Image Oluşturma
+
+Bu plugin'i kullandığımız zaman Dockerfile'a ihtiyacımız olmaz. Çünkü Dockerfile içerisindeki ayarları plugin'e config olarak vereceğiz.
+
+pom. xml dosyasına aşağıdaki plugin kodlarını ekleyerek bu plugin'i kullanmaya başlayabiliriz.
 
 ```xml
-<java.version>1.8</java.version>
-<maven-jar-plugin.version>3.1.1</maven-jar-plugin.version>
+	<plugin>
+		<groupId>com.google.cloud.tools</groupId>
+		<artifactId>jib-maven-plugin</artifactId>
+		<version>1.6.1</version>
+		<configuration>
+			<container>
+				<creationTime>USE_CURRENT_TIMESTAMP</creationTime>
+			</container>
+		</configuration>
+		<executions>
+			<execution>
+				<phase>package</phase>
+				<goals>
+					<goal>dockerBuild</goal>
+				</goals>
+			</execution>
+		</executions>
+	</plugin>
+```
+pom. xml'i kaydedip `mvn clean package -DskipTests` komutunu çalıştırdığımızda Image'imiz oluşur burada ilginç olan durum bu plugin'in birçok şeyi bizden herhangi bir config alamdan halletmesidir. JDK için `distroless java` diye bir base image indiriyor, daha sonra bizim Application sınıfımızı kendisi algılıyor. Eğer bu configleri özelleştirmek istiyorsak `<configuration></configuration>` etiketleri arasına aşağıdaki gibi bir config yazabiliriz. **Eğer config yazmayacaksak eklenti Image adını artifactId kısmından alacaktır ve eğer docker image name standartlarına göre gir artifact idmiz yoksa hata oluşacaktır. Yani artifact id küçük harf sayı ve sembollerden oluşabilir.**
+
+```xml
+<configuration>
+	<from>
+		<image>openjdk:alpine</image>
+	</from>
+	<to>
+		<image>in28min/${project.name}</image>
+		<tags>
+			<tag>${project.version}</tag>
+			<tag>latest</tag>
+		</tags>
+	</to>
+	<container>
+		<jvmFlags>
+			<jvmFlag>-Xms512m</jvmFlag>
+		</jvmFlags>
+		<mainClass>com/fsoftdev/blog/SpringBootRestHello/SpringBootRestHelloApplication</mainClass>
+		<ports>
+			<port>8080</port>
+		</ports>
+	</container>
+</configuration>
 ```
 
-Projemizi basit bir REST API olarak kodlayacağız. 2 tane endpointimiz olsun.
+Image'imiz oluştuktan sonra docker run komutu ile çalıştırabiliriz.
 
-`/hello` endpointimiz ekrana `Hello Guys...` diye bir string basıyor.
-
-`/date` endpointimiz ekrana şimdiki tarihi basıyor.
-
-Aşağıda `MainController. java` isimli Controller sınıfımız var.
-
-```java
-package com.fsoftdev.blog.SpringBootRestHello;
-
-import java.util.Calendar;
-import java.util.Date;
-
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
-
-@RestController
-public class MainController {
-
-@RequestMapping(path = "hello",method = RequestMethod.GET)
-public String sayHello() {
-return "Hello Guys...";
-}
-
-@RequestMapping(path = "date",method = RequestMethod.GET)
-public String sayTodaysDate() {
-Date today = Calendar.getInstance().getTime();
-return today.toString();
-}
-
-}
-
-```
-
-Uygulamamızı Run ettiğimizde beklediğimizde beklediğimiz çıktıları verdiğini görürüz. Normal şartlarda Spring Boot uygulamamız `localhost` da çalışıyor.
-Ana senaryoya dönecek olursak Spring Boot uygulamamızı `JAR` olarak paketleyip Docker Container'ı içerisine alıp çalıştıracaktık.
-
-#### JAR Paketi Oluşturmak
-
-Spring Boot uygulamamızın JAR paketini oluşturmak için `Maven` den faydalanırız.
-pom. xml dosyamızda plugin olarak tanımladığımız `spring-boot-maven-plugin` yardımı ile Maven'a Spring Boot desteği sağlarız.
-Uygulama dizininde aşağıdaki komutu verirsek Maven bizim için target klasörü içine JAR dosyasını oluşturur. Bu komutun çalışması için sisteminizde Maven'ın kurulu olması gerekmektedir.
-
-```
-mvn clean package
-```
-Enter'e basıp komutu çalıştırdığımızda Maven uygulamamızın testlerini çalıştırıp bizim için JAR paketi haline getirir. Eğer işlem başarılı olmuşsa aşağıdaki çıktıları alırsınız.
-
-![Image of mvn-package-1](/assets/img/posts/spring-boot-docker-2/ss-mvn-package-1.png)
-Bu resimde JAR paketinin konumu gösteriyor. Oluşan JAR dosyasının ismini `pom. xml` de `build` bölümünde `finalName` etiketleri arasında tanımlamıştık.
-
-![Image of mvn-package-1](/assets/img/posts/spring-boot-docker-2/ss-mvn-package-2.png)
-Burada da işlemin başarıyla sonuçlandığı ve ne kadar sürede gerçekleştiğini görüyoruz.
-
-#### JDK İçin Container Oluşturma
-
-Evet elimizde JAR dosyamız var artık sırada JDK Docker Image'ini indirip çalıştırmak var. Bunun için aşağıdaki komutu veririz.
-
-```
-docker run -dit openjdk:8-jdk-alpine
-```
-
-Alpine, Alpine Linux temelli minimal bir Docker Image'dir. Yani yukarıdaki komut bizim için minimal bir Linux kurulumu yapacak ve içerisine JDK'yı kuracak ne büyük kolaylık de mi?
-Yukarıdaki komutu çalıştırdığımız da Docker local'de openjdk:8-jdk-alpine Image'i arar bulamazsa Docker Hub'dan indirir, sonra bu Image'i çalıştırır. Peki `-dit` ayarı ne demek bu Docker Documentation'dan yardım alacak olursak. `-dit` aslında 3 option içeriyor. Bunlar `-d`,`-i`,`-t` dir.
-
-`-d`: Container'ı detach modda çalıştırır yani Container çalışıyor aynı zamanda aynı terminalde başka komutlar girmemize olanak sağlıyor. Yani Container arka planda çalışmış oluyor. -d aynı zamanda Container Id'sinide döner.
-
-`-i`:Container'ı interactive hale getirir. STDIN'i açık tutar.
-
-`-t`: Container'a sözde bir TTY atar. `-it` sayesinde Container'üzerinde komut çalıştırmamız olanaklı hale gelir.
-
-Evet yukarıdaki komutu çalıştıralım ve ne olduğunu gözlemleyelim.
-
-![Image of docker-run-1](/assets/img/posts/spring-boot-docker-2/ss-docker-run-1.png)
-
-Resimde de gördüğünüz üzere Docker ilk önce Image'ı localde arıyor fakat bulamıyor sonra Docker Hub'dan indiriyor ve detach modda ve üzerinde komut çalıştırmaya hazır bir şekilde çalıştırıyor. Geriye çalışan Container'ın İd sini dönüyor.
-
-```
-docker container ls
-```
-
-Komutuyla Container'ın çalıştığını gözlemleyebiliriz.
-
-![Image of docker-run-2](/assets/img/posts/spring-boot-docker-2/ss-docker-run-2.png)
-
-Evet Container'ımız çalışır durumda peki bundan sonra ne yapacağız? Gelin Container üzerinde komut çalıştırabiliyor muyuz ona bakalım. Çünkü `-dit` optionu ile bunu sağladığımızı düşünüyoruz.
-
-Şu anda çalışan Container'ımız içerisinde JDK barındıran minimal bir Linux dağıtımıdır. Acaba bu Linux dağıtımız üzerinde çalışan JDK versiyonu nedir. Bunu öğrenmek için Container'ımız üzerinde `java -verison` komutu çalıştıralım bakalım neler olacak.
-
-```
-docker exec vigilant_goldberg java -verison
-```
-Yukarıdaki komutta `vigilant_goldberg` çalışan Container'ımızın ismidir.
-
-Komutumuzun aşağıdaki gibi oldu.
-
-![Image of ss-docker-exec-1](/assets/img/posts/spring-boot-docker-2/ss-docker-exec-1.png)
-
-Evet Container'ımız çalışıyor ve üzerinde Java 8 sürümü çalışıyor.
-
-#### JAR Paketini Container İçine Kopyalama
-
-Şimdi sıra Jar olarak paketlediğimiz Spring Boot uygulamasını Container içine kopyalamaya geldi. Bunu yapmak için aşağıdaki komutu kullanırız. Şu anda Spring Boot uygulamamızın ana dizininde olduğumuzu varsayıyorum değilsek o dizine gidelim.
-
-```
-docker container cp target/SpringBootRestHello-0.0.1-SNAPSHOT.jar vigilant_goldberg:/tmp
-```
-Bu komut ile uygulamamızın `target dizini altındaki jar dosyamızı` `Container içindeki tmp klasörü altına` kopyalıyoruz. Eğer Container için tmp dizini yoksa tmp adında yeni bir dizin oluşturulur. Komutun çalışıp çalışmadığını Container üzerinde aşağıdaki komutu çalıştırarak kontrol edebiliriz. Eğer doğru bir şekilde çalışmışsa Container içine tmp adında bir dizin oluşmuş ve içerisine JAR kopyalanmıştır.
-
-```
-docker exec vigilant_goldberg ls /tmp
-```
-bu komut aşağıdaki çıktıyı üretir.
-
-```
-SpringBootRestHello-0.0.1-SNAPSHOT.jar
-
-```
-
-Evet JAR dosyamızı Container içerisine kopyaladık. Son olarak Container'ımızı bu haliyle Image olarak kaydedeceğiz ve başlangıç Script'i olarak Jar dosyamızı çalıştırmasını ayarlayacağız. Yani son durumda Spring Boot uygulamamız tüm bağımlılıklarına sahip ve dağıtılabilir bir Docker Image'i haline gelecek.
-
-Contianer'ı Image olarak kaydetmek için aşağıdaki komut kullanılır.
-
-```
-docker container commit containerName newName:Tag
-```
-Burada `containerName` ilgili Container'ımızın adı `newName` ve `tag` da yeni oluşacak Image'e verilecek isim ve tag bilgisidir. Container'ımızı bu şekilde commit yaparsak içerisnde JAR olan bir Container olur, bu JAR'ın çalışmasını istiyorsak Container'a JAR'ı çalıştıracak komutları manuel olarak vermemiz gerekir ve Container'ın olası durdurulma durumlarında JAR'ı tekrar başlatmamız gerekir. Bu durumu daha efektif hale getirmek için Container her başladığında ilgili JAR dosyasını çalışmasını ayarlayabiliriz bunu aşağıdaki gibi yaparız.
-
-```
-docker container commit --change='CMD ["java","-jar","/tmp/SpringBootRestHello-0.0.1-SNAPSHOT.jar"]' vigilant_goldberg spring-boot-hello-world:0.0.1-SNAPSHOT
-```
-Bu komut Container'ımızı verilen yeni ad ve etiket ile yeni bir Image olarak kaydeder ve geriye Image'in Id'sini döner.
-
-![Image of ss-docker-commit-1](/assets/img/posts/spring-boot-docker-2/docker-commit-1.png)
-
-`docker images` komutu ile sistemdeki tüm Image'leri listeleriz ve yeni Image'in oluşup oluşmadığına bakabiliriz.
-
-#### İçerisinde JAR Olan Container'ı Çalıştırma
-
-Evet şu anda Container olarak başlatıldığında ilgili JAR'ı çalıştıracak Docker Image'ına sahibiz, gelin hep beraber Image'ımızı çalıştırıp Spring Boot uygulamamızın çalışıp çalışmadığını kontrol edelim. Aşağıdaki komut ile Image'ımızı çalıştırırız. Komutun içindeki `-p 8080:8080` ifadesi Spring Boot uygulamamızın hangi portta çalışacağını ifade ediyor.
-
-```
-docker run -p 8080:8080 spring-boot-hello-world:0.0.1-SNAPSHOT
-```
-Bu komutu çalıştırdığımızda aşağıdaki gibi bir hata alıyorsanız 8080 portunun başka bir uygulama tarafından kullanıldığını anlamalısınız.
-
-![Image of ss-docker-run-1](/assets/img/posts/spring-boot-docker-2/docker-run-1.png)
-
-Bu hatayı gidermek için ya 8080 portunu değiştirmemiz ya da bu portu müsait duruma getirmemiz gerekmektedir. Portumuzu müsait hale getirip tekrar aşağıdaki komutu çalıştırdığımızda;
-
-```
-docker run -p 8080:8080 spring-boot-hello-world:0.0.1-SNAPSHOT
-```
-
-Aşağıdaki gibi Container'ımız ayağa kalkar ve içindeki Spring Boot uygulaması başlangıç Script'i olarak çalışır.
-
-![Image of ss-container-result](/assets/img/posts/spring-boot-docker-2/ss-container-result.png)
-
-Tarayıcımıza `localhost:8080/hello` Url'ini girdiğimizde aşağıdaki sayfa karşımız gelir.
-
-![Image of ss-container-result](/assets/img/posts/spring-boot-docker-2/ss-localhost-hello.png)
-
-`localhost:8080/date` Url'ini girdiğimizde ise aşağıdaki sayfa karşımız gelir.
-
-![Image of ss-container-result](/assets/img/posts/spring-boot-docker-2/ss-localhost-date.png)
-
-Evet bu yazımızda Spring Boot ile geliştirdiğimiz basit bir uygulamayı Container içine alıp (Containerizing), nasıl çaıştıracağımızı öğrenmiş olduk. İşte tam bu noktada değinmek istediğim husus şu ki DEVOPS kültürünün mantığı süreçleri otomatikleştirmeye dayanır. Bu yazıda tam olarak süreci otomatize etmiş olmadık. Spring Boot uygulamamızın build işlemini tam manasıyla otomatize etmek için `DOCKERFILE` denen bir yapıya ihtiyacımız var. Yani bu yazıda anlattığımız tüm süreçleri-komutları `DOCKERFILE` içerisine alıyoruz ve bu DOCKERFILE'dan IMAGE oluşturuyoruz ve oluşan IMAGE'i çalıştırıyoruz. Ve elimizdeki DOCKERFILE'ımızı projemizle beraber paylaşabiliyoruz.
-
-Bir sonraki yazımızda DOCKERFILE oluşturmayı inceleyerek yazı serimize devam edeceğiz.
-
-[Türkçe yazım kuralları denetimi içini turkceyaz.com'dan faydalanıldı.](https://turkceyaz.com/)
-
+Bu yazınında sonuna gelmiş bulunmaktayız bir sonraki yazıda Spring Boot Web uygulamasını nasıl containerize edeceğimizi öğreneceğiz.
