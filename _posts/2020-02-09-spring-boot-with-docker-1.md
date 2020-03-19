@@ -27,7 +27,7 @@ Docker 2013 yılında piyasaya sürülen ve işletim sistemi seviyesinde sanalla
 
 #### Konteyner Nedir
 Docker'ın resmi sitesindeki tanımlardan faydalanacak olursak.
-Yazdığımız kodları paketleyip farklı geliştirme ortamları arasında paylaşmak için gerekli standart birime **Container** denir. Daha kolay anlaşılması için bir case üzerinden anlatacak olursak. Spring Boot ve MongoDB kullanarak geliştirdiğimiz web uygulamasını test ekibine verdiğimizde sorunsuz çalışması için bizim bilgisayarımızdaki environment ile test edecek kişinin bilgisayarındaki environment tüm özellikleri ile aynı olmalı. Kullandığımız JDK 'nın sürümünden MongoDB versiyonuna kadar tüm environment aynı olmalı ki sağlık bir şekilde çalışsın. İşte developer'leri bu sıkıntılı durumdan kurtarmak için **Container** çözümlerine başvurulur.
+Yazdığımız kodları paketleyip farklı geliştirme ortamları arasında paylaşmak için gerekli standart birime **Container** denir. Daha kolay anlaşılması için bir case üzerinden anlatacak olursak. Spring Boot ve MongoDB kullanarak geliştirdiğimiz web uygulamasını test ekibine verdiğimizde sorunsuz çalışması için bizim bilgisayarımızdaki environment ile test edecek kişinin bilgisayarındaki environment tüm özellikleri ile aynı olmalı. Kullandığımız JDK 'nın sürümünden MongoDB versiyonuna kadar tüm environment aynı olmalı ki sağlıklı bir şekilde çalışsın. İşte developer'leri bu sıkıntılı durumdan kurtarmak için **Container** çözümlerine başvurulur.
 
 Bir Docker **Container Image** kodun sağlıklı bir şekilde çalışması için gerekli tüm bağımlılıkları içerir.
 
@@ -95,7 +95,7 @@ Sisteminizde hiç Container olmadığını varsayıyorum. Bir Container'ı çal�
 docker run hello-world
 ```
 
-Bu komutu yazıpEnter'ea bastığımızda aşağıdaki gibi bir çıktı oluşur. Çıktıyı inceleyecek olursak.
+Bu komutu yazıp Enter'e bastığımızda aşağıdaki gibi bir çıktı oluşur. Çıktıyı inceleyecek olursak.
 
 ![Image of docker-run-hello](/assets/img/posts/docker-run-hello.png)
 
