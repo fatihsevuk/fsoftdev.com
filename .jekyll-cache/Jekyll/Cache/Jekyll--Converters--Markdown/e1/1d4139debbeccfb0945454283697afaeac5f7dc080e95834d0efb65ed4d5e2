@@ -1,0 +1,314 @@
+I"�E<h4 id="başlangıç">Başlangıç</h4>
+<p>Merhabalar, yazı dizimize kaldığımız yerden devam ediyoruz. Bu yazıda <code class="highlighter-rouge">Dockerfile</code> oluşturmayı inceleyeceğiz. Hatırlayacağınız üzere aşağıdaki adımları gerçekleştirmiştik.</p>
+
+<ul>
+  <li>Spring Boot Rest API oluşturduk.</li>
+  <li>Bu Rest Api’yi JAR olarak paketledik.</li>
+  <li>JDK içeren Docker Image’i indirdik.</li>
+  <li>İndirdiğimiz Image’i kullanarak Container’ı ayağa kaldırdık.</li>
+  <li>JAR dosyamızı Container içerisine kopyaladık.</li>
+  <li>Son olarak Container’ımızın başlarken JAR dosyamızı çalıştırmasını ayarladık.</li>
+</ul>
+
+<p>Bu saydığımız tüm adımları terminal yardımıyla teker teker yazarak yaptık.Bu işlemleri otomatikleştirmek için <code class="highlighter-rouge">Dockerfile</code> oluşturulur.</p>
+
+<h4 id="dockerfile-oluşturma">Dockerfile Oluşturma</h4>
+
+<p>Şimdi gelin hep beraber ilk <code class="highlighter-rouge">Dockerfile</code> dosyamızı oluşturalım.Proje dizinimizde <code class="highlighter-rouge">Dockerfile</code> isminde bir dosya oluşturup içerisine aşağıdaki kodları yazalım.</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+</pre></td><td class="rouge-code"><pre>FROM openjdk:8-jdk-alpine
+ADD target/SpringBootRestHello-0.0.1-SNAPSHOT.jar SpringBootRestHello-0.0.1-SNAPSHOT.jar
+ENTRYPOINT ["sh","-c","java -jar /SpringBootRestHello-0.0.1-SNAPSHOT.jar"]
+</pre></td></tr></tbody></table></code></pre></div></div>
+<p>Evet yukarıda gördüğünüz kodları açıklayacak olursak.</p>
+
+<p><code class="highlighter-rouge">FROM openjdk:8-jdk-alpine</code> ifadesi ile OpenJdk Image’ini çekiyoruz.</p>
+
+<p><code class="highlighter-rouge">ADD target/SpringBootRestHello-0.0.1-SNAPSHOT.jar SpringBootRestHello-0.0.1-SNAPSHOT.jar</code> ifadesi ile target dizinindeki JAR dosyasını Container içerisine aynı isimle kopyalar.</p>
+
+<p><code class="highlighter-rouge">ENTRYPOINT ["sh","-c","java -jar /SpringBootRestHello-0.0.1-SNAPSHOT.jar"]</code> ifadesi ile de Container’ımıza başlangıçta ilgili JAR’ı çalıştırmasını söylüyoruz.</p>
+
+<h4 id="dockerfileı-kullanma">Dockerfile’ı Kullanma</h4>
+
+<p>Evet şimdi gelin hep beraber oluşturduğumuz Dockerfile’ı nasıl kullanacağımıza bakalım.</p>
+
+<p>Proje dizinimizin içindeyken aşağıdaki komutu çalıştırıyoruz.</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+</pre></td><td class="rouge-code"><pre>docker build -t rest-api:with-dockerfile .
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+<p><code class="highlighter-rouge">-t</code> parametresi tag anlamına gelir build işleminin sonucunda oluşacak olana Image’in isim:tag bilgisini yazarız.</p>
+
+<p>Komutun sonundaki nokta ilgili Dockerfile’ın şu anki dizinde olduğunu belirtir. Komut çalıştığında aşağıdaki gibi bir çıktı oluşur.</p>
+
+<p><img src="/assets/img/posts/spring-boot-docker-3/docker-build-1.png" alt="Image of ss-docker-build-1" /></p>
+
+<p>Evet bu işlem sonucunda JAR’ımızı içeren Docker Image’ımız oluştu, isterseniz,</p>
+
+<p><code class="highlighter-rouge">docker images</code> komutu yardımıyla kontrol edebilriz.</p>
+
+<p><img src="/assets/img/posts/spring-boot-docker-3/docker-images-1.png" alt="Image of ss-docker-image-1" /></p>
+
+<p>Yukarıdaki çıktıda da gördüğünüz üzere en üstte <code class="highlighter-rouge">rest-api</code> isminde ve <code class="highlighter-rouge">with-dockerfile</code> etiketine sahip bir Image oluştu.</p>
+
+<p>Şimdi sıra bu Image’i kullanarak Container’ımızı ayağa kaldırmaya geldi.Bu işlemi gerçekleştirmek için aşağıdaki komutu kullanırız.</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+</pre></td><td class="rouge-code"><pre>docker run -p 8080:8080 rest-ap:with-dockerfile
+</pre></td></tr></tbody></table></code></pre></div></div>
+<p><img src="/assets/img/posts/spring-boot-docker-3/docker-run-1.png" alt="Image of ss-docker-run-1" /></p>
+
+<p>Evet yukarıdaki çıktıdan da gördüğünüz gibi Container’ımız ayağa kalktı ve başlangıç scripti olarak ayarladığımız JAR dosyasını çalıştırma işlemini başarılı bir şekilde yaptı. Sonuç olarak tarayıcımızda <code class="highlighter-rouge">localhost:8080/hello</code> ya da <code class="highlighter-rouge">localhost:8080/date</code> endpointlerine gidersek uygulamamızın başarılı bir şekilde çalıştığınız görürüz.</p>
+
+<p>Eğer Dockerfile içerisinde <code class="highlighter-rouge">EXPOSE 8080</code> diye bir ifade kullanırsak docker run komutu içerisinde <code class="highlighter-rouge">-p 8080 </code> diye bir ifade kullanmadan uygulamamız 8080 portunda çalışmaya başlar.</p>
+
+<h4 id="spotify-maven-plug-in-ile-image-oluşturma">Spotify Maven Plug-in ile Image Oluşturma</h4>
+
+<p>Bu Maven plugin’i kullanarak JAR oluşturma aşamasında aynı zamanda ilgili Dockerfile’ımızdan Image oluşturabiliriz. Bu plugin’i kullanmak için pom. xml dosyasında <code class="highlighter-rouge">&lt;plugins&gt;&lt;/plugins&gt;</code> etiketleri arasına aşağıdaki kodlar eklenir.</p>
+
+<div class="language-xml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+</pre></td><td class="rouge-code"><pre><span class="nt">&lt;plugin&gt;</span>
+        <span class="nt">&lt;groupId&gt;</span>com.spotify<span class="nt">&lt;/groupId&gt;</span>
+        <span class="nt">&lt;artifactId&gt;</span>dockerfile-maven-plugin<span class="nt">&lt;/artifactId&gt;</span>
+        <span class="nt">&lt;version&gt;</span>1.4.13<span class="nt">&lt;/version&gt;</span>
+        <span class="nt">&lt;executions&gt;</span>
+                <span class="nt">&lt;execution&gt;</span>
+                        <span class="nt">&lt;id&gt;</span>default<span class="nt">&lt;/id&gt;</span>
+                        <span class="nt">&lt;goals&gt;</span>
+                                <span class="nt">&lt;goal&gt;</span>build<span class="nt">&lt;/goal&gt;</span>
+                        <span class="nt">&lt;/goals&gt;</span>
+                <span class="nt">&lt;/execution&gt;</span>
+        <span class="nt">&lt;/executions&gt;</span>
+        <span class="nt">&lt;configuration&gt;</span>
+                <span class="nt">&lt;repository&gt;</span>${project.name}<span class="nt">&lt;/repository&gt;</span>
+                <span class="nt">&lt;tag&gt;</span>${project.version}<span class="nt">&lt;/tag&gt;</span>
+                <span class="nt">&lt;skipDockerInfo&gt;</span>true<span class="nt">&lt;/skipDockerInfo&gt;</span>
+        <span class="nt">&lt;/configuration&gt;</span>
+<span class="nt">&lt;/plugin&gt;</span>
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+<p>Bu plugini ekledikten sonra</p>
+
+<p><code class="highlighter-rouge">mvn package -DskipTests</code></p>
+
+<p>komutunu çalıştırırsak aşağıdaki gibi bir çıktı ile karşılaşırız.</p>
+
+<p><img src="/assets/img/posts/spring-boot-docker-3/spotify-maven-plugin.png" alt="Image of ss-spotify-maven-plugin" /></p>
+
+<p>Evet görüldüğü üzere kodlarımız derlendi ve paketlendi sonra Image’imiz oluşturuldu ve içerisine JAR’ımız kopyalandı. Oluşan Image çalıştırılmak için hazır.</p>
+
+<p><code class="highlighter-rouge">docker run spring-boot-rest-hello:0.0.1-SNAPSHOt</code></p>
+
+<p>komutu ile Image’imizi çalıştırırız. <code class="highlighter-rouge">localhost:8080/hello</code> endpointine tarayıcımızdan gidersek Container’ımızın çalıştığını görürüz.</p>
+
+<p>Daha generic ve reusable bir Dockerfile oluşturmak için aşağıdaki düzenlemeleri yapabiliriz.</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+</pre></td><td class="rouge-code"><pre>FROM openjdk:8-jdk-alpine
+ADD target/*.jar app.jar
+ENTRYPOINT ["sh","-c","java -jar /app.jar"]
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+<h4 id="cached-dependency---no-fat-jar">Cached Dependency - No Fat Jar</h4>
+
+<p>Şimdiye kadar anlattığımız kısımlarda JAR’ımız çok fazla bağımlılığa sahip olmadığı için boyutu da çok büyük olmadı fakat başka projelerde çok fazla bağımlılık olabilir buda JAR boyutunu oldukça büyük hale getirir bunun önüne geçmek ve build aşamasında her bağımlılığın tekrar indirilmesini önlemek için <code class="highlighter-rouge">Maven Dependency Plugin</code> kullanılır. Bu plugin’i kullanmak için Spotify plugin’i kaldırıp ya da comment yapabiliriz.</p>
+
+<div class="language-xml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+</pre></td><td class="rouge-code"><pre><span class="nt">&lt;plugin&gt;</span>
+    <span class="nt">&lt;groupId&gt;</span>org.apache.maven.plugins<span class="nt">&lt;/groupId&gt;</span>
+    <span class="nt">&lt;artifactId&gt;</span>maven-dependency-plugin<span class="nt">&lt;/artifactId&gt;</span>
+    <span class="nt">&lt;executions&gt;</span>
+        <span class="nt">&lt;execution&gt;</span>
+            <span class="nt">&lt;id&gt;</span>unpack<span class="nt">&lt;/id&gt;</span>
+            <span class="nt">&lt;phase&gt;</span>package<span class="nt">&lt;/phase&gt;</span>
+            <span class="nt">&lt;goals&gt;</span>
+                <span class="nt">&lt;goal&gt;</span>unpack<span class="nt">&lt;/goal&gt;</span>
+            <span class="nt">&lt;/goals&gt;</span>
+            <span class="nt">&lt;configuration&gt;</span>
+                <span class="nt">&lt;artifactItems&gt;</span>
+                    <span class="nt">&lt;artifactItem&gt;</span>
+                        <span class="nt">&lt;groupId&gt;</span>${project.groupId}<span class="nt">&lt;/groupId&gt;</span>
+                        <span class="nt">&lt;artifactId&gt;</span>${project.artifactId}<span class="nt">&lt;/artifactId&gt;</span>
+                        <span class="nt">&lt;version&gt;</span>${project.version}<span class="nt">&lt;/version&gt;</span>
+                    <span class="nt">&lt;/artifactItem&gt;</span>
+                <span class="nt">&lt;/artifactItems&gt;</span>
+            <span class="nt">&lt;/configuration&gt;</span>
+        <span class="nt">&lt;/execution&gt;</span>
+    <span class="nt">&lt;/executions&gt;</span>
+<span class="nt">&lt;/plugin&gt;</span>
+</pre></td></tr></tbody></table></code></pre></div></div>
+<p>Bu plugin’i pom. xml’e ekledikten sonra <code class="highlighter-rouge">mvn package</code> komutunu çalıştırdığımızda aşağıdaki gibi bir durum oluşur. Oluşan JAR dosyası çözülür sonuçta olarak</p>
+
+<p><code class="highlighter-rouge">target/classes</code></p>
+
+<p><code class="highlighter-rouge">target/dependency</code></p>
+
+<p>Klasörleri oluşur, classes altında derlenmiş <code class="highlighter-rouge">.class</code> uzantılı sınıflarımız bulunur.</p>
+
+<p>dependecy altında ise aşağıdaki yapıda projenin bağımlılıkları bulunur.</p>
+
+<p><img src="/assets/img/posts/spring-boot-docker-3/target-dep.png" alt="Image of target-dep" /></p>
+
+<p>Evet projemiz derlendi ve bağımlılıkları oluşturuldu artık Image’imizi oluşturabiliriz bunun için <code class="highlighter-rouge">Dockerfile</code> içerisinde bazı değişiklikler yapmamız gerekiyor.</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+</pre></td><td class="rouge-code"><pre>FROM openjdk:8-jdk-alpine
+ARG DEPENDENCY=target/dependency
+COPY ${DEPENDENCY}/BOOT-INF/lib /app/lib
+COPY ${DEPENDENCY}/META-INF /app/META-INF
+COPY ${DEPENDENCY}/BOOT-INF/classes /app
+ENTRYPOINT ["java","-cp","app:app/lib/*","com/fsoftdev/blog/SpringBootRestHello/SpringBootRestHelloApplication"]
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+<p>Evet kısaca bahsedecek olursak oluşan bağımlılıkları Image içine kopyalıyoruz ve başlangıç scripti olarak Application sınıfımızın çalıştırılmasını ayarlıyoruz.</p>
+
+<p><code class="highlighter-rouge">docker build -t rest-api:no-fat-jar .</code> komutunu çalıştırdığımızda aşağıda gördüğünüz gibi Image’imiz oluşur.</p>
+
+<p><img src="/assets/img/posts/spring-boot-docker-3/no-fat-jar-image.png" alt="Image of no fat jar" /></p>
+
+<p>Son olarak oluşan Image’ımızı çalıştırıp localhost’tan kontrollerimizi yapıyoruz.</p>
+
+<p><code class="highlighter-rouge">docker run -p 8080:8080 rest-api:no-fat-jar</code></p>
+
+<h4 id="google-jib-plug-in-ile-image-oluşturma">Google JIB Plug-in ile Image Oluşturma</h4>
+
+<p>Bu plugin’i kullandığımız zaman Dockerfile’a ihtiyacımız olmaz. Çünkü Dockerfile içerisindeki ayarları plugin’e config olarak vereceğiz.</p>
+
+<p>pom. xml dosyasına aşağıdaki plugin kodlarını ekleyerek bu plugin’i kullanmaya başlayabiliriz.</p>
+
+<div class="language-xml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+</pre></td><td class="rouge-code"><pre>	<span class="nt">&lt;plugin&gt;</span>
+		<span class="nt">&lt;groupId&gt;</span>com.google.cloud.tools<span class="nt">&lt;/groupId&gt;</span>
+		<span class="nt">&lt;artifactId&gt;</span>jib-maven-plugin<span class="nt">&lt;/artifactId&gt;</span>
+		<span class="nt">&lt;version&gt;</span>1.6.1<span class="nt">&lt;/version&gt;</span>
+		<span class="nt">&lt;configuration&gt;</span>
+			<span class="nt">&lt;container&gt;</span>
+				<span class="nt">&lt;creationTime&gt;</span>USE_CURRENT_TIMESTAMP<span class="nt">&lt;/creationTime&gt;</span>
+			<span class="nt">&lt;/container&gt;</span>
+		<span class="nt">&lt;/configuration&gt;</span>
+		<span class="nt">&lt;executions&gt;</span>
+			<span class="nt">&lt;execution&gt;</span>
+				<span class="nt">&lt;phase&gt;</span>package<span class="nt">&lt;/phase&gt;</span>
+				<span class="nt">&lt;goals&gt;</span>
+					<span class="nt">&lt;goal&gt;</span>dockerBuild<span class="nt">&lt;/goal&gt;</span>
+				<span class="nt">&lt;/goals&gt;</span>
+			<span class="nt">&lt;/execution&gt;</span>
+		<span class="nt">&lt;/executions&gt;</span>
+	<span class="nt">&lt;/plugin&gt;</span>
+</pre></td></tr></tbody></table></code></pre></div></div>
+<p>pom. xml’i kaydedip <code class="highlighter-rouge">mvn clean package -DskipTests</code> komutunu çalıştırdığımızda Image’imiz oluşur burada ilginç olan durum bu plugin’in birçok şeyi bizden herhangi bir config alamdan halletmesidir. JDK için <code class="highlighter-rouge">distroless java</code> diye bir base image indiriyor, daha sonra bizim Application sınıfımızı kendisi algılıyor. Eğer bu configleri özelleştirmek istiyorsak <code class="highlighter-rouge">&lt;configuration&gt;&lt;/configuration&gt;</code> etiketleri arasına aşağıdaki gibi bir config yazabiliriz. <strong>Eğer config yazmayacaksak eklenti Image adını artifactId kısmından alacaktır ve eğer docker image name standartlarına göre gir artifact idmiz yoksa hata oluşacaktır. Yani artifact id küçük harf sayı ve sembollerden oluşabilir.</strong></p>
+
+<div class="language-xml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+</pre></td><td class="rouge-code"><pre><span class="nt">&lt;configuration&gt;</span>
+	<span class="nt">&lt;from&gt;</span>
+		<span class="nt">&lt;image&gt;</span>openjdk:alpine<span class="nt">&lt;/image&gt;</span>
+	<span class="nt">&lt;/from&gt;</span>
+	<span class="nt">&lt;to&gt;</span>
+		<span class="nt">&lt;image&gt;</span>in28min/${project.name}<span class="nt">&lt;/image&gt;</span>
+		<span class="nt">&lt;tags&gt;</span>
+			<span class="nt">&lt;tag&gt;</span>${project.version}<span class="nt">&lt;/tag&gt;</span>
+			<span class="nt">&lt;tag&gt;</span>latest<span class="nt">&lt;/tag&gt;</span>
+		<span class="nt">&lt;/tags&gt;</span>
+	<span class="nt">&lt;/to&gt;</span>
+	<span class="nt">&lt;container&gt;</span>
+		<span class="nt">&lt;jvmFlags&gt;</span>
+			<span class="nt">&lt;jvmFlag&gt;</span>-Xms512m<span class="nt">&lt;/jvmFlag&gt;</span>
+		<span class="nt">&lt;/jvmFlags&gt;</span>
+		<span class="nt">&lt;mainClass&gt;</span>com/fsoftdev/blog/SpringBootRestHello/SpringBootRestHelloApplication<span class="nt">&lt;/mainClass&gt;</span>
+		<span class="nt">&lt;ports&gt;</span>
+			<span class="nt">&lt;port&gt;</span>8080<span class="nt">&lt;/port&gt;</span>
+		<span class="nt">&lt;/ports&gt;</span>
+	<span class="nt">&lt;/container&gt;</span>
+<span class="nt">&lt;/configuration&gt;</span>
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+<p>Image’imiz oluştuktan sonra docker run komutu ile çalıştırabiliriz.</p>
+
+<p>Bu yazınında sonuna gelmiş bulunmaktayız bir sonraki yazıda Spring Boot Web uygulamasını nasıl containerize edeceğimizi öğreneceğiz.</p>
+:ET

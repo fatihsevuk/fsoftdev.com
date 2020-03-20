@@ -2,6 +2,7 @@
 title: Spring Boot App With Docker-3
 date: Thu 19-Mar-2020 01:38 P.M.
 categories: [Devops, Docker]
+toc: true
 language: Turkish
 tags: [spring, java, docker, spring boot, container, image, docker file, spotify maven
     plugin, jib maven plugin, DOCKERFILE]
