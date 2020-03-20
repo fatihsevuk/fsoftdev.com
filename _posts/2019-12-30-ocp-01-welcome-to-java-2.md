@@ -6,7 +6,7 @@ language: Turkish
 tags: [ocp, oracle java programmer, javase, java standart edition, jar, java, javac,
   javadoc, java compiler, bytecode, jdk, class, sınıf, object, fields, methods, comments]
 seo:
-  date_modified: 2020-02-18 00:08:57 +0100
+  date_modified: 2020-03-20 18:32:27 +0100
 
 ---
 
