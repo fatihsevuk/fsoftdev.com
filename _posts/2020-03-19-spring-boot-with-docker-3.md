@@ -7,7 +7,7 @@ language: Turkish
 tags: [spring, java, docker, spring boot, container, image, docker file, spotify maven
     plugin, jib maven plugin, DOCKERFILE]
 seo:
-  date_modified: 2020-03-19 18:32:11 +0100
+  date_modified: 2020-03-20 18:13:27 +0100
 
 ---
 
