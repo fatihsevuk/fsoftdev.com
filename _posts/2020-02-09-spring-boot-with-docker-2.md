@@ -9,7 +9,7 @@ seo:
 
 ---
 
-#### Başlangıç
+## Başlangıç
 Merhabalar, Docker ile Spring Boot uygulaması geliştirmeyi anlattığımız yazı dizisine kaldığımız yerden devam ediyoruz. Bir önceki yazımızda Docker'a giriş yapmıştık. Bu yazıda Spring Boot uygulamamızı paketleyip Docker Container'ı içine kopyalayıp çalıştıracağız.
 
 Bu yazıda sırasıyla şu adımları gerçekleştireceğiz.
@@ -20,7 +20,7 @@ Bu yazıda sırasıyla şu adımları gerçekleştireceğiz.
 * Oluşan JAR paketimizi Container içine kopyalayacağız.
 * Son olarak uygulamamızı çalıştıracağız.
 
-#### Spring Boot Rest API Oluşturma
+## Spring Boot Rest API Oluşturma
 
 Spring Boot uygulamamızı [Spring Initializr](https://start.spring.io/) sitesindeki arayüz yardımı ile oluşturalım.
 
@@ -143,7 +143,7 @@ return today.toString();
 Uygulamamızı Run ettiğimizde beklediğimizde beklediğimiz çıktıları verdiğini görürüz. Normal şartlarda Spring Boot uygulamamız `localhost` da çalışıyor.
 Ana senaryoya dönecek olursak Spring Boot uygulamamızı `JAR` olarak paketleyip Docker Container'ı içerisine alıp çalıştıracaktık.
 
-#### JAR Paketi Oluşturmak
+## JAR Paketi Oluşturmak
 
 Spring Boot uygulamamızın JAR paketini oluşturmak için `Maven` den faydalanırız.
 pom. xml dosyamızda plugin olarak tanımladığımız `spring-boot-maven-plugin` yardımı ile Maven'a Spring Boot desteği sağlarız.
@@ -160,7 +160,7 @@ Bu resimde JAR paketinin konumu gösteriyor. Oluşan JAR dosyasının ismini `po
 ![Image of mvn-package-1](/assets/img/posts/spring-boot-docker-2/ss-mvn-package-2.png)
 Burada da işlemin başarıyla sonuçlandığı ve ne kadar sürede gerçekleştiğini görüyoruz.
 
-#### JDK İçin Container Oluşturma
+## JDK İçin Container Oluşturma
 
 Evet elimizde JAR dosyamız var artık sırada JDK Docker Image'ini indirip çalıştırmak var. Bunun için aşağıdaki komutu veririz.
 
@@ -206,7 +206,7 @@ Komutumuzun aşağıdaki gibi oldu.
 
 Evet Container'ımız çalışıyor ve üzerinde Java 8 sürümü çalışıyor.
 
-#### JAR Paketini Container İçine Kopyalama
+## JAR Paketini Container İçine Kopyalama
 
 Şimdi sıra Jar olarak paketlediğimiz Spring Boot uygulamasını Container içine kopyalamaya geldi. Bunu yapmak için aşağıdaki komutu kullanırız. Şu anda Spring Boot uygulamamızın ana dizininde olduğumuzu varsayıyorum değilsek o dizine gidelim.
 
@@ -243,7 +243,7 @@ Bu komut Container'ımızı verilen yeni ad ve etiket ile yeni bir Image olarak 
 
 `docker images` komutu ile sistemdeki tüm Image'leri listeleriz ve yeni Image'in oluşup oluşmadığına bakabiliriz.
 
-#### İçerisinde JAR Olan Container'ı Çalıştırma
+## İçerisinde JAR Olan Container'ı Çalıştırma
 
 Evet şu anda Container olarak başlatıldığında ilgili JAR'ı çalıştıracak Docker Image'ına sahibiz, gelin hep beraber Image'ımızı çalıştırıp Spring Boot uygulamamızın çalışıp çalışmadığını kontrol edelim. Aşağıdaki komut ile Image'ımızı çalıştırırız. Komutun içindeki `-p 8080:8080` ifadesi Spring Boot uygulamamızın hangi portta çalışacağını ifade ediyor.
 

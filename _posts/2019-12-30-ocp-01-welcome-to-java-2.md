@@ -11,11 +11,11 @@ seo:
 ---
 
 
-#### Java' da Sınıf Yapısı
+## Java' da Sınıf Yapısı
 
 Java'nın nesne yönelimli bir dil olduğundan ve tüm kodların sınıf yapıları içerisine yazıldığından bir önceki bölümde bahsetmiştik.Sınıflar Java'daki en basit building block yapısıdır.Java sınıfları **class** keywordu kullanılarak tanımlanırlar.Java'da sınfları kullanmak için nesneler (**object**) kullanılır.Nesne bir sınıfın hafızadaki örneğidir.Hafızadaki nesneye işaret eden değişkene **referans** denir.
 
-#### Alanlar ve Metodlar
+## Alanlar ve Metodlar
 
 Sınıfları oluşturan elemanlardan ikisi **fields(alanlar)** ve **methodlardır**.Field olarak bilinen alanlar diğer dillerde **değişken (variable)** olarak , metodlarda diğer dillerde fonksiyon yada prosedür olarak karşımıza çıkar.Sınıfı oluşturan tüm bu elemanlara **members(sınıfın üyeleri)** denir.
 
@@ -60,7 +60,7 @@ public void fire(int bullet) {
 fire metodumuzun içindeki int bullet ifadesi bu metodun **parametresidir**.fire metodu **integer türünde ve bullet isminde** bir parametre almş.Metodlar hiç parametre almayacağı gibi bir veya daha fazla sayıda parametre alabilirler.Metodlarımızın **ismi** ve **parametre** listesi **metodun imzasıdır(method signature)**.
 
 
-#### Yorum Satırları
+## Yorum Satırları
 
 Yazdığımız kodların okunabilirliğini arttırmak için açıklama ifadelerine ihtiyaç duyarız.Bu ifadeler yazdığımız kodun başka programcılar tarafından daha kolay anlaşılabilmesini sağlar.Programlama dillerindeki yorum ifadeleri çalıştırılabilir ifadeler değildir derleyici tarfından derlenmezler.
 
@@ -100,7 +100,7 @@ Java da sınıfımızı yazdıktan sonra dosyamızı **.java** uzantısı ile ka
 * Dosya adımız public olan sınıfımız ile aynı olmalı.
 * Bir dosyada birden çok sınıf tanımlanabilir tek şart dosya adı ile aynı isme sahip sınıfın **public** olmasıdır.
 
-#### Main Metodu
+## Main Metodu
 
 Java kodları main maetodu ile çalışmaya başlar.Hemen örnek bir main metodu yazıp kodlarını inceleyelim.
 
@@ -163,7 +163,7 @@ Burada dikkat etmemiz gereken kısımlar şunlardır;
 * Eğer bir parametre birden çok kelimeden oluşuyorsa ve içerisinde boşluk karakteri varsa tırnak işaretleri arasına yazarız.Eğer tek kelimelik bir parametre ise tırnak arasına yazmaya gerek yoktur.
 * Eğer kodda beklendiği kadar parametre girilmezse örneğin yukarıdaki kodda args[1] yani ikinci parametre girilmezse derleyici hata fırlatır.Bu hata _**ArrayIndexOutOfBounds**_ hatasıdır.
 
-#### Java Programımızı Tek Satırda Çalıştırma
+## Java Programımızı Tek Satırda Çalıştırma
 
 Java 11 ile birlikte **single file source code** diye bir özellik geldi bu özellikle birlikte javac kullanmadan aşağıdaki şekilde programımızı çalıştırabiliriz.
 

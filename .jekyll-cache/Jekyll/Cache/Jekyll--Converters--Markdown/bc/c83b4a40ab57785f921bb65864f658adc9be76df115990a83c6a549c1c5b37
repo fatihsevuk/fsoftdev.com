@@ -1,0 +1,3 @@
+I"Z<h2 id="başlangıç">Başlangıç</h2>
+<p>Merhabalar, Docker ile Spring Boot uygulaması geliştirmeyi anlattığımız yazı dizisine kaldığımız yerden devam ediyoruz. Bir önceki yazımızda Docker’a giriş yapmıştık. Bu yazıda Spring Boot uygulamamızı paketleyip Docker Container’ı içine kopyalayıp çalıştıracağız.</p>
+:ET

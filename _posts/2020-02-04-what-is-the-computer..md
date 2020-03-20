@@ -9,7 +9,7 @@ seo:
   date_modified: 2020-03-10 18:13:28 +0100
 ---
 
-#### Bilgisayar Nedir
+## Bilgisayar Nedir
 
 Merhabalar Bilgisayar bilimine giriş yazılarımıza devam ediyoruz. Bu yazıda başlıktan da anlaşılacağı gibi Pandora'nın kutusunu açıyoruz. :sunglasses:
 
@@ -23,7 +23,7 @@ Bilgisayar en temelde bir elektronik cihazdır ve elektronik devrelerden oluşmu
 * Hafıza (Memory)
 * Çıkış Birimleri (Output Units)
 
-#### Yazılım ve Donanım
+## Yazılım ve Donanım
 
 Bu saydığımız 4 bölüme bilgisayar donanımı diyebiliriz. Bilgisayarlar **donanım (Hardware)** ve **yazılım (Software)** olmak üzere iki katmandan oluşurlar.
 
@@ -43,7 +43,7 @@ Peki bilgisayarlar hayatımızı nasıl kolaylaştırıyor? Bu soruya günümüz
 
 Günümüzde yüksek hızlı cihazlara ve yüksek internet bağlantısına sahibiz ve bilgisayarlar hayatımızın her yerindeler evimizdeki klimadan, kolumuzdaki saate, arabamızdan kitap okuyucumuza kadar her yerde bir bilgisayar var. Peki bu bilgisayar denen cihaz günümüze kadar nasıl geldi yolculuğu nerede başladı ne amaçla üretildi. Bilgisayarın tarihçesini uzun uzun anlatmaktansa bu konuda çok güzel hazırlanmış iki kısa video ile devam edeceğiz. Aşağıdaki videoları izlemeden önce dikkatinizi bir hususa çekmek istiyorum, teknolojik gelişmelerin temelinde hep bir ihtiyaç yatmaktadır.Bilgisayarda askeri ihtiyaçların karşılanması için geliştirilmiştir , belki izleyenleriniz vardır The Imitation Game diye çok güzel bir film var bu filmde Nazi'lerin kriptolu mesajlarını çözmek için Alan Turing tarafından geliştirilen makinenin geliştirilmesi konu alınıyor. Alan Turing geliştirdiği makine ile 2. Dünya Savaşı'nın seyrini değiştirmiş bununla da kalmayıp Turing Makinesi adını verdiği algoritma tanımı ile modern bilgisayarların temelini atmıştır.
 
-#### Bilgisayarın Tarihçesi
+## Bilgisayarın Tarihçesi
 
 Şimdi gelin bilgisayarın tarihi yolculuğunu hep beraber seyredelim. Back the future başlasın. :smile:
 

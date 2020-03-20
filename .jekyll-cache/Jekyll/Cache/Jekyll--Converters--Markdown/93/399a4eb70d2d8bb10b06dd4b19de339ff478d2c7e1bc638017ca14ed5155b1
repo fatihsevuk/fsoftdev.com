@@ -1,0 +1,52 @@
+I"�<h2 id="bilgisayar-nedir">Bilgisayar Nedir</h2>
+
+<p>Merhabalar Bilgisayar bilimine giriş yazılarımıza devam ediyoruz. Bu yazıda başlıktan da anlaşılacağı gibi Pandora’nın kutusunu açıyoruz. :sunglasses:</p>
+
+<p>Bilgisayarın klasik tanımlarını Google ve Wiki’ye havale edip kendimizce bir tanım yapalım.</p>
+
+<p>Bilgisayar en temelde bir elektronik cihazdır ve elektronik devrelerden oluşmuştur.Bu elektronik devreler sayesinde bilgisayar <strong>giriş birimlerinden</strong> aldığı verileri bizim için <strong>işler</strong>, anlamlı hale getirir, gerekli verileri bizim için <strong>saklar</strong> ve işlenen sonuçları <strong>çıkış birimleri</strong> yardımı ile bize sunar.Dikkat edecek olursanız bilgisayarın işlevi dört ana aşamadan oluşuyor.Bu aşamalar fiziksel anlamda da bilgisayarın dört bölümüne karşılık gelmektedir.Bu bölümler şu şekildedir;</p>
+
+<ul>
+  <li>Giriş Birimleri (Input Units)</li>
+  <li>İşlemci (Processor)</li>
+  <li>Hafıza (Memory)</li>
+  <li>Çıkış Birimleri (Output Units)</li>
+</ul>
+
+<h2 id="yazılım-ve-donanım">Yazılım ve Donanım</h2>
+
+<p>Bu saydığımız 4 bölüme bilgisayar donanımı diyebiliriz. Bilgisayarlar <strong>donanım (Hardware)</strong> ve <strong>yazılım (Software)</strong> olmak üzere iki katmandan oluşurlar.</p>
+
+<p>Donanım fiziksel katmandır, aklınıza gelecek tüm bilgisayar parçaları donanım olarak nitelendirilir. Bilgisayar donanımını internall (iç) ve external (dış) donanım olarak ikiye ayırabiliriz. Bilgisayarımızı oluşturan anakart, ram, harddisk, işlemci, ses kartı, ekran kartı, ağ kartı gibi parçalar iç donanımlardır. Bilgisayarımıza dışardan takılan ya da bağlantı kurulan klavye, mouse, monitör, hoparlör, modem, usb bellek gibi donanımlar dış donanımlardır.</p>
+
+<p>Yazılım katmanı ise bilgisayar donanımı üzerinde çalışan bilgisayar kodlarıdır. İşletim sistemi, Bios, ofis programları, internet tarayıcı, oyunlar vb. yazılım katmanını oluşturmaktadır.</p>
+
+<p>Bilgisayarın iç donanımına yakından bakacak olursak.</p>
+
+<p><img src="/assets/img/posts/comp-org.jpg" alt="Image of comp-org" /></p>
+
+<p>Yukarıdaki şemaya dikkat edecek olursak input birimlerinden gelen data işlendikten sonra information olarak çıkış birimlerine veriliyor.</p>
+
+<p>Her elektronik cihazda olduğu gibi bilgisayarda hayatımızı kolaylaştıran işlevlere sahiptir.</p>
+
+<p>Peki bilgisayarlar hayatımızı nasıl kolaylaştırıyor? Bu soruya günümüzde cevap vermek çok kolay. İnternet kullanıcılarının sesini duyar gibiyim. Alışverişten, borsaya,sağlıktan,ulaşıma kadar birçok alanda bilgisayarlar hayatımıza paha biçilemez katkılar sağlıyorlar.</p>
+
+<p>Günümüzde yüksek hızlı cihazlara ve yüksek internet bağlantısına sahibiz ve bilgisayarlar hayatımızın her yerindeler evimizdeki klimadan, kolumuzdaki saate, arabamızdan kitap okuyucumuza kadar her yerde bir bilgisayar var. Peki bu bilgisayar denen cihaz günümüze kadar nasıl geldi yolculuğu nerede başladı ne amaçla üretildi. Bilgisayarın tarihçesini uzun uzun anlatmaktansa bu konuda çok güzel hazırlanmış iki kısa video ile devam edeceğiz. Aşağıdaki videoları izlemeden önce dikkatinizi bir hususa çekmek istiyorum, teknolojik gelişmelerin temelinde hep bir ihtiyaç yatmaktadır.Bilgisayarda askeri ihtiyaçların karşılanması için geliştirilmiştir , belki izleyenleriniz vardır The Imitation Game diye çok güzel bir film var bu filmde Nazi’lerin kriptolu mesajlarını çözmek için Alan Turing tarafından geliştirilen makinenin geliştirilmesi konu alınıyor. Alan Turing geliştirdiği makine ile 2. Dünya Savaşı’nın seyrini değiştirmiş bununla da kalmayıp Turing Makinesi adını verdiği algoritma tanımı ile modern bilgisayarların temelini atmıştır.</p>
+
+<h2 id="bilgisayarın-tarihçesi">Bilgisayarın Tarihçesi</h2>
+
+<p>Şimdi gelin bilgisayarın tarihi yolculuğunu hep beraber seyredelim. Back the future başlasın. :smile:</p>
+
+<iframe width="560" height="315" src="https://www.youtube.com/embed/pBiVyEfZVUU" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen=""></iframe>
+
+<iframe width="560" height="315" src="https://www.youtube.com/embed/HRi1BHjID3o" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen=""></iframe>
+
+<p>Çok etkileyici değil mi? Nerden nereye…</p>
+
+<p>Bilgisayar nedir başlıklı yazımızın sonuna gelmiş bulunmaktayız. Yazıyı sonlandırmadan evvel bundan sonraki yazıların hangi konulardan geleceğine dair biraz bilgi vereyim.</p>
+
+<p>Amacım Computer Science’ a (Bilgisayar Bilimi) giriş niteliğinde bir yazı serisi oluşturup daha sonra belli spesifik alanlara yönelmek. Bu bağlamda Algoritmalar, Veri Yapıları, Programlama Dilleri konularında yazılar yazmayı düşünüyorum. Daha sonra da Java SE ve Java EE yazılarına başlayacağım, zaten hali hazırda başlatmış olduğum Java sertifikasyon yazı serisine de devam edeceğim.</p>
+
+<p>Bir sonraki yazıda bilgisayarın iç yapısını biraz daha yakından inceleyeceğiz.</p>
+
+:ET

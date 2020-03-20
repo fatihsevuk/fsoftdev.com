@@ -9,7 +9,7 @@ seo:
   date_modified: 2020-02-18 00:08:57 +0100
 ---
 
-#### Giriş - Java Ortamı
+## Giriş - Java Ortamı
 
 Java dilinde geliştirme yapmak için gerekli olan ortama **JDK (Java Development Kit)** denir.JDK java kodu yazıp çalıştırmamız için gerekli yapıları içierir, bu yapılardan bahsedecek olursak; yazdığımız kodları **.java** uzantısı ile kaydederiz ve JDK içerisinde gelen **java derleyicisini(java compiler) (javac)** kullanarak bu .java dosyalarını **.class** uzantılı **bytecode** formatına çeviririz.JDK içeriside gelen bir diğer yapıda derlenen java dosyalarını çalıştırmamıza yarayan **launcher** **java** yapısıdır.Programlarımızı komut satırı yardımı ile derleyip çalıştırmak için **javac** ve **java** yapılarını kullanacağız.JDK ile gelen diğer iki yapıda **jar** ve **javadoc** yapılarıdır.**jar** komutu java dosyalarını paketlemek için , **javadoc** komutu ise dökümantasyon oluşturmak için kullanılır. 
 
@@ -46,28 +46,28 @@ Eğer bu komutları çalıştırdıktan sonra yukarıdaki gibi çıktılar gelmi
 
 ## Java' nın Avantajları
 
-#### Object Oriented - Nesneye Yönelik
+### Object Oriented - Nesneye Yönelik
 Java _nesneye yönelimli(**object oriented**)_ bir dildir.Yani tüm java kodları sınıflar içerisinde tanımlanır ve bu sınıfların çoğunluğu nesnelere örneklendirilir.Java'dan önceki bir çok dil prosedüreldi yani sınıf yapıları yoktu kodlar metodlar yada rutinler içerisinde yazılıyordu.Günümüzde nesne yönelimli yaklaşımın dışında yaygın olarak kullanılan bir diğer yaklaşımda fonksiyonel yaklaşımdır.Java 8 sürümü ile birlikte Java dili fonksiyonel özellik de kazanmıştır.
 
-#### Encapsulation - Kapsülleme
+### Encapsulation - Kapsülleme
 Java dili verilerin istenmeyen erişimlerden korumak için **access modifiers(erişim belirleyicileri)** yapısına sahiptir. 
 
-#### Platform Bağımsız
+### Platform Bağımsız
 Java **_Write Once Run Everywhere_** mottosu ile çıkmıştır.Ön derleme işleminden geçip bytecode halini alan java kodları her makinede çalışırlar.
 
-#### Güçlü
+### Güçlü
 C++ dilinde hafıza yönetimi programcıya aitti bu da program yapma işini oldukça zorlaştıran bir durumdu çünkü **gabage collecting (çöp toplama)** programcı tarafından yapılıyordu programcı işe yaramayan nesneleri yok etmek durumundaydı.Kötü bir hafıza yönetimi bir çok hata çıkmasına sebebiyet veriyordu java ile birlikte tüm bu işlemler javanın kontrolune geçip otomatikleşti.
 
-#### Basit
+### Basit
 Java C++ ' dan basit bir yapıda tasarlanmıştır.Pointer yapısı C++ dilini oldukça zor anlaşılır bir yapı haline getirmekteydi Java ' da pointer yapısı yoktur.Operatörlerin aşırı yüklenmesi durumu Java' da yoktur.
 
-#### Güvenli 
+### Güvenli 
 Java kodları JVM içerisinde oluşturulan sanal bir alanda(**sandbox**) çalışır bu durum da kodların, çalışacağı gerçek makineye doğrudan bir zarar vermesine olanak vermez.
 
-#### Multithread
+### Multithread
 Java dili bir çok kod parçacığının aynı anda eş zamanlı çalışmasına olanak sağlayacak şekilde tasarlanmıştır.
 
-#### Backward Compatibility - Geriye Dönük Uyumluluk
+### Backward Compatibility - Geriye Dönük Uyumluluk
 Java dili eski Java sürümlerinde yazılan kodların sonraki sürümlerde çalışmasına olanak sağlayacak şekilde geliştirilir.
 
 

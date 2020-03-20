@@ -11,7 +11,7 @@ seo:
 
 ---
 
-#### Başlangıç
+## Başlangıç
 Merhabalar, yazı dizimize kaldığımız yerden devam ediyoruz. Bu yazıda `Dockerfile` oluşturmayı inceleyeceğiz. Hatırlayacağınız üzere aşağıdaki adımları gerçekleştirmiştik.
 
 * Spring Boot Rest API oluşturduk.
@@ -24,7 +24,7 @@ Merhabalar, yazı dizimize kaldığımız yerden devam ediyoruz. Bu yazıda `Doc
 
 Bu saydığımız tüm adımları terminal yardımıyla teker teker yazarak yaptık.Bu işlemleri otomatikleştirmek için `Dockerfile` oluşturulur.
 
-#### Dockerfile Oluşturma
+## Dockerfile Oluşturma
 
 Şimdi gelin hep beraber ilk `Dockerfile` dosyamızı oluşturalım.Proje dizinimizde `Dockerfile` isminde bir dosya oluşturup içerisine aşağıdaki kodları yazalım.
 
@@ -41,7 +41,7 @@ Evet yukarıda gördüğünüz kodları açıklayacak olursak.
 
 `ENTRYPOINT ["sh","-c","java -jar /SpringBootRestHello-0.0.1-SNAPSHOT.jar"]` ifadesi ile de Container'ımıza başlangıçta ilgili JAR'ı çalıştırmasını söylüyoruz.
 
-#### Dockerfile'ı Kullanma
+## Dockerfile'ı Kullanma
 
 Evet şimdi gelin hep beraber oluşturduğumuz Dockerfile'ı nasıl kullanacağımıza bakalım.
 
@@ -76,7 +76,7 @@ Evet yukarıdaki çıktıdan da gördüğünüz gibi Container'ımız ayağa kal
 
 Eğer Dockerfile içerisinde `EXPOSE 8080` diye bir ifade kullanırsak docker run komutu içerisinde `-p 8080 ` diye bir ifade kullanmadan uygulamamız 8080 portunda çalışmaya başlar.
 
-#### Spotify Maven Plug-in ile Image Oluşturma
+## Spotify Maven Plug-in ile Image Oluşturma
 
 Bu Maven plugin'i kullanarak JAR oluşturma aşamasında aynı zamanda ilgili Dockerfile'ımızdan Image oluşturabiliriz. Bu plugin'i kullanmak için pom. xml dosyasında `<plugins></plugins>` etiketleri arasına aşağıdaki kodlar eklenir.
 
@@ -123,7 +123,7 @@ ADD target/*.jar app.jar
 ENTRYPOINT ["sh","-c","java -jar /app.jar"]
 ```
 
-#### Cached Dependency - No Fat Jar
+## Cached Dependency - No Fat Jar
 
 Şimdiye kadar anlattığımız kısımlarda JAR'ımız çok fazla bağımlılığa sahip olmadığı için boyutu da çok büyük olmadı fakat başka projelerde çok fazla bağımlılık olabilir buda JAR boyutunu oldukça büyük hale getirir bunun önüne geçmek ve build aşamasında her bağımlılığın tekrar indirilmesini önlemek için `Maven Dependency Plugin` kullanılır. Bu plugin'i kullanmak için Spotify plugin'i kaldırıp ya da comment yapabiliriz.
 
@@ -184,7 +184,7 @@ Son olarak oluşan Image'ımızı çalıştırıp localhost'tan kontrollerimizi 
 
 `docker run -p 8080:8080 rest-api:no-fat-jar`
 
-#### Google JIB Plug-in ile Image Oluşturma
+## Google JIB Plug-in ile Image Oluşturma
 
 Bu plugin'i kullandığımız zaman Dockerfile'a ihtiyacımız olmaz. Çünkü Dockerfile içerisindeki ayarları plugin'e config olarak vereceğiz.
 

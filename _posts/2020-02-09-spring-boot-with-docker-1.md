@@ -10,7 +10,7 @@ seo:
 
 ---
 
-#### Başlangıç
+## Başlangıç
 Merhabalar, yeni bir yazı serisine başlıyorum. Bu seride Spring Boot ve Docker kullanarak uygulamalarımızı nasıl geliştirebileceğimizi anlatacağız. Genel hatları ile konu sıralamamız aşağıdaki şekilde olacak.
 
 Not:Bu yazı serisini [in28Minutes-Docker For Spring Java Developer](https://www.udemy.com/share/101ZVgCEUTcllRQw==/) eğitimindeki derslerden öğrendiklerimden oluşturacağım.
@@ -21,11 +21,11 @@ Not:Bu yazı serisini [in28Minutes-Docker For Spring Java Developer](https://www
 * Uygulama ve veri tabanı konteynırlarını entegre etme.
 * Docker Compose ile konteynırlarımızı yönetme.
 
-#### Docker'a Giriş
+## Docker'a Giriş
 
 Docker 2013 yılında piyasaya sürülen ve işletim sistemi seviyesinde sanallaştırma yapan bir yazılımdır. Docker kurulumu ve komutlarına geçmeden önce neden Docker kullandığımıza ve konteynırlara değinelim.
 
-#### Konteyner Nedir
+## Konteyner Nedir
 Docker'ın resmi sitesindeki tanımlardan faydalanacak olursak.
 Yazdığımız kodları paketleyip farklı geliştirme ortamları arasında paylaşmak için gerekli standart birime **Container** denir. Daha kolay anlaşılması için bir case üzerinden anlatacak olursak. Spring Boot ve MongoDB kullanarak geliştirdiğimiz web uygulamasını test ekibine verdiğimizde sorunsuz çalışması için bizim bilgisayarımızdaki environment ile test edecek kişinin bilgisayarındaki environment tüm özellikleri ile aynı olmalı. Kullandığımız JDK 'nın sürümünden MongoDB versiyonuna kadar tüm environment aynı olmalı ki sağlıklı bir şekilde çalışsın. İşte developer'leri bu sıkıntılı durumdan kurtarmak için **Container** çözümlerine başvurulur.
 
@@ -33,7 +33,7 @@ Bir Docker **Container Image** kodun sağlıklı bir şekilde çalışması içi
 
 Docker Image'leri çalışma zamanında Docker Container'larına dönüşür. Hem Linux hem de Windows tabanlı yazılımlarda kullanılabilir olan Container yapısı altyapıdan bağımsız olarak aynı çalışır. Docker Container' lar **Docker Engine** üzerinde çalışırlar.
 
-#### Sanal Makine( Virtual Machine ) Nedir
+## Sanal Makine( Virtual Machine ) Nedir
 
 Docker işletim sistemi düzeyinde sanallaştırma sağlar dedik. Bu durumu açıklamadan önce sanallaştırmanın (**Virtualization**) ne olduğuna ve sanal makinelere (**Virtual Machine**) değinelim.
 
@@ -43,7 +43,7 @@ Peki neden sanal makinelere ihtiyaç duyarız; Sanal makine sistem içerisinde k
 
 Ayrıca sanal makineler server sanallaştırması içinde kullanılabilir. Mesela elimizde bir Linux Server var ve biz bu server da Windows için geliştirilen bir yazılımı host etmek istiyoruz bu durumda ihtiyacımız olan bir sanal makine kurup Windows çalıştırmaktır.
 
-#### Hypervisor Nedir
+## Hypervisor Nedir
 
 Bir işletim sistemi üzerinde birden fazla VM çalışabilir. Bu durumda ana işletim sitemine **host** üzerinde çalışan her bir VM' yede **guest** denir. Host üzerindeki Guest'lerin yönetimini sağlayan yazılıma **Hypervisor** denir. Hypervisor olarak kullanılan yazılımlara örnek verecek olursak;
 
@@ -63,7 +63,7 @@ Docker direkt olarak Host işletim sistemi üzerinde çalışır. Bu da bellek v
 
 Bu yazının kapsamı Docker'a giriş niteliğinde olduğundan çok fazla detaya girmeden Docker'ı nasıl yükleriz ve kullanırız buna bakalım. Docker'ın detaylarını daha geniş bir yazı dizisine havale ederek Docker kullanımına geçelim.
 
-#### Docker Kullanımı
+## Docker Kullanımı
 
 Docker'ın çok sade ve kolay bir dökümanı var kurulum adımlarını [bu dökümana](https://docs.docker.com/install/) havale ederek biz Docker kullanımına geçiş yapalım.
 
@@ -192,7 +192,7 @@ docker stats
 
 Docker'a giriş niteliğindeki yazımızın sonuna geldik, bundan sonraki yazılarda Spring Boot uygulamamızı hazırlayıp Dockerize edeceğiz.
 
-#### Kaynaklar
+## Kaynaklar
 
 [https://www.docker.com/resources/what-container
 ](https://www.docker.com/resources/what-container)

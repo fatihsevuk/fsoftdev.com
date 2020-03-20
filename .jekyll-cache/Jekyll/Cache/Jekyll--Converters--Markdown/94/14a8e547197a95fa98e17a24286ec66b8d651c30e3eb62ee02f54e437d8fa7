@@ -1,0 +1,229 @@
+I"�;<h2 id="başlangıç">Başlangıç</h2>
+<p>Merhabalar, yeni bir yazı serisine başlıyorum. Bu seride Spring Boot ve Docker kullanarak uygulamalarımızı nasıl geliştirebileceğimizi anlatacağız. Genel hatları ile konu sıralamamız aşağıdaki şekilde olacak.</p>
+
+<p>Not:Bu yazı serisini <a href="https://www.udemy.com/share/101ZVgCEUTcllRQw==/">in28Minutes-Docker For Spring Java Developer</a> eğitimindeki derslerden öğrendiklerimden oluşturacağım.</p>
+
+<ul>
+  <li>Docker’a giriş</li>
+  <li>Spring Boot web uygulamamızı konteyner içine almak.</li>
+  <li>MongoDB konteyner oluşturma.</li>
+  <li>Uygulama ve veri tabanı konteynırlarını entegre etme.</li>
+  <li>Docker Compose ile konteynırlarımızı yönetme.</li>
+</ul>
+
+<h2 id="dockera-giriş">Docker’a Giriş</h2>
+
+<p>Docker 2013 yılında piyasaya sürülen ve işletim sistemi seviyesinde sanallaştırma yapan bir yazılımdır. Docker kurulumu ve komutlarına geçmeden önce neden Docker kullandığımıza ve konteynırlara değinelim.</p>
+
+<h2 id="konteyner-nedir">Konteyner Nedir</h2>
+<p>Docker’ın resmi sitesindeki tanımlardan faydalanacak olursak.
+Yazdığımız kodları paketleyip farklı geliştirme ortamları arasında paylaşmak için gerekli standart birime <strong>Container</strong> denir. Daha kolay anlaşılması için bir case üzerinden anlatacak olursak. Spring Boot ve MongoDB kullanarak geliştirdiğimiz web uygulamasını test ekibine verdiğimizde sorunsuz çalışması için bizim bilgisayarımızdaki environment ile test edecek kişinin bilgisayarındaki environment tüm özellikleri ile aynı olmalı. Kullandığımız JDK ‘nın sürümünden MongoDB versiyonuna kadar tüm environment aynı olmalı ki sağlıklı bir şekilde çalışsın. İşte developer’leri bu sıkıntılı durumdan kurtarmak için <strong>Container</strong> çözümlerine başvurulur.</p>
+
+<p>Bir Docker <strong>Container Image</strong> kodun sağlıklı bir şekilde çalışması için gerekli tüm bağımlılıkları içerir.</p>
+
+<p>Docker Image’leri çalışma zamanında Docker Container’larına dönüşür. Hem Linux hem de Windows tabanlı yazılımlarda kullanılabilir olan Container yapısı altyapıdan bağımsız olarak aynı çalışır. Docker Container’ lar <strong>Docker Engine</strong> üzerinde çalışırlar.</p>
+
+<h2 id="sanal-makine-virtual-machine--nedir">Sanal Makine( Virtual Machine ) Nedir</h2>
+
+<p>Docker işletim sistemi düzeyinde sanallaştırma sağlar dedik. Bu durumu açıklamadan önce sanallaştırmanın (<strong>Virtualization</strong>) ne olduğuna ve sanal makinelere (<strong>Virtual Machine</strong>) değinelim.</p>
+
+<p>Sanal makineler (VM) var olan donanım alt yapısı üzerine kurulan yazılımsal bilgisayarlardır. Sanal makineler kendine ait ve kurulum esnasında tanımlanan bellek, depolama , işletim sistemi gibi niteliklere sahiptirler. Nasıl ki fiziksel bilgisayarımıza işletim sistemi ve uygulama kurabiliyorsak sanal makine üzerine de kurabiliriz. Örnek verecek olursak Windows bir makine kullanıyoruz ve Linux’u da deneyimlemek istiyoruz bu durumda ne yapabiliriz; Ya Windows’un yanına ikinci bir işletim sistemi olarak Linux kurarız ya da Windows içine belli ölçüde bellek ve depolama alanı vererek bir sanal makine kurup Linux işletim sistemini yükleriz.</p>
+
+<p>Peki neden sanal makinelere ihtiyaç duyarız; Sanal makine sistem içerisinde korunmuş bir alan oluşturur ve sistemin geri kalanı bu alanda olan hiçbir şeyden etkilenmez. Örnek verecek olursak virüs bulaşmış dosyaları ayıklamak için yeni bir sanal makine kurup dosyaları inceleyebiliriz bu durumda virüs ana sistemimize ulaşmaz.</p>
+
+<p>Ayrıca sanal makineler server sanallaştırması içinde kullanılabilir. Mesela elimizde bir Linux Server var ve biz bu server da Windows için geliştirilen bir yazılımı host etmek istiyoruz bu durumda ihtiyacımız olan bir sanal makine kurup Windows çalıştırmaktır.</p>
+
+<h2 id="hypervisor-nedir">Hypervisor Nedir</h2>
+
+<p>Bir işletim sistemi üzerinde birden fazla VM çalışabilir. Bu durumda ana işletim sitemine <strong>host</strong> üzerinde çalışan her bir VM’ yede <strong>guest</strong> denir. Host üzerindeki Guest’lerin yönetimini sağlayan yazılıma <strong>Hypervisor</strong> denir. Hypervisor olarak kullanılan yazılımlara örnek verecek olursak;</p>
+
+<ul>
+  <li>OracleVM</li>
+  <li>VMware</li>
+  <li>Microsoft Hyper-V</li>
+</ul>
+
+<p>Örnek olarak verilebilir.</p>
+
+<p>Gelelim en can alıcı noktaya VM’ler varsa ve çok kolaylık sağlıyorsa Docker’ a neden ihtiyaç duyalım?</p>
+
+<p>Docker’ ın işletim sistemi düzeyinde bir sanallaştırma teknolojisi olduğunu söyledik. Bu nasıl oluyor. Aşağıdaki görsele bakacak olursak.</p>
+
+<p><img src="/assets/img/posts/docker-vs-vm.png" alt="Image of docker-vs-vm" /></p>
+
+<p>Docker direkt olarak Host işletim sistemi üzerinde çalışır. Bu da bellek ve depolama olarak Docker’ı ön plana çıkarmaktadır. VM’lerin ihtiyacı olan bellek,depolama sistem için büyük bir yük oluştururken Docker ile bu durum minimalize edilmiştir.</p>
+
+<p>Bu yazının kapsamı Docker’a giriş niteliğinde olduğundan çok fazla detaya girmeden Docker’ı nasıl yükleriz ve kullanırız buna bakalım. Docker’ın detaylarını daha geniş bir yazı dizisine havale ederek Docker kullanımına geçelim.</p>
+
+<h2 id="docker-kullanımı">Docker Kullanımı</h2>
+
+<p>Docker’ın çok sade ve kolay bir dökümanı var kurulum adımlarını <a href="https://docs.docker.com/install/">bu dökümana</a> havale ederek biz Docker kullanımına geçiş yapalım.</p>
+
+<p>Docker’ı indirip bilgisayarınıza kurduktan sonra terminalde aşağıdaki komutu yazarak başarılı bir şekilde çalışıp çalışmadığını kontrol edebilirsiniz.</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+</pre></td><td class="rouge-code"><pre>docker -v
+</pre></td></tr></tbody></table></code></pre></div></div>
+<p>Bu komutu yazıp Enter’e bastığımızda Docker’ın versiyon numarası ve build numarasını içeren bir çıktı gelmesi lazım.</p>
+
+<p><img src="/assets/img/posts/docker-v.png" alt="Image of docker-v" /></p>
+
+<p>Docker’ımız kurulu artık Docker ile oynayabiliriz.</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+</pre></td><td class="rouge-code"><pre>docker ps -a
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+<p>Bu komut sistemimizde çalışan ya da durmuş tüm Container’ları listeler. Aynı işlevi gerçekleştiren bir başka komutta şudur;</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+</pre></td><td class="rouge-code"><pre>docker container ls -a
+</pre></td></tr></tbody></table></code></pre></div></div>
+<p>bu iki komutta da gördüğünüz üzere <strong>-a</strong> parametresi kullanılmıştır, bu Container durdurulmuş (stop) olsa dahi listelemeye yarar.</p>
+
+<p>Sisteminizde hiç Container olmadığını varsayıyorum. Bir Container’ı çalıştırmak için ilgili Image dosyasını run etmemiz lazımdır. Örnek verecek olursak hello-world isimli Container’ı ayağa kaldırmak istiyoruz. Docker’a aşağıdaki komutu verdiğimizde Docker ilk olarak ilgili Image dosyasını local sistemimizde arar eğer varsa Image’i Local’dan yükler. Eğer local sistemde ilgili Image yoksa Docker ilgili Image dosyasını <strong>DockerHub</strong>‘dan indirir.</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+</pre></td><td class="rouge-code"><pre>docker run hello-world
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+<p>Bu komutu yazıp Enter’e bastığımızda aşağıdaki gibi bir çıktı oluşur. Çıktıyı inceleyecek olursak.</p>
+
+<p><img src="/assets/img/posts/docker-run-hello.png" alt="Image of docker-run-hello" /></p>
+
+<p>İlk satırda Docker hello-world image’ini local sistemde bulamadığını söylüyor. Daha sonra ilgili hello-world Image’inin <strong>latest</strong> yani son sürümünün DockerHub dan çekildiğini gösteriyor.</p>
+
+<p>Peki sonuç olarak ne oldu? Image indirildi ve çalıştırıldı.</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+</pre></td><td class="rouge-code"><pre>docker container ls -a
+</pre></td></tr></tbody></table></code></pre></div></div>
+<p>Komutunu çalıştırırsak sistemdeki tüm Container’ları görürüz. Sonuç olarak Container’ımızın bilgilerini içeren bir ekran gelir.</p>
+
+<p><img src="/assets/img/posts/docker-container-ls.png" alt="Image of docker-container-ls" /></p>
+
+<p>Kullanacağımız diğer Docker komutlarını inceleyecek olursak.</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+</pre></td><td class="rouge-code"><pre>docker images
+---------------
+Sistemdeki Docker Image'larını listeler.
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+</pre></td><td class="rouge-code"><pre>docker pull imageName
+---------------
+Parametre olarak aldığı Image'ı çeker.
+</pre></td></tr></tbody></table></code></pre></div></div>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+</pre></td><td class="rouge-code"><pre>docker image history imageId
+---------------
+Parametre olarak aldığı id li Image'in tarihçesini gösterir.
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+</pre></td><td class="rouge-code"><pre>docker image inspect imageId
+---------------
+Parametre olarak aldığı id li Image'in detaylı bilgisini gösterir.
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+</pre></td><td class="rouge-code"><pre>docker image remove imageId
+---------------
+Parametre olarak aldığı id li Image'i sistemden siler.
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+</pre></td><td class="rouge-code"><pre>docker container pause containerId
+---------------
+Parametre olarak aldığı id li Container'ı duraklatır.
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+</pre></td><td class="rouge-code"><pre>docker container unpause containerId
+---------------
+Parametre olarak aldığı id li duraklatılmış Container'ı tekrar çalıştırır.
+</pre></td></tr></tbody></table></code></pre></div></div>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+</pre></td><td class="rouge-code"><pre>docker container stop containerId
+---------------
+Parametre olarak aldığı id li Container'ı durdurur.
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+</pre></td><td class="rouge-code"><pre>docker container start containerId
+---------------
+Parametre olarak aldığı id li Container'ı başlatır.
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+</pre></td><td class="rouge-code"><pre>docker container inspect containerId
+---------------
+Parametre olarak aldığı id li Container'in detaylı bilgisini gösterir.
+</pre></td></tr></tbody></table></code></pre></div></div>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+</pre></td><td class="rouge-code"><pre>docker container prune
+---------------
+Durdurulmuş tüm Container'ları sistemden kaldırır.
+</pre></td></tr></tbody></table></code></pre></div></div>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+</pre></td><td class="rouge-code"><pre>docker events
+---------------
+Tüm Docker olaylarını listeler.
+</pre></td></tr></tbody></table></code></pre></div></div>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+</pre></td><td class="rouge-code"><pre>docker top containerId
+---------------
+İlgili Container'ın çalışan processeslerini gösterir.
+</pre></td></tr></tbody></table></code></pre></div></div>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+</pre></td><td class="rouge-code"><pre>docker stats
+---------------
+Çalışan tüm Container'ların kaynak kullanım istatistiklerini canlı akış olarak gösterir.
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+<p>Docker’a giriş niteliğindeki yazımızın sonuna geldik, bundan sonraki yazılarda Spring Boot uygulamamızı hazırlayıp Dockerize edeceğiz.</p>
+
+<h2 id="kaynaklar">Kaynaklar</h2>
+
+<p><a href="https://www.docker.com/resources/what-container">https://www.docker.com/resources/what-container
+</a></p>
+
+<p><a href="https://www.vmware.com/topics/glossary/content/virtual-machine">https://www.vmware.com/topics/glossary/content/virtual-machine
+</a></p>
+
+<p><a href="https://phoenixnap.com/kb/what-is-hypervisor-type-1-2">https://phoenixnap.com/kb/what-is-hypervisor-type-1-2
+</a></p>
+
+<p><a href="https://docs.docker.com/install/">https://docs.docker.com/install/</a></p>
+
+<p><a href="https://docs.docker.com/">https://docs.docker.com/</a></p>
+:ET

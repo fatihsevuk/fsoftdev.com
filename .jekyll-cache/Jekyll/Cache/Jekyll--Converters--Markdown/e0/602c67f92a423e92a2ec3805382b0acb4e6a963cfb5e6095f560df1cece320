@@ -1,0 +1,235 @@
+I"�7<h2 id="javada-paket-yapısı">Java’da Paket Yapısı</h2>
+
+<p>Java programlama dilinde sınıfları mantıksal olarak sınıflandırmamıza yarayan yapılara paket denir.Java , içerisinde binlerce built-in paket ile gelir.JDK’ ya ait paketler <strong>java</strong> ve <strong>javax</strong> ile başlar.Bir paketi kodumuza ekleyip o paketteki sınıfları kullanabilmemiz için ilgili paketi kodumuza <strong>import</strong> etmemiz gerekmektedir.Kullandığımız herhangi bir sınıfın paketini import etmezsek kodumuz hata verir.Java da import edilmeden kullanılan tek sınıf <strong>System</strong> sınıfıdır.Ekrana bir satır basmak için kullanılan <strong>System.out.println();</strong>  ifadesindeki System sınıfı <strong>java.lang</strong> paketindedir ve bu paketi dışarıdan import etmemize gerek yoktur bu paket otomatik olarak import edilir.</p>
+
+<p>Paket yapısı ile ilgii kod örneğimizi inceleyecek olursak;</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+9
+</pre></td><td class="rouge-code"><pre><span class="kn">import</span> <span class="nn">java.util.ArrayList</span><span class="o">;</span>
+
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">MrRobot</span> <span class="o">{</span> 
+    
+    <span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="o">(</span><span class="nc">String</span><span class="o">...</span> <span class="n">args</span><span class="o">)</span> <span class="o">{</span>
+        <span class="nc">ArrayList</span><span class="o">&lt;</span><span class="nc">String</span><span class="o">&gt;</span> <span class="n">names</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">ArrayList</span><span class="o">&lt;</span><span class="nc">String</span><span class="o">&gt;();</span>
+        <span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">names</span><span class="o">.</span><span class="na">toString</span><span class="o">());</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+<p>kodumuzda main metodu içerisinde ArrayList sınıfından bir nesne oluşturduk dikkat edecek olursanız sınıf tanımının üstünde ArrayList sınıfını import ettiğimizi görürsünüz.Eğer bu import etme işlemini yapmazsak kodumuz hata verir.</p>
+
+<p>Java’da bir paket altındaki tüm sınıfları koda import etmek mümkündür bunu yapmak için * operatörünü kullanırız.Yukarıdaki kodda java.util paketi altındaki tüm sınıfları import etmek için aşağıdaki ifade kullanılır.</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+</pre></td><td class="rouge-code"><pre><span class="kn">import</span> <span class="nn">java.util.*</span><span class="o">;</span>
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+<p>Burda dikkat etmemiz gereken en önemli husus şudur ki; * operatörü paket içerisindeki sınıfları import eder alt paketleri koda dahil etmez.</p>
+
+<h2 id="i̇sim-çakışmaları">İsim Çakışmaları</h2>
+
+<p>Farklı paketler içerisnde aynı isimde paketler bulunabilir.Bu gibi durumlarda <strong>conflict(çakışma)</strong> olmaması için kullanılacak sınıfın hangi paket altında olduğu açıkça belirtilmeli derleyici hangi paket olduğunu anlamalıdır.Kod üzerinden örnek verecek olursak;</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+</pre></td><td class="rouge-code"><pre>
+
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">MrRobot</span> <span class="o">{</span> 
+    <span class="nc">Date</span> <span class="n">birthdate</span><span class="o">;</span>
+<span class="o">}</span>
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+<p>kodumuzda Date türünde bir alan vardır fakat bu Date sınfının hangi pakette olduğu belli değildir.Date isminde sınıf içeren iki paket vardır bunlar <strong>java.util.Date</strong> ve <strong>java.sql.Date</strong> dir.</p>
+
+<p>Kodumuzu aşağıdaki şekilde değiştirirsek neler olur gelin beraber inceleyelim;</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+</pre></td><td class="rouge-code"><pre>
+<span class="kn">import</span> <span class="nn">java.util.Date</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">java.sql.Date</span><span class="o">;</span>
+
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">MrRobot</span> <span class="o">{</span> 
+    <span class="nc">Date</span> <span class="n">birthdate</span><span class="o">;</span>
+<span class="o">}</span>
+</pre></td></tr></tbody></table></code></pre></div></div>
+<p>bu durumda derleyici hangi paketteki Date sınıfını kullanacağına karar veremez ve aşağıdaki hatayı fırlatır.</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+</pre></td><td class="rouge-code"><pre>error: reference to Date is ambiguous
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+<p>Peki bu durumda ne yapmamız gerekir bu durumda Java ya hangi paketi kullanması gerektiğini açıkça bildirmemiz gerekir yani hangi paketteki Date sınıfını kullanmamız gerektiğine karar verip diğer import ifadesini kaldırmalıyız.</p>
+
+<p>Bir başka çözüm adımıda şu olabilir;</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+</pre></td><td class="rouge-code"><pre>
+<span class="kn">import</span> <span class="nn">java.util.*</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">java.sql.Date</span><span class="o">;</span>
+
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">MrRobot</span> <span class="o">{</span> 
+    <span class="nc">Date</span> <span class="n">birthdate</span><span class="o">;</span>
+<span class="o">}</span>
+</pre></td></tr></tbody></table></code></pre></div></div>
+<p>gelin beraber düşünelim acaba Java burada hangi paketteki Date sınıfını kullanacak? Derleyici açıkça belirtilmiş sınıf ismini * karakterine göre önceliklendirir.Yani <strong>java.sql</strong> paketindeki Date sınıfı kullanılır.</p>
+
+<p>Gelin durumu biraz daha zorlu hale getirelim diyelim ki programcı her iki paketteki Date sınıfınıda kodunda kullanmak istiyor bu durumda ne yapması gerekir? Cevabımızı kod üzerinden anlatacak olursak;</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+</pre></td><td class="rouge-code"><pre>
+<span class="kn">import</span> <span class="nn">java.sql.Date</span><span class="o">;</span>
+
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">MrRobot</span> <span class="o">{</span> 
+    <span class="nc">Date</span> <span class="n">birthdate</span><span class="o">;</span>
+    <span class="n">java</span><span class="o">.</span><span class="na">util</span><span class="o">.</span><span class="na">Date</span> <span class="n">otherDate</span><span class="o">;</span>
+<span class="o">}</span>
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+<p>yada</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+</pre></td><td class="rouge-code"><pre>
+
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">MrRobot</span> <span class="o">{</span> 
+    <span class="n">java</span><span class="o">.</span><span class="na">sql</span><span class="o">.</span><span class="na">Date</span> <span class="n">birthdate</span><span class="o">;</span>
+    <span class="n">java</span><span class="o">.</span><span class="na">util</span><span class="o">.</span><span class="na">Date</span> <span class="n">otherDate</span><span class="o">;</span>
+<span class="o">}</span>
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+<p>yukarıdaki iki kod bloğuda sorumuzun cevabıdır.</p>
+
+<h2 id="yeni-paket-oluşturmak">Yeni Paket Oluşturmak</h2>
+
+<p>Eğer paket tanımlamazsak kodumuz default package içindedir.Yeni paket oluşturmak için aşağıdaki yapı kullanılır.</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+</pre></td><td class="rouge-code"><pre><span class="k">package</span> <span class="n">package_name</span><span class="p">;</span>
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+<h2 id="paket-i̇le-çalıştırma">Paket İle Çalıştırma</h2>
+
+<p>Paket içierisndeki kodlarımızı javac ile derlemek için;</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+</pre></td><td class="rouge-code"><pre>javac packageName/MrRobot.java
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+<p>bir paket altındaki tüm sınıfları derlemek için</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+</pre></td><td class="rouge-code"><pre>javac packageName/*.java
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+<p>komutları kullanılır.</p>
+
+<h2 id="alternatif-derleme-klasörü">Alternatif Derleme Klasörü</h2>
+
+<p>Varsayılan olarak kaynak kodlar ve derlenmiş kodlar aynı klasör içindedir.Derleme sırasında derlenmiş kod için yeni bir yol belirtebiliriz bu işlem aşağıdaki gibi yapılır.</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+</pre></td><td class="rouge-code"><pre>javac -d alternateDirectory package/MrRobot.java
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+<p>derleme sonucu üretilen .class dosyaları alternateDirectory içerisine yerleştirilir.</p>
+
+<p>Derleme sonucu oluşan .class dosyalarını kullanıp programımızı çalıştırma aşamasında alternatif klasörün yolunu java ya bildirmemiz gerekir bunu 3 farklı şekilde yapabiliriz.</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+</pre></td><td class="rouge-code"><pre>java -cp alternateDirectory package.MrRobot
+java -classpath alternateDirectory package.MrRobot
+java --class-path alternateDirectory package.MrRobot
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+<p>yukarıdaki üç komutta aynı işlemi yapar.</p>
+
+<h2 id="jar-dosyasıyla-birlikte-derleme">Jar Dosyasıyla Birlikte Derleme</h2>
+
+<p>Derleme işlemimize herhangi bir jar dosyasını dahil edebiliriz bunu Linux işletim sisteminde aşağıdaki şekilde yaparız.</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+</pre></td><td class="rouge-code"><pre>java -cp ".:/temp/otherLocation:/temp/myJar.jar" package.MrRobot
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+<p>yukarıdaki kodda : ile ayrılmış kısımlara dikkat edecek olursak;</p>
+
+<ul>
+  <li>
+    <p>derleme işlemine <strong>/temp/otherLocation</strong> içindeki tüm jar dosyaları alınır fakat alt klasörler alınmaz</p>
+  </li>
+  <li>
+    <p>aynı zamanda <strong>/temp/myJar.jar</strong> dosyasıda derleme işlemine dahil edilir.</p>
+  </li>
+</ul>
+
+<h2 id="yeni-jar-dosyası-oluşturma">Yeni Jar Dosyası Oluşturma</h2>
+
+<p>Aşağıdaki komutlar yardımı ile jar dosyaları oluşturabiliriz.</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+</pre></td><td class="rouge-code"><pre>jar -cvf myNewJar.jar
+
+jar --create-verbose-file myNewJar.jar
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+<p>herhangi bir klasör içine jar dosyası oluşturmak için</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+</pre></td><td class="rouge-code"><pre>jar -cvf myNewJar.jar -C directory
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+<h2 id="paket-ile-birlikte-tek-satırda-derleme">Paket ile Birlikte Tek Satırda Derleme</h2>
+
+<p>Eğer programımızı <strong>javac</strong> kullanmadan tek satırda <strong>java</strong> java komutu ile derlemek istiyorsak tek şart şudur;Programımız JDK paketleri hariç başka bir paketi import etmemelidir.</p>
+
+<h2 id="sınıf-elemenlarını-sıralama">Sınıf Elemenlarını Sıralama</h2>
+
+<ol>
+  <li>package</li>
+  <li>imports</li>
+  <li>class decleration</li>
+  <li>fields</li>
+  <li>methods</li>
+</ol>
+
+<p>1,2,3 sıralaması şarttır 4 ile 5 nolu elemanlar yer değiştirebilir.</p>
+
+<p>OCP Chapter 1 sonuna geldik bir sonraki chapterda Java yapı bloklarını anlatarak devam edeceğiz.</p>
+:ET
