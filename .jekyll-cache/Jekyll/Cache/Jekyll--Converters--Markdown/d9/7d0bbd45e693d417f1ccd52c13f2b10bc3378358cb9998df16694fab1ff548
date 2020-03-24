@@ -1,4 +1,4 @@
-I"ö
+I"j
 <div id="tags" class="d-flex flex-wrap ml-xl-2 mr-xl-2">
 
 
@@ -12,6 +12,10 @@
 
   <div>
     <a class="tag" href="/tags/algoritma/">algoritma<span class="text-muted">1</span></a>
+  </div>
+
+  <div>
+    <a class="tag" href="/tags/apache-tomcat/">apache tomcat<span class="text-muted">2</span></a>
   </div>
 
   <div>
@@ -43,7 +47,7 @@
   </div>
 
   <div>
-    <a class="tag" href="/tags/container/">container<span class="text-muted">2</span></a>
+    <a class="tag" href="/tags/container/">container<span class="text-muted">4</span></a>
   </div>
 
   <div>
@@ -51,7 +55,7 @@
   </div>
 
   <div>
-    <a class="tag" href="/tags/docker/">docker<span class="text-muted">3</span></a>
+    <a class="tag" href="/tags/docker/">docker<span class="text-muted">5</span></a>
   </div>
 
   <div>
@@ -83,7 +87,7 @@
   </div>
 
   <div>
-    <a class="tag" href="/tags/image/">image<span class="text-muted">2</span></a>
+    <a class="tag" href="/tags/image/">image<span class="text-muted">4</span></a>
   </div>
 
   <div>
@@ -103,7 +107,7 @@
   </div>
 
   <div>
-    <a class="tag" href="/tags/java/">java<span class="text-muted">6</span></a>
+    <a class="tag" href="/tags/java/">java<span class="text-muted">8</span></a>
   </div>
 
   <div>
@@ -179,11 +183,11 @@
   </div>
 
   <div>
-    <a class="tag" href="/tags/spring/">spring<span class="text-muted">3</span></a>
+    <a class="tag" href="/tags/spring/">spring<span class="text-muted">5</span></a>
   </div>
 
   <div>
-    <a class="tag" href="/tags/spring-boot/">spring boot<span class="text-muted">3</span></a>
+    <a class="tag" href="/tags/spring-boot/">spring boot<span class="text-muted">5</span></a>
   </div>
 
   <div>

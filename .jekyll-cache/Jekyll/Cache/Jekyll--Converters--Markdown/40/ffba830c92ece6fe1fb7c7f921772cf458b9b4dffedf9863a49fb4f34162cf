@@ -63,7 +63,7 @@
           1
           category,
         
-          3
+          4
           posts
         </span>
       </span>
@@ -85,7 +85,7 @@
         <li class="list-group-item">
           <i class="far fa-folder fa-fw"></i>&nbsp;<a href="/categories/docker/">Docker</a>
           
-          <span class="text-muted small font-weight-light pl-2">3
+          <span class="text-muted small font-weight-light pl-2">4
             posts
           </span>
         </li>

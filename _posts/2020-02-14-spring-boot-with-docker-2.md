@@ -1,5 +1,5 @@
 ---
-title: Spring Boot App With Docker-2
+title: Spring Boot And Docker-2 Run Spring Boot App As Container
 date: Fri 14-Feb-2020 05:22 P.M.
 categories: [Devops, Docker]
 language: Turkish
