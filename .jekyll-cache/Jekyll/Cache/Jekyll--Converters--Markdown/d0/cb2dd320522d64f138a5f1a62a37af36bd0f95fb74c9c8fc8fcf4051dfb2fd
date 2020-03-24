@@ -1,4 +1,4 @@
-I"j
+I"¾
 <div id="tags" class="d-flex flex-wrap ml-xl-2 mr-xl-2">
 
 
@@ -15,7 +15,7 @@
   </div>
 
   <div>
-    <a class="tag" href="/tags/apache-tomcat/">apache tomcat<span class="text-muted">2</span></a>
+    <a class="tag" href="/tags/apache-tomcat/">apache tomcat<span class="text-muted">1</span></a>
   </div>
 
   <div>
@@ -60,6 +60,14 @@
 
   <div>
     <a class="tag" href="/tags/docker-file/">docker file<span class="text-muted">1</span></a>
+  </div>
+
+  <div>
+    <a class="tag" href="/tags/docker-networking/">docker networking<span class="text-muted">1</span></a>
+  </div>
+
+  <div>
+    <a class="tag" href="/tags/docker-volume/">docker volume<span class="text-muted">1</span></a>
   </div>
 
   <div>
@@ -144,6 +152,10 @@
 
   <div>
     <a class="tag" href="/tags/methods/">methods<span class="text-muted">1</span></a>
+  </div>
+
+  <div>
+    <a class="tag" href="/tags/mysql/">mysql<span class="text-muted">1</span></a>
   </div>
 
   <div>
