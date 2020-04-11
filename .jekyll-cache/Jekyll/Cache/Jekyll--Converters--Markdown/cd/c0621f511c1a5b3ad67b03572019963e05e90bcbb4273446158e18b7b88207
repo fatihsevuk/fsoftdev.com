@@ -1,0 +1,204 @@
+I"�;<h2 id="literallerindeğişmezler-yazımı">Literal’lerin(Değişmezler) Yazımı</h2>
+
+<p>Kodun içinde gördüğümüz sayısal ifadelere <code class="highlighter-rouge">literal</code> denir. Sayısal değerleri illa decimal(10) tabanda yazmamıza gerek yoktur. Binary(2), octal(8) veya hexadecimal(16) tabanda da yazabiliriz.</p>
+
+<p>Bir sayı eğer</p>
+
+<ul>
+  <li>Sadece 0 ve 1 değerlerinden oluşmuşsa ve 0b veya 0B ön eki ile başlıyorsa o sayı binary(2 lik) tabandadır.</li>
+  <li>Sadece 0-9 aralığında numeric değer ve A ile F arasında harf değerinden oluşuyorsa ve 0X ile başlıyorsa hexadecimal(16 lık) tabandadır.</li>
+  <li>Sadece 0-7 aralığında numeric değer alabiliyorsa octal(8 lik) tabandadır.</li>
+</ul>
+
+<p>Sayısal değerleri okunabilirlik açısından basmakları arasına <code class="highlighter-rouge">_</code> koyarak ifade edebiliriz. <code class="highlighter-rouge">1_234_345_234</code> gibi. Yalnızca başa,sona ve ondalık değerin başına ve sonuna konulmaz.</p>
+
+<h2 id="javada-referans-tipleri">Java’da Referans Tipleri</h2>
+
+<p>Oluşturduğumuz nesnelerin hafızadaki adreslerini tutan değerlere <code class="highlighter-rouge">o nesnenin referansı</code> denir. C dilinde verilerin hafızadaki fiziksel adreslerini bilebiliyorduk fakat Java buna izin vermez. Aynı tipteki nesneler arasında referans atamsı olabilir. new anahtar kelimesi ile yeni oluşturulan nesnelere atanabilir.</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+</pre></td><td class="rouge-code"><pre><span class="nc">String</span> <span class="n">text</span><span class="o">=</span><span class="k">new</span> <span class="nc">String</span><span class="o">(</span><span class="s">"Hello from Mr Robot"</span><span class="o">);</span>
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+<p>Kod örneğimizde <code class="highlighter-rouge">text</code> ifadesi yeni oluşturulan String nesnesinin referansıdır.</p>
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+</pre></td><td class="rouge-code"><pre><span class="nc">String</span> <span class="n">text</span><span class="o">=</span><span class="k">new</span> <span class="nc">String</span><span class="o">(</span><span class="s">"Hello from Mr Robot"</span><span class="o">);</span>
+<span class="n">text</span><span class="o">=</span><span class="k">new</span> <span class="nc">String</span><span class="o">(</span><span class="s">"Good Bye from Mr Robot"</span><span class="o">);</span>
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+<p><code class="highlighter-rouge">text</code> referansına aynı türden oluşturduğumuz başka bir nesnenin fiziksel adresini bağladık.</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+</pre></td><td class="rouge-code"><pre><span class="nc">String</span> <span class="n">hello</span><span class="o">=</span><span class="k">new</span> <span class="nc">String</span><span class="o">(</span><span class="s">"Hello from Mr Robot"</span><span class="o">);</span>
+<span class="nc">String</span> <span class="n">goodBye</span><span class="o">=</span><span class="k">new</span> <span class="nc">String</span><span class="o">(</span><span class="s">"Good Bye from Mr Robot"</span><span class="o">);</span>
+<span class="n">hello</span><span class="o">=</span><span class="n">goodBye</span><span class="o">;</span>
+</pre></td></tr></tbody></table></code></pre></div></div>
+<p>Burada da <code class="highlighter-rouge">hello</code> referansına <code class="highlighter-rouge">goodBye</code> referansını atadık yani artık her iki referansta <code class="highlighter-rouge">new String("Good Bye from Mr Robot");</code> ifadesi ile oluşan nesneyi refere eder.</p>
+
+<p>Primitiv türlerin aksine referans değerlere <code class="highlighter-rouge">null</code> değeri vererek hafızadaki işaret ettiği nesne ile bağını keseriz ve bu ilgili nesne artık Garbage Collector’ın ilgi sahasına girer.</p>
+
+<p>Referans türler vasıtasıyla refere ettikleri nesnenin üyelerine erişebiliriz. Fakat primit türlerde böyle bir durum söz konusu değildir.</p>
+
+<h2 id="java-variables-değişkenler">Java Variables (Değişkenler)</h2>
+<p>Tüm diler de olduğu gibi Java dilinde de hafızada veri saklamak için değişkenler kullanılır. Aşağıda String, int ve long türünde 3 farklı değişken tanımı vardır.</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+</pre></td><td class="rouge-code"><pre>
+<span class="nc">String</span> <span class="n">sValue</span><span class="o">=</span><span class="s">"I am a String value"</span><span class="o">;</span>
+<span class="kt">int</span> <span class="n">iValue</span><span class="o">=</span><span class="mi">21</span><span class="o">;</span>
+<span class="kt">long</span> <span class="n">lValue</span><span class="o">=</span><span class="mi">232L</span><span class="o">;</span>
+
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+<p>Yukarıdaki kodda <code class="highlighter-rouge">sValue</code>,<code class="highlighter-rouge">iValue</code> ve <code class="highlighter-rouge">lValue</code> bizim değişkenlerimizdir ve <code class="highlighter-rouge">sahip oldukları veri tipinin kapasitesi miktarınca</code> hafızada alana sahiptirler.</p>
+
+<h2 id="naming-conversion">Naming Conversion</h2>
+<p>Java’da sınıflara değişkenlere metotlar vs. isim verirken şunlara dikkat etmemiz gerekir.</p>
+
+<ul>
+  <li>Bir harf yada <code class="highlighter-rouge">$</code> veya <code class="highlighter-rouge">_</code> (Java 9 dan beri _ ye izin yok.) ile başlayabilir.</li>
+  <li>Sayı ile başlayamaz fakat bitebilir.</li>
+  <li>Java keywordlerden biriyle aynı isme sahip olamaz.</li>
+  <li>goto ve const Java’da olamamasına rağmen reserved word olarak Java tarafından ayrılmıştır.</li>
+  <li>true,false ve null reserved değil literaldir bu yüzden kullanılmazlar.</li>
+</ul>
+
+<p>Java’da isimlendirme yaparken aşağıdaki stillerden birini kullanabiliriz.</p>
+
+<ul>
+  <li>Camel Case
+    <ul>
+      <li>myVariableName</li>
+    </ul>
+  </li>
+  <li>Snake Case
+    <ul>
+      <li>my_variable_name</li>
+    </ul>
+  </li>
+  <li>Kebab Case
+    <ul>
+      <li>my-variable-name</li>
+    </ul>
+  </li>
+  <li>Pascal Case
+    <ul>
+      <li>MyVariableName</li>
+    </ul>
+  </li>
+</ul>
+
+<p>Java’da ayniçerisindeçerisnde birden çok değişken tanılanabilir ve değer ataması yapılabilir tabi ki değişkenler aynı türde olmak koşuluyla.</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+</pre></td><td class="rouge-code"><pre><span class="kt">int</span> <span class="n">weight</span><span class="o">,</span><span class="n">height</span><span class="o">,</span><span class="n">age</span><span class="o">;</span>
+<span class="nc">String</span> <span class="n">country</span><span class="o">=</span><span class="s">"Turkey"</span><span class="o">,</span><span class="n">language</span><span class="o">=</span><span class="s">"Turkish"</span><span class="o">;</span>
+<span class="nc">String</span> <span class="n">city</span> <span class="o">,</span> <span class="kt">int</span> <span class="n">code</span><span class="o">;</span> <span class="c1">// DOESNT COMPILE</span>
+</pre></td></tr></tbody></table></code></pre></div></div>
+<h2 id="değişkenlere-i̇lk-değer-atama-initializing-variables">Değişkenlere İlk Değer Atama (Initializing Variables)</h2>
+
+<h3 id="yerellocal-değişkenler">Yerel(Local) Değişkenler</h3>
+<p>Java’da bir kod bloğu, constructor ya da metot içerisinde tanımlanan değişkenlerdir. Değer ataması yapılmadan kullanılamaz çünkü default değerlere sahip değillerdir. Atama yapılmadan kullanılmaları halinde derleyici hata verir.</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+</pre></td><td class="rouge-code"><pre><span class="kd">public</span> <span class="kt">int</span> <span class="nf">fire</span><span class="o">()</span> <span class="o">{</span>
+<span class="kt">int</span> <span class="n">power</span><span class="o">=</span><span class="mi">100</span><span class="o">;</span>
+<span class="kt">int</span> <span class="n">bullet</span><span class="o">;</span>
+<span class="kt">int</span> <span class="n">fire</span><span class="o">=</span><span class="n">power</span><span class="o">+</span><span class="n">bullet</span><span class="o">;</span><span class="c1">// DOESNT COMPILE</span>
+<span class="c1">// bullet değişkeni initialize edilmediği için derleyici hata verir.</span>
+<span class="k">return</span> <span class="n">fire</span><span class="o">;</span>
+<span class="o">}</span>
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+<p>Metotlara ve constructorlara geçirilen parametreler öncelikle initialize edilmelidir.</p>
+
+<h3 id="class-ve-instance-değişkenleri">Class ve Instance Değişkenleri</h3>
+
+<p>Instance değişkenleri field olarak adlandırılırlar. Sınıftan üretilen her nesne bu field’lara sahiptir fakat aynı değere sahip olmayabilirler. Class değişkenlerine ise nesne oluşturmadan erişmek mümkündür. Çünkü static olarak tanımlanırlar. Bu iki değişkende default değere sahiptir ve kullanacağımız zaman ilk değer ataması yapmamıza gerek yoktur.</p>
+
+<p><strong>Defult değerler</strong></p>
+
+<ul>
+  <li>String- <code class="highlighter-rouge">null</code></li>
+  <li>byte,int,long,shor - <code class="highlighter-rouge">0</code></li>
+  <li>char - <code class="highlighter-rouge">'\u0000' (NULL)</code></li>
+  <li>boolean - <code class="highlighter-rouge">false</code></li>
+  <li>double , <code class="highlighter-rouge">float - 0.0</code></li>
+</ul>
+
+<h2 id="javada-var-kullanımı">Java’da <em>var</em> Kullanımı</h2>
+
+<p>Java’da var ‘ın formal ismi <code class="highlighter-rouge">Local variable interface type</code> olarak geçmektedir. Yalnızca local değişkenlerde kullanılır. Sınıf değişkenlerinde kullanımı derleme hatasına sebep olur.</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+</pre></td><td class="rouge-code"><pre><span class="kd">public</span> <span class="nc">String</span> <span class="nf">getNameAndAge</span><span class="o">()</span> <span class="o">{</span>
+<span class="kt">var</span> <span class="n">name</span><span class="o">=</span><span class="s">"MrRobot"</span><span class="o">;</span>
+<span class="kt">var</span> <span class="n">age</span><span class="o">=</span><span class="s">"20"</span>
+<span class="k">return</span> <span class="n">name</span><span class="o">+</span><span class="n">age</span><span class="o">;</span>
+<span class="o">}</span>
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+<p>var ile tanımlama yapılan ilk satırda derleyici atanan değerin tütüne bakarak değişkenin tipini belirler ve değişkene yapılacak sonraki değer atamalarında bu tipi zorunlu tutar. Farklı bir türde değer ataması yapılırsa derleyici hata verir. Burada JS deki var yapısından farkı ortaya çıkar.</p>
+
+<p>var ile tanımlanan değişkenin tipi sonradan değiştirilemez fakat değeri değiştirilebilir.</p>
+
+<p><strong>Not:</strong> Eğer var kullanacaksak tanımladığımız satırda değer ataması yapmalıyız çünkü daha sonra değer ataması yaparsak derleyici değişken tipini bilmediği için hat verir.</p>
+
+<p><strong>Not:</strong> Tek satırda birden çok değişken tanımlana ifadelerde kullanılmaz.</p>
+
+<p><strong>Not:</strong> var değişkene null ataması ilk satırda yapılmaz null ataması ilk satır harici ve pirimitive olmayan var değişkenlerde yapılır. Çünkü pirimitivlere null ataması yapılmaz.</p>
+
+<p><strong>Not:</strong> var isminde bir değişken tanımlayabiliriz çünkü reserved word değildir fakat bir type yani sınıf, interface ya da enum tanımlayamayız çünkü var Java’dfa reserved typedır.</p>
+
+<h2 id="variable-scope">Variable Scope</h2>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+</pre></td><td class="rouge-code"><pre><span class="kd">public</span> <span class="kt">double</span> <span class="nf">calculateBMI</span><span class="o">(</span><span class="kt">int</span> <span class="n">height</span> <span class="o">,</span> <span class="kt">int</span> <span class="n">weight</span><span class="o">)</span> <span class="o">{</span>
+<span class="kt">double</span> <span class="n">bmi</span><span class="o">=</span><span class="n">weight</span><span class="o">/</span><span class="n">height</span><span class="o">*</span><span class="n">height</span><span class="o">;</span>
+<span class="k">return</span> <span class="n">bmi</span><span class="o">;</span>
+<span class="o">}</span>
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+<p>Yukarıdaki metodda bmi,height ve weight local değişkenlerdir. Ve metot scope’una shiptirler.</p>
+
+<p>Metot içerisndeki başka kod blokları kendi scopuna sahiptirler. Her <code class="highlighter-rouge">{...}</code> arası bir scoptur. Scopun dışındaki bir değişkene erişmek istediğimizde derleyici <code class="highlighter-rouge">Cannot find symbo</code>l hatası verir.</p>
+
+<h2 id="class-scope">Class Scope</h2>
+
+<p>Instance variable nesne içerisinde tanımlıdır tanımlandığı yerde başlar ve nesnenin yaşam süresince o da yaşar. Sınıf değişkenleri ise tanımlandığı yerde başlar ve programın yaşam süresince hayattadır.</p>
+
+<h2 id="nesneleri-yok-etme">Nesneleri Yok Etme</h2>
+
+<ul>
+  <li>Garbage Collection Java tarafından otomatik yapılır.</li>
+  <li>Tüm Java nesneleri <code class="highlighter-rouge">heap</code> bellekte saklanır.</li>
+  <li>Çöp toplama programcının kontrolunde olsa programcı hafızayı kontrol etmek zorundadır çünkü eğer heap dolarsa program durur. <code class="highlighter-rouge">OutOfMemory Exception. </code></li>
+  <li>Ya da programcı referanssız nesneleri silmezse hafızada sensitive veriler kalabilir bu da güvenlik açıklarına sebep olur.</li>
+  <li>Çöp toplama için birçok algoritma mevcuttur.</li>
+  <li><code class="highlighter-rouge">System.gc(); </code> metodu garbage collectoru çağırır fakat çöp toplama işlemini garanti etmez kontrol her zaman JVM dedir.</li>
+  <li>JVM OutOfMemory olmadan çöp toplamayı hedefler.</li>
+</ul>
+
+:ET
