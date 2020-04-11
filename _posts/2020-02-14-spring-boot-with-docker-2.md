@@ -10,7 +10,7 @@ seo:
 ---
 
 ## Başlangıç
-Merhabalar, Docker ile Spring Boot uygulaması geliştirmeyi anlattığımız yazı dizisine kaldığımız yerden devam ediyoruz. Bir önceki yazımızda Docker'a giriş yapmıştık. Bu yazıda Spring Boot uygulamamızı paketleyip Docker Container'ı içine kopyalayıp çalıştıracağız.
+Merhabalar, Docker ile Spring Boot uygulaması geliştirmeyi anlattığımız yazı dizisine kaldığımız yerden devam ediyoruz. Bir önceki yazımızda Docker'a giriş yapmıştık. Bu yazıda Spring Boot uygulamamızı paketleyip Docker Container'ı içerisine kopyalayıp çalıştıracağız.
 
 Bu yazıda sırasıyla şu adımları gerçekleştireceğiz.
 
