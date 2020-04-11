@@ -163,7 +163,7 @@ Instance variable nesne içerisinde tanımlıdır tanımlandığı yerde başlar
 * Çöp toplama programcının kontrolunde olsa programcı hafızayı kontrol etmek zorundadır çünkü eğer heap dolarsa program durur. `OutOfMemory Exception. `
 * Ya da programcı referanssız nesneleri silmezse hafızada sensitive veriler kalabilir bu da güvenlik açıklarına sebep olur.
 * Çöp toplama için birçok algoritma mevcuttur.
-* `System. gc(); ` metodu garbage collectoru çağırır fakat çöp toplama işlemini garanti etmez kontrol her zaman JVM dedir.
+* `System.gc(); ` metodu garbage collectoru çağırır fakat çöp toplama işlemini garanti etmez kontrol her zaman JVM dedir.
 * JVM OutOfMemory olmadan çöp toplamayı hedefler.
 
 

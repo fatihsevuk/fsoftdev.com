@@ -1,0 +1,298 @@
+I"�H<h2 id="giriş">Giriş</h2>
+
+<p>Merhabalar OCP yazı dizimize kaldığımız yerden devam ediyoruz. Bu yazımızda Java’da nesne oluşturma, veri türleri, değişken tanımlama gibi kavramları öğreneceğiz.</p>
+
+<h2 id="nesne-nedir">Nesne Nedir</h2>
+
+<p>Java’nın nesne yönelimli bir dil olduğunu ve tüm kodlarımızın sınıflar içerisine yazıldığı öğrenmiştik. Java sınıflarımızı kullanmak için onlardan nesneler oluştururuz. Bir Java sınıfından(<strong>class</strong>) üretilen nesne(<em>object</em>) o sınıfın bir örneğidir(<strong>instance</strong>).</p>
+
+<p>Java’da nesne oluşturmak için <strong>new</strong> anahtar kelimesini kullanırız.</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+</pre></td><td class="rouge-code"><pre><span class="nc">Robot</span> <span class="n">mrRobot</span><span class="o">=</span><span class="k">new</span> <span class="nc">Robot</span><span class="o">();</span>
+</pre></td></tr></tbody></table></code></pre></div></div>
+<p>Bu tanımlamada</p>
+<ul>
+  <li>Robot oluşacak nesnenin türüdür.</li>
+  <li>mrRobot nesnemizin referansıdır,değişken ismimizdir.</li>
+  <li>Robot() ifadesi yapılandırıcı(<strong>constructor</strong>) metodumuzdur.</li>
+</ul>
+
+<h2 id="constructor-yapılandırıcı--nedir">Constructor( Yapılandırıcı ) Nedir</h2>
+
+<p>Sınıflardan nesne oluşturmamızı sağlayan özel bir tür metottur. Constructor;</p>
+
+<ul>
+  <li>Sınıf ismi ile aynı isme sahip olmalı</li>
+  <li>Herhangi bir değer dönmemeli</li>
+</ul>
+
+<p>Constructor’ın temel amacı nesne oluşturmamıza olanak sağlamasıdır aynı zamanda sınıfın alanlarına(<strong>fields</strong>) ilk değer vermemize imkan tanır.</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+</pre></td><td class="rouge-code"><pre>
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">Robot</span> <span class="o">{</span>
+  <span class="nc">String</span> <span class="n">name</span><span class="o">;</span>
+  <span class="kt">int</span> <span class="n">power</span><span class="o">;</span>
+
+  <span class="kd">public</span> <span class="nf">Robot</span><span class="o">()</span> <span class="o">{</span>
+    <span class="n">name</span><span class="o">=</span><span class="s">"Mr Robot"</span><span class="o">;</span>
+    <span class="n">power</span><span class="o">=</span><span class="mi">100</span><span class="o">;</span>
+  <span class="o">}</span>
+
+  <span class="kd">public</span> <span class="kt">void</span> <span class="nf">robotInfo</span><span class="o">(){</span>
+    <span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">printf</span><span class="o">(</span><span class="s">"My name is: %s \n"</span><span class="o">,</span><span class="n">name</span><span class="o">);</span>
+    <span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">printf</span><span class="o">(</span><span class="s">"I have %d percent power \n"</span><span class="o">,</span><span class="n">power</span><span class="o">);</span>
+  <span class="o">}</span>
+<span class="o">}</span>
+
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+<p><code class="highlighter-rouge">Robot.java</code> sınıfımızı inceleyecek olursak <code class="highlighter-rouge">name</code> ve <code class="highlighter-rouge">power</code> diye iki <code class="highlighter-rouge">field</code>‘a , <code class="highlighter-rouge">robotInfo</code> isminde bir metoda sahiptir. Ayrıca field’lara ilk değerlerinin atandığı bir constructor’a sahiptir.</p>
+
+<p>Bu sınıfımızdan nesne oluşturup ve robotInfo metodu yardımıyla robotumuzun bilgilerini ekrana yazdırmak istiyoruz. Aşağıdaki kodlarımızı inceleyecek olursak.</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+</pre></td><td class="rouge-code"><pre><span class="kd">public</span> <span class="kd">class</span> <span class="nc">MrRobot</span> <span class="o">{</span>
+  <span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="o">(</span><span class="nc">String</span><span class="o">[]</span> <span class="n">args</span><span class="o">){</span>
+    <span class="nc">Robot</span> <span class="n">mrRobot</span><span class="o">=</span><span class="k">new</span> <span class="nc">Robot</span><span class="o">();</span>
+    <span class="n">mrRobot</span><span class="o">.</span><span class="na">robotInfo</span><span class="o">();</span>
+  <span class="o">}</span>
+<span class="o">}</span>
+
+</pre></td></tr></tbody></table></code></pre></div></div>
+<p><code class="highlighter-rouge">Robot mrRobot=new Robot();</code> satırında Robot sınıfının constructor’ı ile yeni bir nesne oluşturuyoruz.</p>
+
+<p><code class="highlighter-rouge">mrRobot.robotInfo();</code> sınıfımıza ait robotInfo() metodunu çağırıyoruz. Dikkat ettiyseniz constructor içerisinde field’lara ilk değerlerini verdik bu işlemi field’ları tanımlarken de yapabilirdik.</p>
+
+<p>Her sınıfın içi dolu bir yapılandırıcıya sahip olmasına gerek yoktur. Peki böyle sınıflardan nasıl nesne oluştururuz. Cevabı basit Java’da her sınıf içi boş bir <code class="highlighter-rouge">default constructor</code>‘a sahiptir. Yani bu tür sınıflar dan obje oluştururken default constructor çağrılır.</p>
+
+<p>Java’da bazı sınıfların constructor haricinde nesne oluşturmak için built-in metotları vardır.</p>
+
+<h2 id="javada-kod-blokları">Java’da Kod Blokları</h2>
+
+<p>Java’da bir kaç farklı kod bloku vardır. Kod blokları süslü parantezler <code class="highlighter-rouge">{ //... Kodlar }</code> ile tanımlanır. Java’daki kod blokları aşağıdaki gibidir.</p>
+
+<ul>
+  <li>class kod bloku</li>
+  <li>metod kod bloku</li>
+  <li>metod içi-inner kod bloku</li>
+  <li>instance initializer kod bloku - her zaman metotların dışında bulunur.</li>
+</ul>
+
+<p>Kod bloklarının initialization sırası şu şekildedir.</p>
+
+<ol>
+  <li>
+    <p><strong>Fields</strong> ve <strong>instance initializer blokları</strong> dosya içinde göründükleri sıra ile çalışırlar.</p>
+  </li>
+  <li>
+    <p>Tüm filed’lar ve instance initializer’lar çalıştıktan sonra <strong>constructor</strong> çalışır.</p>
+  </li>
+</ol>
+
+<p>Aşağıdaki örnek kodlarımızda bu sırayı irdeleyelim.</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+</pre></td><td class="rouge-code"><pre><span class="kd">public</span> <span class="kd">class</span> <span class="nc">Robot</span> <span class="o">{</span>
+  <span class="kd">private</span> <span class="nc">String</span> <span class="n">name</span><span class="o">=</span><span class="s">"Base Robot v.121"</span><span class="o">;</span>
+  <span class="o">{</span>
+  <span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"Base Robot is getting ready for cyber war.... "</span><span class="o">);</span>
+  <span class="o">}</span>
+
+  <span class="kd">public</span> <span class="nf">Robot</span><span class="o">()</span> <span class="o">{</span>
+    <span class="n">name</span><span class="o">=</span><span class="s">"MrRobot v.2.0"</span><span class="o">;</span>
+    <span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"New version of MrRobot is constructuring... "</span><span class="o">);</span>
+  <span class="o">}</span>
+
+  <span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="o">(</span><span class="nc">String</span><span class="o">...</span> <span class="n">args</span><span class="o">)</span> <span class="o">{</span>
+    <span class="nc">Robot</span> <span class="n">mrRobot</span><span class="o">=</span><span class="k">new</span> <span class="nc">Robot</span><span class="o">();</span>
+    <span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">mrRobot</span><span class="o">.</span><span class="na">name</span><span class="o">);</span>
+  <span class="o">}</span>
+
+<span class="o">}</span>
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+<p>Yukarıdaki sınıfımızı çalıştırdığımızda çıktı aşağıdaki gibi olur.</p>
+
+<div class="language-shell highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+</pre></td><td class="rouge-code"><pre>Base Robot is getting ready <span class="k">for </span>cyber war....
+New version of MrRobot is constructuring...
+MrRobot v.2.0
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+<p>Kodu inceleyecek olursak;</p>
+<ol>
+  <li>İlk önce main metodu çalışır.</li>
+  <li>Daha sonra Robot sınıfından nesne oluşturulur.</li>
+  <li>Program akışı Robot sınıfının field’larını çalıştırır.</li>
+  <li>Sonraki adımda instance initializer blokları çalışır.</li>
+  <li>Son olarak akış Robot sınıfının constructor’ı içerisine girer.</li>
+</ol>
+
+<p><strong>Not:</strong> Eğer bu sınıfta main metodundan sonra bir kod olsaydı en son o çalışırdı.</p>
+
+<p><strong>Not:</strong> Program akışında bir değişken tanımlanmadan önce kullanılmaz.</p>
+
+<h2 id="javada-veri-türleri-data-types">Java’da Veri Türleri (Data Types)</h2>
+
+<p>Java’da hafızada değişik türlerde verileri tutarız, farklı türlerde ve boyutlarda verileri tutmak için Java’da 8 tane built-in veri tipi vardır. Bunlara <code class="highlighter-rouge">primitive type</code> denir.</p>
+
+<p>Programlama dünyasında verilerimiz genelde aşağıdaki formlarda olurlar.</p>
+
+<ul>
+  <li>Mantıksal veriler</li>
+  <li>Sayısal veriler
+    <ul>
+      <li>Tam sayılar</li>
+      <li>Noktalı sayılar</li>
+    </ul>
+  </li>
+  <li>Metinsel veriler</li>
+</ul>
+
+<p>Yukarıda saydığımız bu veri türlerinin Java dilindeki karşılıkları aşağıdaki gibidir.</p>
+
+<ol>
+  <li><strong>boolean</strong> - 8 bit - mantıksal veriler (true/false)</li>
+  <li><strong>byte</strong> - 8 bit - tam sayılar</li>
+  <li><strong>short</strong> - 16 bit - tam sayılar</li>
+  <li><strong>int</strong> - 32 bit - tam sayılar</li>
+  <li><strong>long</strong> - 64 bit - tam sayılar</li>
+  <li><strong>float</strong> - 32 bit - noktalı sayılar</li>
+  <li><strong>double</strong> - 64 bit - noktalı sayılar</li>
+  <li><strong>char</strong> - 16 bit - unicode</li>
+</ol>
+
+<p><strong>NOT:</strong> Java’da metinsel verileri String türünde turulur fakat String bir primitive tür değildir, nesnedir.</p>
+
+<p><strong>NOT:</strong> Float değerler sonuna <code class="highlighter-rouge">f harfi</code> almalıdır yoksa Java bunların <code class="highlighter-rouge">double</code> olduğunu da düşünebilir ve fazladan alan ayırabilir.</p>
+
+<p><strong>Not:</strong> Java’da sayısal veri tipleri işaretlidir. Yani bir biti işaret bitidir.</p>
+
+<blockquote>
+  <p>İşaretli ve işaretsiz sayıları anlamak için örnek vermek gerekirse; Java dilinde <code class="highlighter-rouge">char</code> 16 bit uzunluğunda işaretsiz sayıları tutar buna 0 da dahildir yani char sadece pozitif değer alabilir.
+16 bit uzunluğunda verileri tutan bir başka veri tipide <code class="highlighter-rouge">short</code> tur. Short integral değer olarak hem negatif hem pozitif değerler alabilir. Pozitif olarak <code class="highlighter-rouge">char</code> <code class="highlighter-rouge">short</code> dan daha büyük değerler alabilir. Bu iki veri tipi birbiri yerine kullanılabilir. Tabi ki değer aralıkları göz önünde bulundurulmak koşuluyla.
+Aşağıdaki kod örneklerini inceleyecek olursak mesele daha da açıklığa kavuşacaktır.</p>
+</blockquote>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+</pre></td><td class="rouge-code"><pre><span class="kd">public</span> <span class="kd">class</span> <span class="nc">ShortCharUsing</span><span class="o">{</span>
+  <span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="o">(</span><span class="nc">String</span><span class="o">...</span> <span class="n">args</span><span class="o">)</span> <span class="o">{</span>
+    <span class="kt">short</span> <span class="n">sValue</span><span class="o">=</span><span class="sc">'e'</span><span class="o">;</span>
+    <span class="kt">char</span> <span class="n">cValue</span><span class="o">=(</span><span class="kt">short</span><span class="o">)</span><span class="mi">74</span><span class="o">;</span>
+    <span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"sValue: "</span><span class="o">+</span><span class="n">sValue</span><span class="o">);</span>
+    <span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"cValue: "</span><span class="o">+</span><span class="n">cValue</span><span class="o">);</span>
+  <span class="o">}</span>
+<span class="o">}</span>
+</pre></td></tr></tbody></table></code></pre></div></div>
+<p>Kodumuzu incelediğimizde <code class="highlighter-rouge">'e'</code> nin <code class="highlighter-rouge">ASCII</code> tablosundaki değeri <code class="highlighter-rouge">sValue</code> değişkenine atanır.</p>
+
+<p><code class="highlighter-rouge">ASCII</code> tablosunda <code class="highlighter-rouge">74</code> e karşılık gelen harf yani <code class="highlighter-rouge">J</code> değeri ise <code class="highlighter-rouge">cValue</code> değişkenine atanır.</p>
+
+<p>Kodumuzun çıktısı aşağıdaki gibi olur.</p>
+
+<div class="language-shell highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+</pre></td><td class="rouge-code"><pre>sValue: 101
+cValue: J
+
+</pre></td></tr></tbody></table></code></pre></div></div>
+<p>Evet bu kullanımda aralıkları göz ardı etmemeye dikkat etmeliyiz. Mesela <code class="highlighter-rouge">cVlaue</code> ya aşağıdaki gibi bir atama yaparsak</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+</pre></td><td class="rouge-code"><pre><span class="kt">char</span> <span class="n">cValue</span><span class="o">=(</span><span class="kt">short</span><span class="o">)-</span><span class="mi">4</span><span class="o">;</span>
+</pre></td></tr></tbody></table></code></pre></div></div>
+<p>aşağıdaki gibi bir hata ile karşılaşırız.</p>
+
+<div class="language-shell highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+</pre></td><td class="rouge-code"><pre>ShortCharUsing. java:4: error: incompatible types: possible lossy conversion from short to char
+char <span class="nv">cValue</span><span class="o">=(</span>short<span class="o">)</span><span class="nt">-4</span><span class="p">;</span>
+^
+1 error
+error: compilation failed
+
+</pre></td></tr></tbody></table></code></pre></div></div>
+<p>Bu hatadan anlamamız gereken char tipi negatif değer almaz. Ek olarak eğer short değişkene -32768 ve 32767 aralığı dışında bir değer verirsek</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+</pre></td><td class="rouge-code"><pre><span class="kt">short</span> <span class="n">sValue</span><span class="o">=</span><span class="mi">45000</span><span class="o">;</span>
+<span class="c1">//yada short sValue=-32769</span>
+</pre></td></tr></tbody></table></code></pre></div></div>
+<p>yukarıdaki ile aynı hatayı alırız.</p>
+
+<div class="language-shell highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+</pre></td><td class="rouge-code"><pre>ShortCharUsing. java:3: error: incompatible types: possible lossy conversion from int to short
+short <span class="nv">sValue</span><span class="o">=</span>45000<span class="p">;</span>
+^
+1 error
+</pre></td></tr></tbody></table></code></pre></div></div>
+<p>Bu hatalara genel olarak <code class="highlighter-rouge">Incompatible types error</code> diyebiliriz.</p>
+
+<p><strong>Not:</strong> Java’da veri tiplerinin kaç bit uzunluğunda değer alacaklarını biliriz burdan yola çıkarak veri tipinin hangi, aralıkta olduğunu bulabiliriz. Short tipi 16 bit uzunluğundadır. Yani 2^16 tane değer alır.</p>
+
+<p>Yani <strong>short</strong> <code class="highlighter-rouge">2^16 = 65536</code> değer alır. Decimal aralık olarak</p>
+
+<p><code class="highlighter-rouge">[ -32768 ....... 0 .......... 32767 ] </code>aralığında değer alır. Sıfır dahildir ve bu tipin varsayılan değeri 0 dır.</p>
+
+<p>Bilgisayar sistemlerinde ondalıklı sayılar bilimsel notasyonda tutulurlar. Bilimsel notasyon hakkında bilgi almak için aşağıdaki bağlantıya tıklayabilirsiniz.</p>
+
+<p><a href="https://en.wikipedia.org/wiki/Scientific_notation">Noktalı sayıların bilimsel notasyonla ifade edilişi</a></p>
+
+:ET
