@@ -1,0 +1,3 @@
+I"�<h2 id="başlangıç">Başlangıç</h2>
+<p>Merhabalar bu yazımızda fullstack bir uygulamayı Docker ile nasıl ayağa kaldıracağımızı adım adım inceleyeceğiz. Frontend de React ile geliştirilmiş bir uygulama backend de yine Spring Boot ile geliştirilmiş bir REST API’ yi kullanacağız. Temel mantığımız şu olacak uygulamamız yüzde yüz taşınabilir olacak yani hangi sistem üzerinde çalışırsa çalışsın herhangi bir sorun çıkarmayacak.</p>
+:ET

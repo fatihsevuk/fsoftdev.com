@@ -1,5 +1,5 @@
 ---
-title: OCP Chapter 1 Welcome to Java-I
+title: OCP-I Chapter 1 Welcome to Java-I
 date: Sun 29-Dec-2019 04:08 P.M.
 language: Turkish
 categories: [JavaSE, OCP]

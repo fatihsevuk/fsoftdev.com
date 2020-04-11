@@ -1,0 +1,352 @@
+I"�J<h2 id="başlangıç">Başlangıç</h2>
+<p>Merhabalar bu yazımızda fullstack bir uygulamayı Docker ile nasıl ayağa kaldıracağımızı adım adım inceleyeceğiz. Frontend de React ile geliştirilmiş bir uygulama backend de yine Spring Boot ile geliştirilmiş bir REST API’ yi kullanacağız. Temel mantığımız şu olacak uygulamamız yüzde yüz taşınabilir olacak yani hangi sistem üzerinde çalışırsa çalışsın herhangi bir sorun çıkarmayacak.</p>
+
+<h2 id="frontend-i̇çin-multi-stage-dockerfile-oluşturma">Frontend İçin Multi Stage Dockerfile Oluşturma</h2>
+
+<p>Frontend uygulamamız temelde <code class="highlighter-rouge">HTML</code>, <code class="highlighter-rouge">CSS</code> ve <code class="highlighter-rouge">JavaScript</code> dosyalarından oluşmaktadır. Ve bu uygulamamızın çalışması için bir web servera ihtiyaç duymaktayız. Biz web server olarak <code class="highlighter-rouge">nginx</code> kullanacağız. Frontend projemiz için <code class="highlighter-rouge">multi stage</code> bir <code class="highlighter-rouge">Dockerfile</code> oluşturacağız.</p>
+
+<p>Dockerfile temel olarak şu adımlardan oluşacak.</p>
+
+<ul>
+  <li>nodejs image üzerinde npm kullanarak projemizi build edeceğiz.</li>
+  <li>build edilmiş uygulama dosyalarımızı nginx image üzerinde çalıştıracağız.</li>
+</ul>
+
+<p>Proje klasörümüz içerisinde Dockerfile dosyamızı oluşturacağız.</p>
+
+<div class="language-shell highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+</pre></td><td class="rouge-code"><pre><span class="c">## Stage 1 - Lets build the "deployable package"</span>
+FROM node:7. 10 as frontend-build
+WORKDIR /fullstack/frontend
+
+<span class="c"># Step 1 - Download all package dependencies first.</span>
+<span class="c"># We will redownload dependencies only when packages change.</span>
+COPY package. json package-lock. json <span class="nb">.</span> /
+RUN npm <span class="nb">install</span>
+
+<span class="c"># Step 2 - Copy all source and run build</span>
+COPY <span class="nb">.</span> <span class="nb">.</span> /
+RUN npm run build
+
+<span class="c">## Stage 2 - Let's build a minimal image with the "deployable package"</span>
+FROM nginx:1. 12-alpine
+COPY <span class="nt">--from</span><span class="o">=</span>frontend-build /fullstack/frontend/build /usr/share/nginx/html
+EXPOSE 80
+CMD <span class="o">[</span><span class="s2">"nginx"</span>, <span class="s2">"-g"</span>, <span class="s2">"daemon off;"</span><span class="o">]</span>
+
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+<p>Dockerfile’ı inceleyecek olursak <code class="highlighter-rouge">npm run build</code> işlemi var bu işlem sonunda <code class="highlighter-rouge">node_modules</code> isminde bir klasör oluşur build işleminden sonra bu klasöre ihtiyacımız yoktur. O yüzden Docker’ın bu klasörü es geçmesini istiyoruz bunu sağlamak için <code class="highlighter-rouge">.dockerignore</code> isimli bir dosya oluşturup bu klasör ismini o dosyaya eklememiz gerekir.</p>
+
+<p>Tüm bu işlemleri yaptıktan sonra frontend Container’ımızı ayağa kaldırmaya hazırız. İlk olarak Dockerfile’dan Image’ımızı oluşturacağız bunun için</p>
+
+<p><code class="highlighter-rouge">docker build . </code> yada <code class="highlighter-rouge">docker build -t tagName . </code> komutlarını kullanırız ikinci komuttaki <code class="highlighter-rouge">tagName</code> kısmına istediğimiz bir tag ismi verebiliriz.</p>
+
+<p>Eğer Image’imizin başarılı bir şekilde oluştuğundan emin olduktan sonra aşağıdaki komut ile Container’ımızı ayağa kaldırabiliriz.</p>
+
+<p><code class="highlighter-rouge">docker run -p 4200:80 react-app:1. 0.0-SNAPSHOT</code></p>
+
+<p>Burada nginx’in 80 portunu host’un 4200 portu ile eşleştirdik.</p>
+
+<p>Bu komut çalıştığında herhangi bir konsol çıktısı üretmez ta ki <code class="highlighter-rouge">localhost:4200</code> adresine tarayıcımızdan gidene kadar.</p>
+
+<p>Evet sonuç olarak gördüğünüz üzere manuel olarak hiçbir kurulum yapmadan uygulamamızı ayağa kaldırdık. Bu Dockerfile ile herhangi bir sistem üzerinde extradan hiçbir şeye ihtiyaç kalmadan uygulamamızı run edebiliriz.</p>
+
+<h2 id="backend-i̇çin-multi-stage-dockerfile-oluşturma">Backend İçin Multi Stage Dockerfile Oluşturma</h2>
+
+<p>Backend Image’imizide iki stage olarak gerçekleştireceğiz:</p>
+
+<ul>
+  <li>İlk olarak Maven Image’ini indirip projemiz için gerekli tüm dependency’leri indireceğiz.</li>
+  <li>Daha sonra openjdk Image’ini indirip uygualamızı run edeceğiz.</li>
+</ul>
+
+<p>Dockerfile’ımız aşağıda ki gibidir.</p>
+
+<div class="language-shell highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29
+</pre></td><td class="rouge-code"><pre><span class="c">##### Stage 1 - Lets build the "deployable package"</span>
+
+FROM maven:3.6.1-jdk-8-alpine as backend-build
+WORKDIR /fullstack/backend
+
+<span class="c">### Step 1 - Copy pom. xml and download project dependencies</span>
+
+<span class="c"># Dividing copy into two steps to ensure that we download dependencies</span>
+<span class="c"># only when pom. xml changes</span>
+COPY pom. xml <span class="nb">.</span>
+<span class="c"># dependency:go-offline - Goal that resolves all project dependencies,</span>
+<span class="c"># including plugins and reports and their dependencies. -B -&gt; Batch mode</span>
+RUN mvn dependency:go-offline <span class="nt">-B</span>
+
+<span class="c">### Step 2 - Copy source and build "deployable package"</span>
+COPY src src
+RUN mvn <span class="nb">install</span> <span class="nt">-DskipTests</span>
+
+<span class="c"># Unzip</span>
+RUN <span class="nb">mkdir</span> <span class="nt">-p</span> target/dependency <span class="o">&amp;&amp;</span> <span class="o">(</span><span class="nb">cd </span>target/dependency<span class="p">;</span> jar <span class="nt">-xf</span> ../<span class="k">*</span>.jar<span class="o">)</span>
+
+<span class="c">##### Stage 2 - Let's build a minimal image with the "deployable package"</span>
+FROM openjdk:8-jdk-alpine
+VOLUME /tmp
+ARG <span class="nv">DEPENDENCY</span><span class="o">=</span>/fullstack/backend/target/dependency
+COPY <span class="nt">--from</span><span class="o">=</span>backend-build <span class="k">${</span><span class="nv">DEPENDENCY</span><span class="k">}</span>/BOOT-INF/lib /app/lib
+COPY <span class="nt">--from</span><span class="o">=</span>backend-build <span class="k">${</span><span class="nv">DEPENDENCY</span><span class="k">}</span>/META-INF /app/META-INF
+COPY <span class="nt">--from</span><span class="o">=</span>backend-build <span class="k">${</span><span class="nv">DEPENDENCY</span><span class="k">}</span>/BOOT-INF/classes /app
+ENTRYPOINT <span class="o">[</span><span class="s2">"java"</span>,<span class="s2">"-cp"</span>,<span class="s2">"app:app/lib/*"</span>,<span class="s2">"com. in28minutes. rest. webservices. restfulwebservices. RestfulWebServicesApplication"</span><span class="o">]</span>
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+<p><code class="highlighter-rouge">docker build . </code> komutu ile uygulama Image’ini oluştururuz daha sonra,</p>
+
+<p><code class="highlighter-rouge">docker run -p 8080:8080 imageName:tag</code> komutu ile Container’ımızı ayağa kaldırırız burada <code class="highlighter-rouge">imageName:Tag</code> kısmına ilgili Image ile ilgili bilgiler gelir.</p>
+
+<h2 id="docker-compose">Docker Compose</h2>
+
+<p>Şu ana kadar ki anlatımlarımızda maximum 2 Container ile uygulama geliştirdik fakat real world durumlarda Container sayısı bu kadar az olmaz. Container sayısı arttıkça bu Container’ları yönetmek içinden çıkılamaz bir hâl alabilir. Bu durumu yönetmek için Docker Compose iyi bir çözümdür.</p>
+
+<p>Docker Compose kurulumunu Docker offical dökümanından yapabilirsiniz. Kurulumu yaptıktan sonra projemiz için <code class="highlighter-rouge">docker-compose. yml</code> dosyamızı oluştururuz.</p>
+
+<div class="language-yml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29
+30
+31
+32
+33
+34
+35
+36
+37
+38
+39
+40
+41
+42
+43
+44
+45
+46
+47
+48
+49
+</pre></td><td class="rouge-code"><pre><span class="na">version</span><span class="pi">:</span> <span class="s1">'</span><span class="s">3.7'</span>
+<span class="c1"># Removed subprocess. CalledProcessError: Command '['/usr/local/bin/docker-credential-desktop', 'get']' returned non-zero exit status 1</span>
+<span class="c1"># I had this:</span>
+<span class="c1"># cat ~/. docker/config. json</span>
+<span class="c1"># {"auths":{},"credsStore":"", "credsStore":"desktop","stackOrchestrator":"swarm"}</span>
+<span class="c1"># I updated to this:</span>
+<span class="c1"># {"auths":{},"credsStore":"","stackOrchestrator":"swarm"}</span>
+<span class="na">services</span><span class="pi">:</span>
+<span class="na">todo-web-application</span><span class="pi">:</span>
+<span class="na">image</span><span class="pi">:</span> <span class="s">in28min/todo-web-application-mysql:0.0.1-SNAPSHOT</span>
+<span class="c1">#build:</span>
+<span class="c1">#context: .</span>
+<span class="c1">#dockerfile: Dockerfile</span>
+<span class="na">ports</span><span class="pi">:</span>
+<span class="pi">-</span> <span class="s2">"</span><span class="s">8080:8080"</span>
+<span class="na">restart</span><span class="pi">:</span> <span class="s">always</span>
+<span class="na">depends_on</span><span class="pi">:</span> <span class="c1"># Start the depends_on first</span>
+<span class="pi">-</span> <span class="s">mysql</span>
+<span class="na">environment</span><span class="pi">:</span>
+<span class="na">RDS_HOSTNAME</span><span class="pi">:</span> <span class="s">mysql</span>
+<span class="na">RDS_PORT</span><span class="pi">:</span> <span class="m">3306</span>
+<span class="na">RDS_DB_NAME</span><span class="pi">:</span> <span class="s">todos</span>
+<span class="na">RDS_USERNAME</span><span class="pi">:</span> <span class="s">todos-user</span>
+<span class="na">RDS_PASSWORD</span><span class="pi">:</span> <span class="s">dummytodos</span>
+<span class="na">networks</span><span class="pi">:</span>
+<span class="pi">-</span> <span class="s">todo-web-application-network</span>
+
+<span class="na">mysql</span><span class="pi">:</span>
+<span class="na">image</span><span class="pi">:</span> <span class="s">mysql:5.7</span>
+<span class="na">ports</span><span class="pi">:</span>
+<span class="pi">-</span> <span class="s2">"</span><span class="s">3306:3306"</span>
+<span class="na">restart</span><span class="pi">:</span> <span class="s">always</span>
+<span class="na">environment</span><span class="pi">:</span>
+<span class="na">MYSQL_ROOT_PASSWORD</span><span class="pi">:</span> <span class="s">root</span>
+<span class="na">MYSQL_ROOT_PASSWORD</span><span class="pi">:</span> <span class="s">dummypassword</span>
+<span class="na">MYSQL_USER</span><span class="pi">:</span> <span class="s">todos-user</span>
+<span class="na">MYSQL_PASSWORD</span><span class="pi">:</span> <span class="s">dummytodos</span>
+<span class="na">MYSQL_DATABASE</span><span class="pi">:</span> <span class="s">todos</span>
+<span class="na">volumes</span><span class="pi">:</span>
+<span class="pi">-</span> <span class="s">mysql-database-data-volume:/var/lib/mysql</span>
+<span class="na">networks</span><span class="pi">:</span>
+<span class="pi">-</span> <span class="s">todo-web-application-network</span>
+
+<span class="c1"># Volumes</span>
+<span class="na">volumes</span><span class="pi">:</span>
+<span class="na">mysql-database-data-volume</span><span class="pi">:</span>
+
+<span class="na">networks</span><span class="pi">:</span>
+<span class="na">todo-web-application-network</span><span class="pi">:</span>
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+<p>Evet docker-compose. yml dosyamızı oluşturdaktan sonra</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+</pre></td><td class="rouge-code"><pre>docker-compose up
+</pre></td></tr></tbody></table></code></pre></div></div>
+<p>komutu ile Container’larımızı ayağa kaldırırız.</p>
+
+<h2 id="docker-compose-komutları">Docker Compose Komutları</h2>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+</pre></td><td class="rouge-code"><pre>docker-compose down
+</pre></td></tr></tbody></table></code></pre></div></div>
+<p>komutu ile Container’larımızı durdururuz.</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+</pre></td><td class="rouge-code"><pre>docker-compose events
+</pre></td></tr></tbody></table></code></pre></div></div>
+<p>ile çalışan Container’larımız ile ilgili bilgileri alırız.</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+</pre></td><td class="rouge-code"><pre>docker-compose config
+</pre></td></tr></tbody></table></code></pre></div></div>
+<p>ile docker-compose dosyamızdaki ayarlara erişiriz.</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+</pre></td><td class="rouge-code"><pre>docker-compose images
+</pre></td></tr></tbody></table></code></pre></div></div>
+<p>ile hangi Image’lerin çalıştığını görürüz.</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+</pre></td><td class="rouge-code"><pre>docker-compose ps
+</pre></td></tr></tbody></table></code></pre></div></div>
+<p>ile kullanılan Container’ların durumunu hangi port üzerinde çalıştığını ve hangi komutlarla başladığını görürüz.</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+</pre></td><td class="rouge-code"><pre>docker-compose top
+</pre></td></tr></tbody></table></code></pre></div></div>
+<p>Her Container’ın içerindeki tüm processleri gösterir.</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+</pre></td><td class="rouge-code"><pre>docker-compose pause
+</pre></td></tr></tbody></table></code></pre></div></div>
+<p>Tüm Container’ları <code class="highlighter-rouge">paused</code> durumuna çeker.</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+</pre></td><td class="rouge-code"><pre>docker-compose unpause
+</pre></td></tr></tbody></table></code></pre></div></div>
+<p><code class="highlighter-rouge">paused</code> Container’ları çalıştırır.</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+</pre></td><td class="rouge-code"><pre>docker-compose stop
+</pre></td></tr></tbody></table></code></pre></div></div>
+<p>Tüm Container’ları durdurur.</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+</pre></td><td class="rouge-code"><pre>docker compose kill
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+<p>Tüm Container’ları kill yapar.</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+</pre></td><td class="rouge-code"><pre>docker compose rm
+</pre></td></tr></tbody></table></code></pre></div></div>
+<p>Durmuş Containerları siler.</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+</pre></td><td class="rouge-code"><pre>docker compose build
+</pre></td></tr></tbody></table></code></pre></div></div>
+<p>Bu komut şu şekilde kullanılır <code class="highlighter-rouge">docker-compose. yml</code> dosyasındaki servislere ait Image’ler oluşmamışsa ya da biz yeniden oluşturmak istiyorsak aşağıdaki comment kısımları aktif hale getiririz ve komutu çalıştır.</p>
+
+<div class="language-yml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+</pre></td><td class="rouge-code"><pre><span class="c1">#build:</span>
+<span class="c1">#context: .</span>
+<span class="c1">#dockerfile: Dockerfile</span>
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+<p>Evet Romalılar bu yazının ve de aynı zamanda yazı dizimizin sonuna gelmiş bulunmaktayız. Şimdiye kadar ki anlatımlardan anlayacağınız üzere ne Docker’ı ne deSpring Boot’un detayına inmedik çünkü amacımız bu iki konsepti entegre etmekti ve bunu da 6 yazı serisinde tüm hatlarıyla ele aldık.</p>
+
+<p>Bu yazı serisinin başında da belirttiğim üzere bu seriyi yazarken</p>
+
+<p><a href="https://www.udemy.com/course/docker-course-with-java-and-spring-boot-for-beginners/">Master Docker With Java-Devops For Spring Microservices</a></p>
+
+<p>kursunda tuttuğum notlardan ve kursun github adresindeki kodlardan faydalandım.</p>
+
+<p><a href="https://github.com/in28minutes/docker-crash-course">Docker Crash Course Github </a></p>
+
+<p>Bu seri daha çok kendim için bir kaynak oluşturmak ve takıldığım yerlerde bakabileceğim derli toplu bir doküman olması amacıyla yazıldı umarım sizlerinde bir nebze olsun işinize yaramıştır.</p>
+
+<h2 id="kaynaklar">Kaynaklar</h2>
+
+<p><a href="https://github.com/in28minutes/docker-crash-course">https://github.com/in28minutes/docker-crash-course</a></p>
+
+<p><a href="https://www.udemy.com/course/docker-course-with-java-and-spring-boot-for-beginners/">https://www.udemy.com/course/docker-course-with-java-and-spring-boot-for-beginners/</a></p>
+
+<p><a href="https://docs.docker.com/compose/">https://docs.docker.com/compose/</a></p>
+
+:ET

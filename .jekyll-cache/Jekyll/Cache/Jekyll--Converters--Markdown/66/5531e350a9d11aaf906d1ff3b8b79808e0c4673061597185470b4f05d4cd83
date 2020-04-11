@@ -1,0 +1,151 @@
+I"@
+<div class="card categories">
+    <!-- top-category -->
+    <div class="card-header d-flex justify-content-between hide-border-bottom" id="h_CS">
+      <span>
+      
+        <i class="far fa-folder-open fa-fw"></i>
+      
+        <a href="/categories/cs/">CS</a>
+        <!-- content count -->
+        
+        <span class="text-muted small font-weight-light pl-2">
+        
+          1
+          category,
+        
+          3
+          posts
+        </span>
+      </span>
+
+      <!-- arrow -->
+      <a href="#l_CS" data-toggle="collapse" aria-expanded="true" class="category-trigger hide-border-bottom">
+        
+        <i class="fas fa-fw fa-angle-down"></i>
+        
+      </a>
+
+    </div> <!-- .card-header -->
+
+    <!-- Sub-categories -->
+    
+    <div id="l_CS" class="collapse show" aria-expanded="true">
+      <ul class="list-group">
+        
+        <li class="list-group-item">
+          <i class="far fa-folder fa-fw"></i>&nbsp;<a href="/categories/intro/">Intro</a>
+          
+          <span class="text-muted small font-weight-light pl-2">3
+            posts
+          </span>
+        </li>
+        
+      </ul>
+    </div>
+    
+
+  </div>
+<p><!-- .card --></p>
+
+<div class="card categories">
+    <!-- top-category -->
+    <div class="card-header d-flex justify-content-between hide-border-bottom" id="h_Devops">
+      <span>
+      
+        <i class="far fa-folder-open fa-fw"></i>
+      
+        <a href="/categories/devops/">Devops</a>
+        <!-- content count -->
+        
+        <span class="text-muted small font-weight-light pl-2">
+        
+          1
+          category,
+        
+          6
+          posts
+        </span>
+      </span>
+
+      <!-- arrow -->
+      <a href="#l_Devops" data-toggle="collapse" aria-expanded="true" class="category-trigger hide-border-bottom">
+        
+        <i class="fas fa-fw fa-angle-down"></i>
+        
+      </a>
+
+    </div> <!-- .card-header -->
+
+    <!-- Sub-categories -->
+    
+    <div id="l_Devops" class="collapse show" aria-expanded="true">
+      <ul class="list-group">
+        
+        <li class="list-group-item">
+          <i class="far fa-folder fa-fw"></i>&nbsp;<a href="/categories/docker/">Docker</a>
+          
+          <span class="text-muted small font-weight-light pl-2">6
+            posts
+          </span>
+        </li>
+        
+      </ul>
+    </div>
+    
+
+  </div>
+<p><!-- .card --></p>
+
+<div class="card categories">
+    <!-- top-category -->
+    <div class="card-header d-flex justify-content-between hide-border-bottom" id="h_JavaSE">
+      <span>
+      
+        <i class="far fa-folder-open fa-fw"></i>
+      
+        <a href="/categories/javase/">JavaSE</a>
+        <!-- content count -->
+        
+        <span class="text-muted small font-weight-light pl-2">
+        
+          1
+          category,
+        
+          3
+          posts
+        </span>
+      </span>
+
+      <!-- arrow -->
+      <a href="#l_JavaSE" data-toggle="collapse" aria-expanded="true" class="category-trigger hide-border-bottom">
+        
+        <i class="fas fa-fw fa-angle-down"></i>
+        
+      </a>
+
+    </div> <!-- .card-header -->
+
+    <!-- Sub-categories -->
+    
+    <div id="l_JavaSE" class="collapse show" aria-expanded="true">
+      <ul class="list-group">
+        
+        <li class="list-group-item">
+          <i class="far fa-folder fa-fw"></i>&nbsp;<a href="/categories/ocp/">OCP</a>
+          
+          <span class="text-muted small font-weight-light pl-2">3
+            posts
+          </span>
+        </li>
+        
+      </ul>
+    </div>
+    
+
+  </div>
+<p><!-- .card --></p>
+
+<script src="/assets/js/dist/category-collapse.min.js" async=""></script>
+
+:ET
