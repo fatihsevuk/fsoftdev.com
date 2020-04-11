@@ -3,8 +3,9 @@ title: OCP-I Chapter2 Java Building Blocks-II
 date: Sat 11-Apr-2020 02:18 A.M.
 categories: [JavaSE, OCP]
 language: Turkish
-tags: [ocp, oracle java programmer, javase, java standart edition,
-java]
+tags: [ocp, oracle java programmer, javase, java standart edition, java]
+seo:
+  date_modified: 2020-04-11 02:34:56 +0200
 ---
 
 ## Literal'lerin(Değişmezler) Yazımı 
