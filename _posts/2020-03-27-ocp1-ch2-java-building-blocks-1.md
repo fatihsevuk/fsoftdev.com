@@ -46,14 +46,14 @@ public class Robot {
   }
 
   public void robotInfo(){
-    System. out. printf("My name is: %s \n",name);
-    System. out. printf("I have %d percent power \n",power);
+    System.out.printf("My name is: %s \n",name);
+    System.out.printf("I have %d percent power \n",power);
   }
 }
 
 ```
 
-`Robot. java` sınıfımızı inceleyecek olursak `name` ve `power` diye iki `field`'a , `robotInfo` isminde bir metoda sahiptir. Ayrıca field'lara ilk değerlerinin atandığı bir constructor'a sahiptir.
+`Robot.java` sınıfımızı inceleyecek olursak `name` ve `power` diye iki `field`'a , `robotInfo` isminde bir metoda sahiptir. Ayrıca field'lara ilk değerlerinin atandığı bir constructor'a sahiptir.
 
 Bu sınıfımızdan nesne oluşturup ve robotInfo metodu yardımıyla robotumuzun bilgilerini ekrana yazdırmak istiyoruz. Aşağıdaki kodlarımızı inceleyecek olursak.
 
@@ -61,14 +61,14 @@ Bu sınıfımızdan nesne oluşturup ve robotInfo metodu yardımıyla robotumuzu
 public class MrRobot {
   public static void main(String[] args){
     Robot mrRobot=new Robot();
-    mrRobot. robotInfo();
+    mrRobot.robotInfo();
   }
 }
 
 ```
 `Robot mrRobot=new Robot();` satırında Robot sınıfının constructor'ı ile yeni bir nesne oluşturuyoruz.
 
-`mrRobot. robotInfo();` sınıfımıza ait robotInfo() metodunu çağırıyoruz. Dikkat ettiyseniz constructor içerisinde field'lara ilk değerlerini verdik bu işlemi field'ları tanımlarken de yapabilirdik.
+`mrRobot.robotInfo();` sınıfımıza ait robotInfo() metodunu çağırıyoruz. Dikkat ettiyseniz constructor içerisinde field'lara ilk değerlerini verdik bu işlemi field'ları tanımlarken de yapabilirdik.
 
 Her sınıfın içi dolu bir yapılandırıcıya sahip olmasına gerek yoktur. Peki böyle sınıflardan nasıl nesne oluştururuz. Cevabı basit Java'da her sınıf içi boş bir `default constructor`'a sahiptir. Yani bu tür sınıflar dan obje oluştururken default constructor çağrılır.
 
@@ -95,17 +95,17 @@ Aşağıdaki örnek kodlarımızda bu sırayı irdeleyelim.
 public class Robot {
   private String name="Base Robot v.121";
   {
-  System. out. println("Base Robot is getting ready for cyber war.... ");
+  System.out.println("Base Robot is getting ready for cyber war.... ");
   }
 
   public Robot() {
     name="MrRobot v.2.0";
-    System. out. println("New version of MrRobot is constructuring... ");
+    System.out.println("New version of MrRobot is constructuring... ");
   }
 
   public static void main(String... args) {
     Robot mrRobot=new Robot();
-    System. out. println(mrRobot.name);
+    System.out.println(mrRobot.name);
   }
 
 }
@@ -168,8 +168,8 @@ public class ShortCharUsing{
   public static void main(String... args) {
     short sValue='e';
     char cValue=(short)74;
-    System. out. println("sValue: "+sValue);
-    System. out. println("cValue: "+cValue);
+    System.out.println("sValue: "+sValue);
+    System.out.println("cValue: "+cValue);
   }
 }
 ```
